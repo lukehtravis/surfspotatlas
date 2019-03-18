@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
 import logo from './logo.svg';
 import './App.css';
 import ApolloClient from "apollo-boost";
-
-const client = new ApolloClient({
-  uri: "https://surf-spot-check.herokuapp.com/v1alpha1/graphql"
-});
 
 class App extends Component {
   render() {
@@ -24,6 +22,27 @@ class App extends Component {
           >
             Learn React
           </a>
+          <Query
+    query={gql`
+      {
+  Users {
+    FirstName
+    LastName
+  }
+}
+    `}
+  >
+  {({ loading, error, data }) => {
+      if (loading) return <p>Loading...</p>;
+      if (error) return <p>Error :(</p>;
+
+      return data.Users.map(({ FirstName, LastName }) => (
+        <div key={FirstName}>
+          <p>{FirstName}: {LastName}</p>
+        </div>
+      ));
+    }}
+  </Query>
         </header>
       </div>
     );
