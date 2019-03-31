@@ -5,6 +5,7 @@ import App from './App';
 import { ApolloProvider } from "react-apollo";
 import ApolloClient from "apollo-boost";
 import * as serviceWorker from './serviceWorker';
+import {BrowserRouter} from 'react-router-dom'
 
 const client = new ApolloClient({
   uri: "https://surf-spot-check.herokuapp.com/v1alpha1/graphql"
@@ -12,7 +13,7 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <App />
+    <BrowserRouter><App /></BrowserRouter>
   </ApolloProvider>,
   document.getElementById('root'));
 
