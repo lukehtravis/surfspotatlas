@@ -1,6 +1,6 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
 
-class LaunchAPI extends RESTDataSource {
+export default class LaunchAPI extends RESTDataSource {
   constructor() {
     super();
     this.baseURL = 'https://surf-spot-check.herokuapp.com/v1alpha1/graphql';
@@ -12,5 +12,3 @@ class LaunchAPI extends RESTDataSource {
       : [];
   }
 }
-
-export default LaunchAPI;
