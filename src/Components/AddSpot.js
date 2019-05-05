@@ -4,25 +4,45 @@ import gql from "graphql-tag";
 import ApolloClient from "apollo-boost";
 
 class AddSpot extends Component {
-state = {
-  Name: "",
-}
+  state = {
+    name: "",
+    description: ""
+  }
 
-handleChange = (event) => {
-  const inputName = event.target.name;
-  console.log(inputName)
-  this.setState({[inputName]: event.target.value})
-}
+  handleChange = (event) => {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
 
-handleSubmit(event) {
-  event.preventDefault();
-  alert("Yo");
-}
+    this.setState({
+      name: value
+    });
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    alert("Yo");
+  }
+
   render() {
     return (
       <div>
         <form onSubmit={this.handleSubmit} >
-          <input name="Name" type="text" value={this.state.value} onChange={this.handleChange} />
+        <label>
+          Name
+          <input
+              name="name"
+              type="text"
+              value={this.state.name} onChange={this.handleChange} />
+        </label>
+        <label>
+          Description:
+            <input
+              name="description"
+              type="text"
+              value={this.state.description}
+              onChange={this.handleChange} />
+        </label>
         </form>
       </div>
     )
