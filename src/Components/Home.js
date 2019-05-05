@@ -9,9 +9,6 @@ import Header from "./Header";
 import {ALL_WAVES} from "../utils/queries"
 
 class Home extends Component {
-  state = {
-
-  }
 
   render() {
     return (
@@ -29,8 +26,8 @@ class Home extends Component {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Learn React
               </a>
+              {console.log(this.props.data.Waves)}
             </header>
           </div>
         </Fragment>
