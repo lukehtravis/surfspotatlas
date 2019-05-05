@@ -4,9 +4,15 @@ import gql from "graphql-tag";
 import logo from '../logo.svg';
 import '../App.css';
 import ApolloClient from "apollo-boost";
+import { graphql } from 'react-apollo';
 import Header from "./Header";
+import {ALL_WAVES} from "../utils/queries"
 
-class App extends Component {
+class Home extends Component {
+  state = {
+
+  }
+
   render() {
     return (
         <Fragment>
@@ -25,33 +31,11 @@ class App extends Component {
               >
                 Learn React
               </a>
-              <Query
-        query={gql`
-          {
-      Users {
-        FirstName
-        LastName
-      }
-    }
-        `}
-      >
-      {({ loading, error, data }) => {
-          if (loading) return <p>Loading...</p>;
-          if (error) return <p>Error :(</p>;
-
-          return data.Users.map(({ FirstName, LastName }) => (
-            <div key={FirstName}>
-              <p>{FirstName}: {LastName}</p>
-            </div>
-          ));
-        }}
-      </Query>
             </header>
           </div>
         </Fragment>
-
     );
   }
 }
 
-export default App;
+export default graphql(gql`${ALL_WAVES}`)(Home);
