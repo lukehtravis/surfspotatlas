@@ -5,8 +5,7 @@ import ApolloClient from "apollo-boost";
 
 class AddSpot extends Component {
   state = {
-    name: "",
-    description: ""
+
   }
 
   handleChange = (event) => {
@@ -15,7 +14,7 @@ class AddSpot extends Component {
     const name = target.name;
 
     this.setState({
-      name: value
+      [name]: value
     });
   }
 
