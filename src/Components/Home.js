@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment, If } from 'react';
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import logo from '../logo.svg';
@@ -9,8 +9,13 @@ import Header from "./Header";
 import {ALL_WAVES} from "../utils/queries"
 
 class Home extends Component {
-
+  state = {
+    waves: []
+  }
   render() {
+    if (this.props.data.Waves !== undefined) {
+      this.state.waves = this.props.data.Waves
+    }
     return (
         <Fragment>
           <Header />
@@ -27,7 +32,12 @@ class Home extends Component {
                 rel="noopener noreferrer"
               >
               </a>
-              {console.log(this.props.data.Waves)}
+
+              {this.state.waves.map((wave) => {
+                return <p>{wave.Description}</p>
+              })}
+
+
             </header>
           </div>
         </Fragment>
