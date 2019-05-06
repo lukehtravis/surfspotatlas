@@ -34,7 +34,10 @@ class Home extends Component {
               </a>
 
               {this.state.waves.map((wave) => {
-                return <p>{wave.Description}</p>
+                return <div>
+                          <p>{wave.name}</p>
+                          <p>{wave.description}</p>
+                        </div>
               })}
 
 

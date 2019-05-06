@@ -27,21 +27,39 @@ class AddSpot extends Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit} >
-        <label>
-          Name
-          <input
-              name="name"
-              type="text"
-              value={this.state.name} onChange={this.handleChange} />
-        </label>
-        <label>
-          Description:
+          <label>
+            Name
             <input
-              name="description"
-              type="text"
-              value={this.state.description}
-              onChange={this.handleChange} />
-        </label>
+                name="name"
+                type="text"
+                value={this.state.name} onChange={this.handleChange} />
+          </label>
+          <label>
+            Nickname:
+              <input
+                name="description"
+                type="text"
+                value={this.state.nickname}
+                onChange={this.handleChange} />
+          </label>
+          <label>
+            Description:
+              <input
+                name="description"
+                type="text"
+                value={this.state.description}
+                onChange={this.handleChange} />
+          </label>
+          <label>
+            Directions:
+              <input
+                name="description"
+                type="text"
+                value={this.state.directions}
+                onChange={this.handleChange} />
+          </label>
+
+
         </form>
       </div>
     )
