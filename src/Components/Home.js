@@ -8,14 +8,70 @@ import { graphql } from 'react-apollo';
 import Header from "./Header";
 import {ALL_WAVES} from "../utils/queries"
 
+// new Home(props);
+//
+// const home = Home.constructor(props);
+//
+// home.state;
+// home.props;
+// home.render;
+// home.foo
+
 class Home extends Component {
-  state = {
-    waves: []
+  constructor(props) {
+    // use for setting initial state based on props
+    super(props);
+    console.log('called Home constructor ', props);
+    debugger;
+    // this.state = {
+    //   waves: this.props.data.Waves
+    // }
+    this.foo = 'bar';
   }
-  render() {
-    if (this.props.data.Waves !== undefined) {
-      this.state.waves = this.props.data.Waves
+
+  foo = 'bar';
+
+  // state = {
+  //   waves: []
+  // }
+
+  // is called after initial render
+  componentDidMount() {
+    console.log('called Home componentDidMount', this.props);
+    debugger;
+  }
+
+  // is called after initial render and after componentDidMount, anytime props or state updates
+  componentDidUpdate(prevProps, prevState) {
+    console.log('called Home componentDidUpdate', this.props);
+    debugger;
+
+    if (prevProps.something !== this.props.something) {
+
     }
+    if (prevState.something !== this.state.something) {
+
+    }
+  }
+
+  render() {
+    console.log('called Home render');
+    debugger;
+    // if (this.props.data.Waves !== undefined) {
+    // never set state in render
+    // always call this.setState instead of setting state directly
+    //   this.state.waves = this.props.data.Waves
+    // }
+    // const { prop1, prop2 } = this.props;
+
+    if (this.props.data.loading) {
+      return 'Loading';
+    }
+
+    if (this.props.data.error || !this.props.data.Waves) {
+      return 'Error';
+    }
+
     return (
         <Fragment>
           <Header />
@@ -33,7 +89,7 @@ class Home extends Component {
               >
               </a>
 
-              {this.state.waves.map((wave) => {
+              {this.props.data.Waves.map((wave) => {
                 return <div>
                           <p>{wave.name}</p>
                           <p>{wave.description}</p>

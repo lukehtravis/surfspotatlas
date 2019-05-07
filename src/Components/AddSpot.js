@@ -21,6 +21,10 @@ class AddSpot extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     alert("Yo");
+    // this.props.mutation({
+    //   diffNameProp: this.state.name,
+    //   ...this.state
+    // });
   }
 
   render() {
