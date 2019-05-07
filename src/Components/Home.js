@@ -45,18 +45,10 @@ class Home extends Component {
   componentDidUpdate(prevProps, prevState) {
     console.log('called Home componentDidUpdate', this.props);
     debugger;
-
-    if (prevProps.something !== this.props.something) {
-
-    }
-    if (prevState.something !== this.state.something) {
-
-    }
   }
 
   render() {
     console.log('called Home render');
-    debugger;
     // if (this.props.data.Waves !== undefined) {
     // never set state in render
     // always call this.setState instead of setting state directly
@@ -65,6 +57,7 @@ class Home extends Component {
     // const { prop1, prop2 } = this.props;
 
     if (this.props.data.loading) {
+      debugger
       return 'Loading';
     }
 
@@ -88,15 +81,12 @@ class Home extends Component {
                 rel="noopener noreferrer"
               >
               </a>
-
               {this.props.data.Waves.map((wave) => {
                 return <div>
                           <p>{wave.name}</p>
                           <p>{wave.description}</p>
                         </div>
               })}
-
-
             </header>
           </div>
         </Fragment>
