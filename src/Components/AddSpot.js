@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react'
-import { Query } from "react-apollo";
+import { Query, graphql } from "react-apollo";
 import gql from "graphql-tag";
 import ApolloClient from "apollo-boost";
 
@@ -21,16 +21,20 @@ class AddSpot extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     alert("Yo");
-    // this.props.mutation({
-    //   diffNameProp: this.state.name,
-    //   ...this.state
-    // });
+    this.props.mutate({
+        variables: {
+          name: this.state.name,
+          nickname: this.state.nickname,
+          description: this.state.description,
+          directions: this.state.directions
+        },
+    })
   }
 
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit} >
+        <form>
           <label>
             Name
             <input
@@ -41,7 +45,7 @@ class AddSpot extends Component {
           <label>
             Nickname:
               <input
-                name="description"
+                name="nickname"
                 type="text"
                 value={this.state.nickname}
                 onChange={this.handleChange} />
@@ -57,17 +61,28 @@ class AddSpot extends Component {
           <label>
             Directions:
               <input
-                name="description"
+                name="directions"
                 type="text"
                 value={this.state.directions}
                 onChange={this.handleChange} />
           </label>
 
-
+          <button onClick={this.handleSubmit} />
         </form>
       </div>
     )
   }
 }
-
-export default AddSpot
+const MUTATION = gql`
+mutation AddSpot($name: String, $nickname: String, $description: String, $directions: String) {
+  insert_Waves(objects: {name: $name, nickname: $nickname, description: $description, directions: $directions}) {
+    returning {
+      name,
+      nickname,
+      description,
+      directions
+    }
+  }
+}
+`
+export default graphql(MUTATION)(AddSpot)
