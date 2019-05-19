@@ -12,6 +12,7 @@
     "mapbox-gl": "^0.54.0",
     "react": "^16.8.4",
     "react-apollo": "^2.5.2",
+    "react-compound-slider": "^2.0.0",
     "react-dom": "^16.8.4",
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
