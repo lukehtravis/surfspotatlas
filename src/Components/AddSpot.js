@@ -22,6 +22,7 @@ class AddSpot extends Component {
     event.preventDefault();
     const date = new Date();
     const timestamp = date.getTime();
+    console.log(timestamp);
     this.props.mutate({
         variables: {
           name: this.state.name,
@@ -34,12 +35,16 @@ class AddSpot extends Component {
           wavequality: this.state.wavequality,
           wavedirection: this.state.wavedirection,
           wavehollowness: this.state.wavehollowness,
-          wavedanger: this.state.wavedanger
+          wavedanger: this.state.wavedanger,
+          lowtide: this.state.lowtide,
+          hightide: this.state.hightide,
+          datecreated: timestamp
         },
     })
   }
 
   render() {
+
     return (
       <div>
         <form>
@@ -89,6 +94,13 @@ class AddSpot extends Component {
             </select>
           </div>
           <div>
+            <select name="wavelandmarks" value={this.state.landmarks} onChange={this.handleChange} >
+                <option value="beachbreak">Beach Break</option>
+                <option value="reefbreak">Reef Break</option>
+                <option value="pointbreak">Point Break</option>
+            </select>
+          </div>
+          <div>
             <p>Wave Length:</p>
             <input name="wavelength" type="range" min="1" max="100" value={this.state.wavelength} className="value-slider" id="length-slider" onChange={this.handleChange} />
           </div>
@@ -111,6 +123,22 @@ class AddSpot extends Component {
             <p>Wave Danger:</p>
             <input name="wavedanger" type="range" min="1" max="100" value={this.state.wavedanger} className="value-slider" id="danger-slider" onChange={this.handleChange} />
           </div>
+          <div>
+            <p>Wind Marker 1:</p>
+            <input name="lowtide" type="range" min="1" max="100" value={this.state.lowtide} className="value-slider" id="lowtide-slider" onChange={this.handleChange} />
+          </div>
+          <div>
+            <p>Wind Marker 2:</p>
+            <input name="hightide" type="range" min="1" max="100" value={this.state.hightide} className="value-slider" id="hightide-slider" onChange={this.handleChange} />
+          </div>
+          <div>
+            <p>Low Tide:</p>
+            <input name="lowtide" type="range" min="1" max="100" value={this.state.lowtide} className="value-slider" id="lowtide-slider" onChange={this.handleChange} />
+          </div>
+          <div>
+            <p>High Tide:</p>
+            <input name="hightide" type="range" min="1" max="100" value={this.state.hightide} className="value-slider" id="hightide-slider" onChange={this.handleChange} />
+          </div>
           <button onClick={this.handleSubmit} />
         </form>
       </div>
@@ -118,8 +146,8 @@ class AddSpot extends Component {
   }
 }
 const MUTATION = gql`
-mutation AddSpot($name: String, $nickname: String, $description: String, $directions: String, $bathymetry: String, $wavetype: String, $wavelength: Int, $wavequality: Int, $wavedirection: String, $wavedanger: Int, $wavehollowness: Int) {
-  insert_Waves(objects: {name: $name, nickname: $nickname, description: $description, directions: $directions, bathymetry: $bathymetry, wavetype: $wavetype, wavelength: $wavelength, wavequality: $wavequality, wavedirection: $wavedirection, wavehollowness: $wavehollowness, wavedanger: $wavedanger}) {
+mutation AddSpot($name: String, $nickname: String, $description: String, $directions: String, $bathymetry: String, $wavetype: String, $wavelength: Int, $wavequality: Int, $wavedirection: String, $wavedanger: Int, $wavehollowness: Int, $lowtide: Int, $hightide: Int, $datecreated: bigint) {
+  insert_Waves(objects: {name: $name, nickname: $nickname, description: $description, directions: $directions, bathymetry: $bathymetry, wavetype: $wavetype, wavelength: $wavelength, wavequality: $wavequality, wavedirection: $wavedirection, wavehollowness: $wavehollowness, wavedanger: $wavedanger, lowtide: $lowtide, hightide: $hightide, datecreated: $datecreated}) {
     returning {
       name,
       nickname,
@@ -131,7 +159,10 @@ mutation AddSpot($name: String, $nickname: String, $description: String, $direct
       wavequality,
       wavedirection,
       wavehollowness,
-      wavedanger
+      wavedanger,
+      lowtide,
+      hightide,
+      datecreated
     }
   }
 }
