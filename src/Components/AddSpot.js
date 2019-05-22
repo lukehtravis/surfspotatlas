@@ -142,7 +142,7 @@ class AddSpot extends Component {
           </div>
           <button onClick={this.handleSubmit} />
         </form>
-        <Map></Map>
+        <Map />
       </div>
     )
   }

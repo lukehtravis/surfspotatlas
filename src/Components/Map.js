@@ -1,24 +1,33 @@
 import React, {Component, Fragment} from 'react';
-import mapboxgl from 'mapbox-gl';
+import ReactMapGL from 'react-map-gl';
 import {MAPTOKEN} from "../utils/token";
+
+const MAP_STYLE = 'mapbox://styles/mapbox/streets-v11';
 
 class Map extends Component {
   state = {
-    lat: '',
-    long: ''
-  }
+    viewport: {
+      width: 400,
+      height: 400,
+      latitude: 37.7577,
+      longitude: -122.4376,
+      zoom: 8
+    }
+  };
 
-  componentDidMount() {
-    mapboxgl.accessToken = MAPTOKEN;
-    var map = new mapboxgl.Map({
-    container: 'mapbox',
-    style: 'mapbox://styles/mapbox/streets-v11'
-    });
+  handleClick = (event) => {
+    console.log(event)
   }
 
   render() {
     return (
-      <div id="mapbox"></div>
+      <ReactMapGL
+        {...this.state.viewport}
+        onViewportChange={(viewport) => this.setState({viewport})}
+        mapboxApiAccessToken={MAPTOKEN}
+        mapStyle={MAP_STYLE}
+        onClick={this.handleClick}
+      />
     )
   }
 }
