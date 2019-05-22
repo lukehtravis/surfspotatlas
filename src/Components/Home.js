@@ -22,7 +22,6 @@ class Home extends Component {
     // use for setting initial state based on props
     super(props);
     console.log('called Home constructor ', props);
-    debugger;
     // this.state = {
     //   waves: this.props.data.Waves
     // }
@@ -38,13 +37,11 @@ class Home extends Component {
   // is called after initial render
   componentDidMount() {
     console.log('called Home componentDidMount', this.props);
-    debugger;
   }
 
   // is called after initial render and after componentDidMount, anytime props or state updates
   componentDidUpdate(prevProps, prevState) {
     console.log('called Home componentDidUpdate', this.props);
-    debugger;
   }
 
   render() {
@@ -57,7 +54,6 @@ class Home extends Component {
     // const { prop1, prop2 } = this.props;
 
     if (this.props.data.loading) {
-      debugger
       return 'Loading';
     }
 

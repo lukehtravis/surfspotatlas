@@ -2,6 +2,7 @@ import React, {Component, Fragment} from 'react'
 import { Query, graphql } from "react-apollo";
 import gql from "graphql-tag";
 import ApolloClient from "apollo-boost";
+import Map from './Map'
 
 class AddSpot extends Component {
   state = {
@@ -141,6 +142,7 @@ class AddSpot extends Component {
           </div>
           <button onClick={this.handleSubmit} />
         </form>
+        <Map></Map>
       </div>
     )
   }
