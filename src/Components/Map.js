@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import ReactMapGL from 'react-map-gl';
+import ReactMapGL, {Marker} from 'react-map-gl';
 import {MAPTOKEN} from "../utils/token";
 
 const MAP_STYLE = 'mapbox://styles/mapbox/streets-v11';
@@ -16,7 +16,7 @@ class Map extends Component {
   };
 
   handleClick = (event) => {
-    console.log(event)
+    this.setState({viewport: {...this.state.viewport, longitude: event.lngLat[0], latitude: event.lngLat[1]}})
   }
 
   render() {
@@ -27,7 +27,12 @@ class Map extends Component {
         mapboxApiAccessToken={MAPTOKEN}
         mapStyle={MAP_STYLE}
         onClick={this.handleClick}
-      />
+      >
+        <Marker longitude={this.state.viewport.longitude} latitude={this.state.viewport.latitude} >
+          <div>You are here</div>
+        </Marker>
+
+      </ReactMapGL>
     )
   }
 }
