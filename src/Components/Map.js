@@ -19,7 +19,19 @@ class Map extends Component {
   };
 
   handleClick = (event) => {
-    this.setState({viewport: {...this.state.viewport, longitude: event.lngLat[0], latitude: event.lngLat[1]}})
+    this.setState(
+      {
+        viewport: {
+          ...this.state.viewport,
+          longitude: event.lngLat[0],
+          latitude: event.lngLat[1]
+        },
+        marker: {
+          longitude: event.lngLat[0],
+          latitude: event.lngLat[1]
+        }
+      }
+    )
   }
 
   onMarkerDragStart = (event) => {
@@ -61,8 +73,8 @@ class Map extends Component {
         onClick={this.handleClick}
       >
         <Marker
-          longitude={this.state.marker.longitude || 0}
-          latitude={this.state.marker.latitude || 0}
+          longitude={this.state.marker.longitude}
+          latitude={this.state.marker.latitude}
           draggable
           onDragStart={this.onMarkerDragStart}
           onDrag={this.onMarkerDrag}
