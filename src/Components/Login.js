@@ -12,6 +12,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { Query, graphql } from "react-apollo";
+import gql from 'graphql-tag';
+import {LOGIN} from '../utils/queries';
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -38,8 +41,16 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SignIn() {
+function SignIn() {
   const classes = useStyles();
+
+  const handleChange = event => {
+    console.log(event)
+  }
+
+  const handleSubmit = event => {
+    
+  }
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -61,6 +72,7 @@ export default function SignIn() {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={e => handleChange(e)}
           />
           <TextField
             variant="outlined"
@@ -72,6 +84,7 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={e => handleChange(e)}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -83,6 +96,7 @@ export default function SignIn() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            handleSubmit={e => handleSubmit(e)}
           >
             Sign In
           </Button>
@@ -103,3 +117,5 @@ export default function SignIn() {
     </Container>
   )
 }
+
+export default graphql(gql`${LOGIN}`)(SignIn)
