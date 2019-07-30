@@ -6,6 +6,7 @@ import '../App.css';
 import ApolloClient from "apollo-boost";
 import { graphql } from 'react-apollo';
 import Header from "./Header";
+import NavBar from "./NavBar"
 import {ALL_WAVES} from "../utils/queries"
 
 // new Home(props);
@@ -65,6 +66,7 @@ class Home extends Component {
         <Fragment>
           <Header />
           <div className="App">
+            <NavBar />
             <header className="App-header">
               <img src={logo} className="App-logo" alt="logo" />
               <p>
