@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from "react";
-import {BrowserRouter as Router, Route} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Header from "./Components/Header";
 import Home from "./Components/Home";
 import AddSpot from "./Components/AddSpot";
 import Search from "./Components/Search";
+import Profile from "./Components/Profile";
 
 class App extends Component {
   render() {
@@ -11,9 +12,12 @@ class App extends Component {
       <Router>
         <Fragment>
           <Header />
-          <Route exact path="/" component={Home} />
-          <Route path="/AddSpot" component={AddSpot} />
-          <Route path="/Search" component={Search} />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/AddSpot" component={AddSpot} />
+            <Route path="/Search" component={Search} />
+            <Route path="/Profile" component={Profile} />
+          </Switch>
         </Fragment>
       </Router>
     );

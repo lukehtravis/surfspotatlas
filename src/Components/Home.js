@@ -9,56 +9,13 @@ import Header from "./Header";
 import NavBar from "./NavBar"
 import {ALL_WAVES} from "../utils/queries"
 
-// new Home(props);
-//
-// const home = Home.constructor(props);
-//
-// home.state;
-// home.props;
-// home.render;
-// home.foo
-
-class Home extends Component {
-  constructor(props) {
-    // use for setting initial state based on props
-    super(props);
-    console.log('called Home constructor ', props);
-    // this.state = {
-    //   waves: this.props.data.Waves
-    // }
-    this.foo = 'bar';
-  }
-
-  foo = 'bar';
-
-  // state = {
-  //   waves: []
-  // }
-
-  // is called after initial render
-  componentDidMount() {
-    console.log('called Home componentDidMount', this.props);
-  }
-
-  // is called after initial render and after componentDidMount, anytime props or state updates
-  componentDidUpdate(prevProps, prevState) {
-    console.log('called Home componentDidUpdate', this.props);
-  }
-
-  render() {
-    console.log('called Home render');
-    // if (this.props.data.Waves !== undefined) {
-    // never set state in render
-    // always call this.setState instead of setting state directly
-    //   this.state.waves = this.props.data.Waves
-    // }
-    // const { prop1, prop2 } = this.props;
-
-    if (this.props.data.loading) {
+const Home = (props) => {
+    console.log(props)
+    if (props.data.loading) {
       return 'Loading';
     }
 
-    if (this.props.data.error || !this.props.data.Waves) {
+    if (props.data.error || !props.data.Waves) {
       return 'Error';
     }
 
@@ -77,7 +34,7 @@ class Home extends Component {
                 rel="noopener noreferrer"
               >
               </a>
-              {this.props.data.Waves.map((wave) => {
+              {props.data.Waves.map((wave) => {
                 return <div>
                           <p>{wave.name}</p>
                           <p>{wave.description}</p>
@@ -87,7 +44,6 @@ class Home extends Component {
           </div>
         </Fragment>
     );
-  }
 }
 
 export default graphql(gql`${ALL_WAVES}`)(Home);
