@@ -12,9 +12,6 @@ class Header extends Component {
         <NavBar />
         <p>Surf Spot Atlas</p>
         <p><Link to="/AddSpot">Add Spot</Link></p>
-        <Fab>
-          <AddIcon />
-        </Fab>
       </div>
     )
   }

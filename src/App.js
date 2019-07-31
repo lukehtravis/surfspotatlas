@@ -5,6 +5,7 @@ import Home from "./Components/Home";
 import AddSpot from "./Components/AddSpot";
 import Search from "./Components/Search";
 import Profile from "./Components/Profile";
+import PrivateRoute from "./Components/PrivateRoute";
 
 class App extends Component {
   render() {
@@ -16,7 +17,7 @@ class App extends Component {
             <Route exact path="/" component={Home} />
             <Route path="/AddSpot" component={AddSpot} />
             <Route path="/Search" component={Search} />
-            <Route path="/Profile" component={Profile} />
+            <PrivateRoute path="/Profile" component={Profile} />
           </Switch>
         </Fragment>
       </Router>

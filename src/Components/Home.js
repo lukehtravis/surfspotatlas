@@ -10,7 +10,6 @@ import NavBar from "./NavBar"
 import {ALL_WAVES} from "../utils/queries"
 
 const Home = (props) => {
-    console.log(props)
     if (props.data.loading) {
       return 'Loading';
     }
