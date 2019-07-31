@@ -4,7 +4,6 @@ import Header from "./Components/Header";
 import Home from "./Components/Home";
 import AddSpot from "./Components/AddSpot";
 import Search from "./Components/Search";
-import Login from "./Components/Login";
 
 class App extends Component {
   render() {
@@ -15,7 +14,6 @@ class App extends Component {
           <Route exact path="/" component={Home} />
           <Route path="/AddSpot" component={AddSpot} />
           <Route path="/Search" component={Search} />
-          <Route path="/Login" component={Login} />
         </Fragment>
       </Router>
     );
