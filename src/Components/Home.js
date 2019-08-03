@@ -7,7 +7,8 @@ import ApolloClient from "apollo-boost";
 import { graphql } from 'react-apollo';
 import Header from "./Header";
 import NavBar from "./NavBar"
-import {ALL_WAVES} from "../utils/queries"
+import {Link} from "react-router-dom";
+import {ALL_WAVES} from "../utils/queries";
 
 const Home = (props) => {
     if (props.data.loading) {
@@ -35,8 +36,8 @@ const Home = (props) => {
               </a>
               {props.data.Waves.map((wave) => {
                 return <div>
-                          <p>{wave.name}</p>
-                          <p>{wave.description}</p>
+                          <Link to="`${wave.id}`">{wave.name}</Link>
+
                         </div>
               })}
             </header>

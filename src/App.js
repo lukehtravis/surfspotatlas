@@ -6,6 +6,7 @@ import AddSpot from "./Components/AddSpot";
 import Search from "./Components/Search";
 import Profile from "./Components/Profile";
 import PrivateRoute from "./Components/PrivateRoute";
+import Wave from "./Components/Wave";
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
             <Route exact path="/" component={Home} />
             <Route path="/AddSpot" component={AddSpot} />
             <Route path="/Search" component={Search} />
+            <Route path="/Wave/:id" component={Wave} />
             <PrivateRoute path="/Profile" component={Profile} />
           </Switch>
         </Fragment>
