@@ -18,7 +18,10 @@ const Home = (props) => {
     if (props.data.error || !props.data.Waves) {
       return 'Error';
     }
-
+    /*
+    This article explains how to pass params though <Link> componet to attribute />
+    https://stackoverflow.com/questions/38085893/react-router-link-pass-in-params
+    */
     return (
         <Fragment>
           <div className="App">
@@ -37,7 +40,6 @@ const Home = (props) => {
               {props.data.Waves.map((wave) => {
                 return <div>
                           <Link to="`${wave.id}`">{wave.name}</Link>
-
                         </div>
               })}
             </header>
