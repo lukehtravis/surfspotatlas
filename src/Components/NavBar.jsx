@@ -11,25 +11,13 @@ const NavBar = () => {
   }
   return (
     <div>
-      {!isAuthenticated && (
-        <button
-          onClick={() =>
-            loginWithRedirect({})
-          }
-        >
-          Log in
-        </button>
-      )}
-
-      {isAuthenticated && <button onClick={() => logout()}>Log out</button>}
-      {/* NEW - add a link to the home and profile pages */}
-
       <span>
-        <Link to="/">Home</Link>&nbsp;
+        <Link to="/">Home</Link>
         <Link to="/profile">Profile</Link>
-        <Link to="/addspot">Add Spot</Link>
+        <Link to="/AddSpot">Add Spot</Link>
       </span>
-
+      {!isAuthenticated && (<button onClick={() => loginWithRedirect({})}>Log in</button>)}
+      {isAuthenticated && <button onClick={() => logout()}>Log out</button>}
     </div>
   );
 };
