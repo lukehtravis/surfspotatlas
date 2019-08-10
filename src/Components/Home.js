@@ -9,6 +9,7 @@ import Header from "./Header";
 import NavBar from "./NavBar"
 import {Link} from "react-router-dom";
 import {ALL_WAVES} from "../utils/queries";
+const pathToRegexp = require('path-to-regexp');
 
 const Home = (props) => {
     if (props.data.loading) {
@@ -19,9 +20,11 @@ const Home = (props) => {
       return 'Error';
     }
     /*
-    This article explains how to pass params though <Link> componet to attribute />
-    https://stackoverflow.com/questions/38085893/react-router-link-pass-in-params
+      path conversion strategy borrowed from following article
+      https://stackoverflow.com/questions/38085893/react-router-link-pass-in-params
     */
+    const WAVE_ROUTE = '/Wave/:id/';
+    const toPath = pathToRegexp.compile(WAVE_ROUTE);
     return (
         <Fragment>
           <div className="App">
@@ -39,7 +42,7 @@ const Home = (props) => {
               </a>
               {props.data.Waves.map((wave) => {
                 return <div>
-                          <Link to="`${wave.id}`">{wave.name}</Link>
+                          <Link to={toPath({ id: wave.id })}>{wave.name}</Link>
                         </div>
               })}
             </header>
