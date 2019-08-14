@@ -46,3 +46,13 @@ query WaveHollowness($id: Int) {
     }
   }
 }
+
+query WaveDanger($id: Int) {
+  Wave_Ratings_aggregate(where: {waveid: {_eq: $id}}) {
+    aggregate {
+      avg {
+        wavedanger
+      }
+    }
+  }
+}

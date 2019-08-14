@@ -9,6 +9,7 @@ import gql from "graphql-tag";
 import {FETCH_WAVE} from "../utils/queries"
 import WaveQuality from "./WaveQuality";
 import WaveHollowness from "./WaveHollowness";
+import WaveDanger from "./WaveDanger";
 
 const Wave = (props) => {
   console.log(props)
@@ -17,6 +18,7 @@ const Wave = (props) => {
       <p>Wave</p>
       <WaveQuality waveId={props.match.params.id} />
       <WaveHollowness waveId={props.match.params.id} />
+      <WaveDanger waveId={props.match.params.id} />
     </div>
   );
 };
