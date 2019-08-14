@@ -8,6 +8,7 @@ import { graphql } from 'react-apollo';
 import gql from "graphql-tag";
 import {FETCH_WAVE} from "../utils/queries"
 import WaveQuality from "./WaveQuality";
+import WaveHollowness from "./WaveHollowness";
 
 const Wave = (props) => {
   console.log(props)
@@ -15,6 +16,7 @@ const Wave = (props) => {
     <div>
       <p>Wave</p>
       <WaveQuality waveId={props.match.params.id} />
+      <WaveHollowness waveId={props.match.params.id} />
     </div>
   );
 };
