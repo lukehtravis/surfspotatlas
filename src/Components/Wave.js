@@ -7,12 +7,14 @@ import ApolloClient from "apollo-boost";
 import { graphql } from 'react-apollo';
 import gql from "graphql-tag";
 import {FETCH_WAVE} from "../utils/queries"
+import WaveQuality from "./WaveQuality";
 
 const Wave = (props) => {
   console.log(props)
   return (
     <div>
       <p>Wave</p>
+      <WaveQuality waveId={props.match.params.id} />
     </div>
   );
 };
