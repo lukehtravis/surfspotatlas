@@ -6,7 +6,8 @@ import Footer from "./Footer";
 import ApolloClient from "apollo-boost";
 import { graphql } from 'react-apollo';
 import gql from "graphql-tag";
-import {FETCH_WAVE} from "../utils/queries"
+import {FETCH_WAVE} from "../utils/queries";
+import WaveMap from "./WaveMap";
 import WaveQuality from "./WaveQuality";
 import WaveHollowness from "./WaveHollowness";
 import WaveDanger from "./WaveDanger";
