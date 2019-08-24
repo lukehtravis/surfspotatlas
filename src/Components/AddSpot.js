@@ -6,7 +6,15 @@ import Map from './Map'
 
 class AddSpot extends Component {
   state = {
+    lat: 0,
+    long: 0
+  }
 
+  onChangeCoords = (long, lat) => {
+    this.setState({
+      lat: lat,
+      long: long
+    })
   }
 
   handleChange = (event) => {
@@ -142,7 +150,7 @@ class AddSpot extends Component {
           </div>
           <button onClick={this.handleSubmit} />
         </form>
-        <Map />
+        <Map onChangeCoords={this.onChangeCoords} />
       </div>
     )
   }

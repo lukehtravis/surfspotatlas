@@ -19,6 +19,7 @@ class Map extends Component {
   };
 
   handleClick = (event) => {
+    this.props.onChangeCoords(event.lngLat[0], event.lngLat[1])
     this.setState(
       {
         viewport: {
