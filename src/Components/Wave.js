@@ -17,7 +17,7 @@ const Wave = (props) => {
   return (
     <div>
       <p>Wave</p>
-      
+
       <WaveQuality waveId={props.match.params.id} />
       <WaveHollowness waveId={props.match.params.id} />
       <WaveDanger waveId={props.match.params.id} />

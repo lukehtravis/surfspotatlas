@@ -37,6 +37,12 @@ query WaveQuality($id: Int) {
   }
 }
 
+query FetchLocation($id:Int) {
+  Locations(where: {id: {_eq: $id}}) {
+    id
+  }
+}
+
 query WaveHollowness($id: Int) {
   Wave_Ratings_aggregate(where: {waveid: {_eq: $id}}) {
     aggregate {

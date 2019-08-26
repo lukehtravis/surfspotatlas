@@ -1,8 +1,10 @@
 import React, {Component, Fragment} from 'react'
-import { Query, graphql } from "react-apollo";
+import { Query, graphql, Mutation} from "react-apollo";
 import gql from "graphql-tag";
 import ApolloClient from "apollo-boost";
-import Map from './Map'
+import { compose } from 'react-apollo';
+import Map from './Map';
+import {FETCH_LOCATION, INSERT_LOCATION} from "../utils/queries"
 
 class AddSpot extends Component {
   state = {
@@ -31,8 +33,8 @@ class AddSpot extends Component {
     event.preventDefault();
     const date = new Date();
     const timestamp = date.getTime();
-    console.log(timestamp);
-    this.props.mutate({
+
+    const returned = this.props.addSpot({
         variables: {
           name: this.state.name,
           nickname: this.state.nickname,
@@ -49,11 +51,19 @@ class AddSpot extends Component {
           hightide: this.state.hightide,
           datecreated: timestamp
         },
+    }).then((graphqlObject) => {
+      let locationId = graphqlObject.data.insert_Waves.returning[0].locationid
+      this.props.insertLocation({
+        variables: {
+          id: locationId
+        }
+      })
     })
   }
 
-  render() {
 
+  render() {
+    console.log(this.props)
     return (
       <div>
         <form>
@@ -156,7 +166,7 @@ class AddSpot extends Component {
   }
 }
 const MUTATION = gql`
-mutation AddSpot($name: String, $nickname: String, $description: String, $directions: String, $bathymetry: String, $wavetype: String, $wavelength: Int, $wavequality: Int, $wavedirection: String, $wavedanger: Int, $wavehollowness: Int, $lowtide: Int, $hightide: Int, $datecreated: bigint) {
+mutation AddSpot($name: String, $nickname: String, $description: String, $directions: String, $bathymetry: String, $wavetype: String, $wavelength: Int, $wavequality: Int, $wavedirection: String, $wavedanger: Int, $wavehollowness: Int, $lowtide: Int, $hightide: Int, $datecreated: bigint, $longitude: bigint, $latitude: bigint) {
   insert_Waves(objects: {name: $name, nickname: $nickname, description: $description, directions: $directions, bathymetry: $bathymetry, wavetype: $wavetype, wavelength: $wavelength, wavequality: $wavequality, wavedirection: $wavedirection, wavehollowness: $wavehollowness, wavedanger: $wavedanger, lowtide: $lowtide, hightide: $hightide, datecreated: $datecreated}) {
     returning {
       name,
@@ -172,9 +182,15 @@ mutation AddSpot($name: String, $nickname: String, $description: String, $direct
       wavedanger,
       lowtide,
       hightide,
-      datecreated
+      datecreated,
+      locationid
     }
   }
 }
 `
-export default graphql(MUTATION)(AddSpot)
+export default compose(
+  graphql(MUTATION, {name: "addSpot"}),
+  graphql(gql`${INSERT_LOCATION}`, {
+    name: "insertLocation",
+  })
+)(AddSpot)
