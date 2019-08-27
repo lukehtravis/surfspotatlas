@@ -56,10 +56,17 @@ class AddSpot extends Component {
           datecreated: timestamp
         },
     }).then((graphqlObject) => {
+      console.log("what is this", this)
       let locationId = graphqlObject.data.insert_Waves.returning[0].locationid
       this.props.insertLocation({
         variables: {
-          id: locationId
+          id: locationId,
+          longitude: this.state.long,
+          latitude: this.state.lat,
+          continent: this.state.continent,
+          country: this.state.country,
+          region: this.state.region,
+          area: this.state.area
         }
       })
     })

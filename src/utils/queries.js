@@ -1,7 +1,7 @@
 export const ALL_WAVES = "{ Waves { name id description } }"
 export const LOGIN = "{ Users { username password } }"
 export const FETCH_WAVE = "query FetchWave($id: Int) { Waves(where: {id: {_eq: $id}}) { id name datecreated createdby bathymetry description directions hightide locationid lowtide nickname photosid region wavedanger wavedirection wavehollowness wavelandmarks wavelength wavequality waveseasonend waveseasonstart wavetype windangleone windangletwo } }"
-export const INSERT_LOCATION = "mutation InsertLocation($id: Int, $longitude: bigint, $latitude: bigint){ insert_Locations(objects: {id: $id, longitude: $longitude, latitude: $latitude}) { returning { id, longitude, latitude } } } "
+export const INSERT_LOCATION = "mutation InsertLocation($id: Int, $longitude: numeric, $latitude: numeric, $continent: String, $country: String, $region: String, $area: String ){ insert_Locations(objects: {id: $id, longitude: $longitude, latitude: $latitude, continent: $continent, country: $country, region: $region, area: $area }) { returning { id, longitude, latitude, continent, country, region, area } } }"
 export const FETCH_LOCATION = "query FetchLocation($id: Int) { Locations(where: {id: {_eq: $id}}) { id } }"
 export const WAVE_QUALITY = "query WaveQuality($id: Int) {  Wave_Ratings_aggregate(where: {waveid: {_eq: $id}}) {    aggregate {      avg {        wavequality      }    }  } }"
 export const WAVE_HOLLOWNESS = "query WaveHollowness($id: Int) {  Wave_Ratings_aggregate(where: {waveid: {_eq: $id}}) {    aggregate {      avg {        wavehollowness      }    }  } }"
