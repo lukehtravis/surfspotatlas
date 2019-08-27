@@ -12,10 +12,14 @@ class AddSpot extends Component {
     long: 0
   }
 
-  onChangeCoords = (long, lat) => {
+  onChangeCoords = (long, lat, continent, country, region, area) => {
     this.setState({
       lat: lat,
-      long: long
+      long: long,
+      continent: continent,
+      country: country,
+      region: region,
+      area: area
     })
   }
 

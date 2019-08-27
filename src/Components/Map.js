@@ -20,8 +20,7 @@ class Map extends Component {
   };
 
   handleClick = (event) => {
-    this.props.onChangeCoords(event.lngLat[0], event.lngLat[1])
-    geonamesLocations(`http://api.geonames.org/extendedFindNearbyJSON?lat=${event.lngLat[1]}&lng=${event.lngLat[0]}&username=${GEONAME_LOGIN}`, this)
+    geonamesLocations(`http://api.geonames.org/hierarchyJSON?lat=${event.lngLat[1]}&lng=${event.lngLat[0]}&username=${GEONAME_LOGIN}`, this, event)
     this.setState(
       {
         viewport: {
