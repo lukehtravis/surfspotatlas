@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import ReactMapGL, {Marker, NavigationControl} from 'react-map-gl';
 import {MAPTOKEN} from "../utils/token";
+import {geocodeCoordinates} from "../utils/geonames";
 import Pin from "./Pin";
 
 const MAP_STYLE = 'mapbox://styles/mapbox/streets-v11';
@@ -20,6 +21,7 @@ class Map extends Component {
 
   handleClick = (event) => {
     this.props.onChangeCoords(event.lngLat[0], event.lngLat[1])
+    geocodeCoordinates(`http://api.geonames.org/countrySubdivisionJSON?lat=${event.lngLat[1]}&lng=${event.lngLat[0]}&username=surfspotatlas`, this)
     this.setState(
       {
         viewport: {
