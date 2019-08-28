@@ -1,7 +1,5 @@
 import React, { Component }  from 'react';
 import Header from "./Header";
-import Map from "./Map";
-import Pin from "./Pin";
 import Footer from "./Footer";
 import ApolloClient from "apollo-boost";
 import { graphql } from 'react-apollo';
@@ -13,11 +11,14 @@ import WaveHollowness from "./WaveHollowness";
 import WaveDanger from "./WaveDanger";
 
 const Wave = (props) => {
-  console.log(props)
+  if (!props.data.Waves) {
+    return "Loading"
+  }
+  
   return (
     <div>
       <p>Wave</p>
-
+      <WaveMap locationId={props.data.Waves[0].locationid} />
       <WaveQuality waveId={props.match.params.id} />
       <WaveHollowness waveId={props.match.params.id} />
       <WaveDanger waveId={props.match.params.id} />
@@ -26,5 +27,5 @@ const Wave = (props) => {
 };
 
 export default graphql(gql`${FETCH_WAVE}`, {
-  options: (props) => { return { variables: {id: props.match.params.id}}}
+    options: (props) => { return { variables: {id: props.match.params.id}}}
 })(Wave)

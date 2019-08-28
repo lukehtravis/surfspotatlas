@@ -1,7 +1,10 @@
 import React, {Component, Fragment} from 'react';
 import ReactMapGL, {Marker, NavigationControl} from 'react-map-gl';
 import {MAPTOKEN} from "../utils/token";
+import { graphql } from 'react-apollo';
+import gql from "graphql-tag";
 import Pin from "./Pin";
+import {FETCH_LOCATION} from "../utils/queries";
 
 const MAP_STYLE = 'mapbox://styles/mapbox/streets-v11';
 
@@ -15,8 +18,8 @@ class WaveMap extends Component {
         zoom: 2
       },
       marker: {
-        longitude: this.props.long,
-        latitude: this.props.lat
+        longitude: 10,
+        latitude: 10
       }
     };
   }
@@ -42,6 +45,12 @@ class WaveMap extends Component {
   };
 
   render() {
+    if (!this.props.data.Locations) {
+      return "Loading"
+    }
+
+    console.log(this.props.data.Locations[0].longitutde)
+    console.log(this.props.data.Locations[0].latitude)
     return (
       <ReactMapGL
         {...this.state.viewport}
@@ -49,8 +58,8 @@ class WaveMap extends Component {
         mapStyle={MAP_STYLE}
       >
         <Marker
-          longitude={this.state.marker.longitude}
-          latitude={this.state.marker.latitude}>
+          longitude={this.props.data.Locations[0].longitude}
+          latitude={this.props.data.Locations[0].latitude}>
           <Pin size={20} />
         </Marker>
       </ReactMapGL>
@@ -58,4 +67,6 @@ class WaveMap extends Component {
   }
 }
 
-export default WaveMap
+export default graphql(gql`${FETCH_LOCATION}`, {
+  options: (props) => {return {variables: {id: props.locationId} } }
+})(WaveMap)

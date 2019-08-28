@@ -62,3 +62,17 @@ query WaveDanger($id: Int) {
     }
   }
 }
+
+mutation InsertLocation($id: Int, $longitude: numeric, $latitude: numeric, $continent: String, $country: String, $region: String, $area: String ){
+  insert_Locations(objects: {id: $id, longitude: $longitude, latitude: $latitude, continent: $continent, country: $country, region: $region, area: $area }) {
+    returning {
+      id,
+      longitude,
+      latitude,
+      continent,
+      country,
+      region,
+      area
+    }
+  }
+}
