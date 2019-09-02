@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 import ApolloClient from "apollo-boost";
 import { compose } from 'react-apollo';
 import Map from './Map';
-import {FETCH_LOCATION, INSERT_LOCATION} from "../utils/queries"
+import {ADD_SPOT, INSERT_LOCATION, ADD_RATING} from "../utils/queries"
 
 class AddSpot extends Component {
   state = {
@@ -46,18 +46,25 @@ class AddSpot extends Component {
           directions: this.state.directions,
           bathymetry: this.state.bathymetry,
           wavetype: this.state.wavetype,
-          wavelength: this.state.wavelength,
-          wavequality: this.state.wavequality,
           wavedirection: this.state.wavedirection,
-          wavehollowness: this.state.wavehollowness,
-          wavedanger: this.state.wavedanger,
-          lowtide: this.state.lowtide,
-          hightide: this.state.hightide,
           datecreated: timestamp
         },
     }).then((graphqlObject) => {
       console.log("what is this", this)
       let locationId = graphqlObject.data.insert_Waves.returning[0].locationid
+      let waveId = graphqlObject.data.insert_Waves.returning[0].id
+      this.props.addRating({
+        variables: {
+          waveid: waveId,
+          wavelength: this.state.wavelength,
+          wavequality: this.state.wavequality,
+          wavehollowness: this.state.wavehollowness,
+          wavedanger: this.state.wavedanger,
+          userid: 1,
+          lowtide: this.state.lowtide,
+          hightide: this.state.hightide
+        }
+      })
       this.props.insertLocation({
         variables: {
           id: locationId,
@@ -200,8 +207,13 @@ mutation AddSpot($name: String, $nickname: String, $description: String, $direct
 }
 `
 export default compose(
-  graphql(MUTATION, {name: "addSpot"}),
+  graphql(gql`${ADD_SPOT}`, {
+    name: "addSpot"
+  }),
   graphql(gql`${INSERT_LOCATION}`, {
-    name: "insertLocation",
+    name: "insertLocation"
+  }),
+  graphql(gql`${ADD_RATING}`, {
+    name: "addRating"
   })
 )(AddSpot)
