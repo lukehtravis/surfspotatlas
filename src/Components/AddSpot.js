@@ -47,6 +47,7 @@ class AddSpot extends Component {
           bathymetry: this.state.bathymetry,
           wavetype: this.state.wavetype,
           wavedirection: this.state.wavedirection,
+          wavelandmarks: this.state.wavelandmarks,
           datecreated: timestamp
         },
     }).then((graphqlObject) => {
@@ -61,8 +62,12 @@ class AddSpot extends Component {
           wavehollowness: this.state.wavehollowness,
           wavedanger: this.state.wavedanger,
           userid: 1,
+          windangleone: this.state.windangleone,
+          windangletwo: this.state.windangletwo,
           lowtide: this.state.lowtide,
-          hightide: this.state.hightide
+          hightide: this.state.hightide,
+          waveseasonstart: this.state.waveseasonstart,
+          waveseasonend: this.state.waveseasonend
         }
       })
       this.props.insertLocation({
@@ -131,10 +136,10 @@ class AddSpot extends Component {
             </select>
           </div>
           <div>
-            <select name="wavelandmarks" value={this.state.landmarks} onChange={this.handleChange} >
-                <option value="beachbreak">Beach Break</option>
-                <option value="reefbreak">Reef Break</option>
-                <option value="pointbreak">Point Break</option>
+            <select name="wavelandmarks" value={this.state.wavelandmarks} onChange={this.handleChange} >
+                <option value="pier">Pier</option>
+                <option value="jetty">Jetty</option>
+                <option value="channel">Channel</option>
             </select>
           </div>
           <div>
@@ -162,11 +167,11 @@ class AddSpot extends Component {
           </div>
           <div>
             <p>Wind Marker 1:</p>
-            <input name="lowtide" type="range" min="1" max="100" value={this.state.lowtide} className="value-slider" id="lowtide-slider" onChange={this.handleChange} />
+            <input name="windangleone" type="range" min="1" max="360" value={this.state.windangleone} className="value-slider" id="lowtide-slider" onChange={this.handleChange} />
           </div>
           <div>
             <p>Wind Marker 2:</p>
-            <input name="hightide" type="range" min="1" max="100" value={this.state.hightide} className="value-slider" id="hightide-slider" onChange={this.handleChange} />
+            <input name="windangletwo" type="range" min="1" max="360" value={this.state.windangletwo} className="value-slider" id="hightide-slider" onChange={this.handleChange} />
           </div>
           <div>
             <p>Low Tide:</p>
@@ -176,6 +181,14 @@ class AddSpot extends Component {
             <p>High Tide:</p>
             <input name="hightide" type="range" min="1" max="100" value={this.state.hightide} className="value-slider" id="hightide-slider" onChange={this.handleChange} />
           </div>
+          <div>
+            <p>Wave Season Start:</p>
+            <input name="waveseasonstart" type="range" min="1" max="365" value={this.state.waveseasonstart} className="value-slider" id="lowtide-slider" onChange={this.handleChange} />
+          </div>
+          <div>
+            <p>High Tide:</p>
+            <input name="waveseasonend" type="range" min="1" max="365" value={this.state.waveseasonend} className="value-slider" id="hightide-slider" onChange={this.handleChange} />
+          </div>
           <button onClick={this.handleSubmit} />
         </form>
         <Map onChangeCoords={this.onChangeCoords} />
@@ -183,29 +196,7 @@ class AddSpot extends Component {
     )
   }
 }
-const MUTATION = gql`
-mutation AddSpot($name: String, $nickname: String, $description: String, $directions: String, $bathymetry: String, $wavetype: String, $wavelength: Int, $wavequality: Int, $wavedirection: String, $wavedanger: Int, $wavehollowness: Int, $lowtide: Int, $hightide: Int, $datecreated: bigint, $longitude: bigint, $latitude: bigint) {
-  insert_Waves(objects: {name: $name, nickname: $nickname, description: $description, directions: $directions, bathymetry: $bathymetry, wavetype: $wavetype, wavelength: $wavelength, wavequality: $wavequality, wavedirection: $wavedirection, wavehollowness: $wavehollowness, wavedanger: $wavedanger, lowtide: $lowtide, hightide: $hightide, datecreated: $datecreated}) {
-    returning {
-      name,
-      nickname,
-      description,
-      directions,
-      bathymetry,
-      wavetype,
-      wavelength,
-      wavequality,
-      wavedirection,
-      wavehollowness,
-      wavedanger,
-      lowtide,
-      hightide,
-      datecreated,
-      locationid
-    }
-  }
-}
-`
+
 export default compose(
   graphql(gql`${ADD_SPOT}`, {
     name: "addSpot"

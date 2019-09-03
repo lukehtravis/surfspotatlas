@@ -49,8 +49,6 @@ class WaveMap extends Component {
       return "Loading"
     }
 
-    console.log(this.props.data.Locations[0].longitutde)
-    console.log(this.props.data.Locations[0].latitude)
     return (
       <ReactMapGL
         {...this.state.viewport}
