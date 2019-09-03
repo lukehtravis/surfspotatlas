@@ -15,7 +15,7 @@ class WaveMap extends Component {
       viewport: {
         width: 400,
         height: 400,
-        zoom: 2
+        zoom: 10,
       },
       marker: {
         longitude: 10,
@@ -48,10 +48,13 @@ class WaveMap extends Component {
     if (!this.props.data.Locations) {
       return "Loading"
     }
-
+    console.log("wavemap", this.props)
+    console.log("wavestate", this.state)
     return (
       <ReactMapGL
         {...this.state.viewport}
+        latitude={this.props.data.Locations[0].latitude}
+        longitude={this.props.data.Locations[0].longitude}
         mapboxApiAccessToken={MAPTOKEN}
         mapStyle={MAP_STYLE}
       >
