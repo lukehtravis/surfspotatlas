@@ -4,8 +4,7 @@ import {MAPTOKEN} from "../utils/token";
 import { graphql } from 'react-apollo';
 import gql from "graphql-tag";
 import Pin from "./Pin";
-import {FETCH_SPOT_FROM_LOCATIONID} from "../utils/queries";
-import SpotMarker from "./SpotMarker";
+import {FETCH_AREA_SPOTS} from "../utils/queries";
 
 const MAP_STYLE = 'mapbox://styles/mapbox/streets-v11';
 
@@ -44,14 +43,14 @@ class AreaMap extends Component {
   _renderSpotMarker = (spotAttributes) => {
     console.log("inside state func", spotAttributes)
     return (
-      <SpotMarker key={spotAttributes.id} id={spotAttributes.id} longitude={spotAttributes.longitude} latitude={spotAttributes.latitude}>
+      <Marker key={spotAttributes.id} longitude={spotAttributes.longitude} latitude={spotAttributes.latitude}>
         <Pin size={20} />
-      </SpotMarker>
+      </Marker>
     );
   }
 
   render() {
-    if (!this.props.areaSpots) {
+    if (!this.props.data.Locations) {
       return "Loading"
     }
     console.log("wavearea", this.props)
@@ -59,13 +58,13 @@ class AreaMap extends Component {
     return (
       <ReactMapGL
         {...this.state.viewport}
-        latitude={this.props.areaSpots[0].latitude}
-        longitude={this.props.areaSpots[0].longitude}
+        latitude={this.props.data.Locations[0].latitude}
+        longitude={this.props.data.Locations[0].longitude}
         mapboxApiAccessToken={MAPTOKEN}
         mapStyle={MAP_STYLE}
       >
         {
-          this.props.areaSpots.map(location => {
+          this.props.data.Locations.map(location => {
             return this._renderSpotMarker(location);
           })
         }
@@ -75,4 +74,6 @@ class AreaMap extends Component {
   }
 }
 
-export default AreaMap
+export default graphql(gql`${FETCH_AREA_SPOTS}`, {
+  options: (props) => {return {variables: {areaName: props.match.params.areaName} } }
+})(AreaMap)

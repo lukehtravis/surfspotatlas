@@ -7,7 +7,7 @@ import Search from "./Components/Search";
 import Profile from "./Components/Profile";
 import PrivateRoute from "./Components/PrivateRoute";
 import Wave from "./Components/Wave";
-import AreaMap from "./Components/AreaMap";
+import Area from "./Components/Area";
 
 class App extends Component {
   render() {
@@ -20,7 +20,7 @@ class App extends Component {
             <Route path="/AddSpot" component={AddSpot} />
             <Route path="/Search" component={Search} />
             <Route path="/Wave/:id" component={Wave} />
-            <Route path="/Area/:areaName" component={AreaMap} />
+            <Route path="/Area/:areaName" component={Area} />
             <PrivateRoute path="/Profile" component={Profile} />
           </Switch>
         </Fragment>
