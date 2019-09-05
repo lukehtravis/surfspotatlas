@@ -11,14 +11,14 @@ class SpotMarker extends Component {
   }
 
   render() {
-    console.log("inside spot marker", this.props)
-    if (!this.props.data) {
+    if (!this.props.data.Waves) {
       return "Loading..."
     }
-    console.log("inside spot marker", this.props)
+    const wave = this.props.data.Waves[0]
+    console.log("spot marker", this.props)
     return (
       <Marker longitude={this.props.longitude} latitude={this.props.latitude}>
-        <Pin size={20} />
+        <Pin size={20} spotClick={this.props.pinEvent} longitude={this.props.longitude} latitude={this.props.latitude} waveName={wave.name} waveDirection={wave.wavedirection} waveType={wave.wavetype} id={this.props.id} />
       </Marker>
     )
   }

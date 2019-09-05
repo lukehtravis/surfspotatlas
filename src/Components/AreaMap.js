@@ -1,11 +1,12 @@
 import React, {Component, Fragment} from 'react';
-import ReactMapGL, {Marker, NavigationControl} from 'react-map-gl';
+import ReactMapGL, {Marker, Popup, NavigationControl} from 'react-map-gl';
 import {MAPTOKEN} from "../utils/token";
 import { graphql } from 'react-apollo';
 import gql from "graphql-tag";
 import Pin from "./Pin";
 import {FETCH_SPOT_FROM_LOCATIONID} from "../utils/queries";
 import SpotMarker from "./SpotMarker";
+import WavePopup from "./WavePopup";
 
 const MAP_STYLE = 'mapbox://styles/mapbox/streets-v11';
 
@@ -18,6 +19,7 @@ class AreaMap extends Component {
         height: 400,
         zoom: 10,
       },
+      popupInfo: null
     };
   }
 
@@ -41,21 +43,42 @@ class AreaMap extends Component {
 
   };
 
+  pinClick = (attributes) => {
+    this.setState({popupInfo: attributes})
+  }
+
   _renderSpotMarker = (spotAttributes) => {
-    console.log("inside state func", spotAttributes)
+    console.log("_renderSpotMarker", spotAttributes)
     return (
-      <SpotMarker key={spotAttributes.id} id={spotAttributes.id} longitude={spotAttributes.longitude} latitude={spotAttributes.latitude}>
-        <Pin size={20} />
+      <SpotMarker key={spotAttributes.id} id={spotAttributes.id} longitude={spotAttributes.longitude} pinEvent={this.pinClick} latitude={spotAttributes.latitude}>
+
       </SpotMarker>
     );
+  }
+
+  _renderWavePopup() {
+    const {popupInfo} = this.state;
+    return (
+      popupInfo && (
+        <Popup
+          tipSize={5}
+          anchor="top"
+          longitude={popupInfo.longitude}
+          latitude={popupInfo.latitude}
+          closeOnClick={false}
+          onClose={() => this.setState({popupInfo: null})}
+        >
+          <WavePopup waveDetails={popupInfo} />
+        </Popup>
+      )
+    )
   }
 
   render() {
     if (!this.props.areaSpots) {
       return "Loading"
     }
-    console.log("wavearea", this.props)
-    console.log("wavearea", this.state)
+    console.log("good stetly", this.state)
     return (
       <ReactMapGL
         {...this.state.viewport}
@@ -69,7 +92,7 @@ class AreaMap extends Component {
             return this._renderSpotMarker(location);
           })
         }
-
+        {this._renderWavePopup()}
       </ReactMapGL>
     )
   }
