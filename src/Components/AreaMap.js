@@ -15,7 +15,7 @@ class AreaMap extends Component {
     super(props);
     this.state = {
       viewport: {
-        width: 400,
+        width: "100%",
         height: 400,
         zoom: 10,
       },

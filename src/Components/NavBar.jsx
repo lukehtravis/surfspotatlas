@@ -15,7 +15,7 @@ const NavBar = () => {
         <Link to="/">Home</Link>
         <Link to="/profile">Profile</Link>
         <Link to="/AddSpot">Add Spot</Link>
-        <Link to="/Area/San_Diego">San Diego</Link>
+        <Link to="/Area/San Diego">San Diego</Link>
       </span>
       {!isAuthenticated && (<button onClick={() => loginWithRedirect({})}>Log in</button>)}
       {isAuthenticated && <button onClick={() => logout()}>Log out</button>}
