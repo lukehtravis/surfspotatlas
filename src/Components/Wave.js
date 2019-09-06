@@ -14,11 +14,11 @@ const Wave = (props) => {
   if (!props.data.Waves) {
     return "Loading"
   }
-  
+
   return (
     <div>
       <p>Wave</p>
-      <WaveMap locationId={props.data.Waves[0].locationid} />
+      <WaveMap waveId={props.match.params.id} locationId={props.data.Waves[0].locationid} />
       <WaveQuality waveId={props.match.params.id} />
       <WaveHollowness waveId={props.match.params.id} />
       <WaveDanger waveId={props.match.params.id} />

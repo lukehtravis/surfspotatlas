@@ -3,6 +3,7 @@ import ReactMapGL, {Marker, NavigationControl} from 'react-map-gl';
 import {MAPTOKEN} from "../utils/token";
 import { graphql } from 'react-apollo';
 import gql from "graphql-tag";
+import SpotMarker from "./SpotMarker";
 import Pin from "./Pin";
 import {FETCH_LOCATION} from "../utils/queries";
 
@@ -58,11 +59,11 @@ class WaveMap extends Component {
         mapboxApiAccessToken={MAPTOKEN}
         mapStyle={MAP_STYLE}
       >
-        <Marker
+        <SpotMarker
+          id={this.props.waveId}
           longitude={this.props.data.Locations[0].longitude}
           latitude={this.props.data.Locations[0].latitude}>
-          <Pin size={20} />
-        </Marker>
+        </SpotMarker>
       </ReactMapGL>
     )
   }
