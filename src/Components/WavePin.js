@@ -19,6 +19,7 @@ class Pin extends Component {
     }
     const {size = 20} = this.props;
     const waveQuality = this.props.data.Wave_Ratings_aggregate.aggregate.avg.wavequality
+    const {id, waveName, waveDirection, longitude, latitude, waveType} = this.props
     return (
       <svg
         height={size}
