@@ -21,6 +21,7 @@
     "react-mapbox-gl": "^4.4.0",
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
+    "reactjs-percentage-circle": "^1.0.0",
     "typescript": "^3.3.3333"
   },
   "scripts": {
