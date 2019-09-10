@@ -10,6 +10,7 @@ import WaveQuality from "./WaveQuality";
 import WaveHollowness from "./WaveHollowness";
 import WaveDanger from "./WaveDanger";
 import WaveLength from "./WaveLength";
+import WindAngle from "./WindAngle";
 
 const Wave = (props) => {
   if (!props.data.Waves) {
@@ -24,6 +25,7 @@ const Wave = (props) => {
       <WaveHollowness waveId={props.match.params.id} />
       <WaveDanger waveId={props.match.params.id} />
       <WaveLength waveId={props.match.params.id} />
+      <WindAngle waveId={props.match.params.id} />
     </div>
   );
 };
