@@ -2,7 +2,8 @@ import React, {Component} from "react";
 import ApolloClient from "apollo-boost";
 import {graphql} from "react-apollo";
 import gql from "graphql-tag";
-import {WAVE_DANGER} from "../utils/queries"
+import {WAVE_DANGER} from "../utils/queries";
+import PercentageCircle from './PercentageCircle';
 
 const WaveDanger = (props) => {
   const loading = props.data.loading;
@@ -12,7 +13,10 @@ const WaveDanger = (props) => {
   const waveDanger = props.data.Wave_Ratings_aggregate.aggregate.avg.wavedanger
   return (
     <div>
-      <p>The wave danger is {waveDanger}</p>
+      <PercentageCircle radius={50} percent={waveDanger}>
+        <p>Danger</p>
+        <span>{waveDanger}%</span>
+      </PercentageCircle>
     </div>
   )
 }

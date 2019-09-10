@@ -15,6 +15,7 @@ const WaveHollowness = (props) => {
     <div>
       <PercentageCircle percent={waveHollowness} radius={50}>
         <p>Hollowness</p>
+        <span>{waveHollowness}%</span>
       </PercentageCircle>
     </div>
   )

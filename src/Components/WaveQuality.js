@@ -3,6 +3,7 @@ import ApolloClient from "apollo-boost";
 import {graphql} from "react-apollo";
 import gql from "graphql-tag";
 import {WAVE_QUALITY} from "../utils/queries";
+import PercentageCircle from "./PercentageCircle";
 
 const WaveQuality = (props) => {
   const loading = props.data.loading
@@ -14,7 +15,10 @@ const WaveQuality = (props) => {
   const waveQuality = props.data.Wave_Ratings_aggregate.aggregate.avg.wavequality
   return (
     <div>
-      <p>Wave Quality Component {props.waveId} has {waveQuality} Wave Quality</p>
+      <PercentageCircle radius={50} percent={waveQuality}>
+        <p>Epicness</p>
+        <span>{waveQuality}%</span>
+      </PercentageCircle>
     </div>
   )
 };
