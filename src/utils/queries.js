@@ -11,3 +11,4 @@ export const ADD_RATING = "mutation AddRating($waveid: bigint, $wavelength: Int,
 export const FETCH_AREA_LOCATION_DATA = "query getSpotsByArea($areaName: String) { Locations(where: {area: {_eq: $areaName}}) { latitude longitude id } }"
 export const FETCH_SPOT_FROM_LOCATIONID = "query getSpotsByLocationId($locationId: Int) { Waves(where: {locationid: {_eq: $locationId}}) { name wavedirection wavetype } }"
 export const FETCH_WAVE_QUALITY = "query fetchWaveQuality($id: bigint) { Wave_Ratings_aggregate(where: {waveid: {_eq: $id}}) { aggregate { avg { wavequality } } } }"
+export const FETCH_WAVE_LENGTH = "query FetchWaveLength($id: Int) { Wave_Ratings_aggregate(where: {id: {_eq: $id}}) { aggregate { avg { wavelength } } } }"

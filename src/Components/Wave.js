@@ -9,6 +9,7 @@ import WaveMap from "./WaveMap";
 import WaveQuality from "./WaveQuality";
 import WaveHollowness from "./WaveHollowness";
 import WaveDanger from "./WaveDanger";
+import WaveLength from "./WaveLength";
 
 const Wave = (props) => {
   if (!props.data.Waves) {
@@ -22,6 +23,7 @@ const Wave = (props) => {
       <WaveQuality waveId={props.match.params.id} />
       <WaveHollowness waveId={props.match.params.id} />
       <WaveDanger waveId={props.match.params.id} />
+      <WaveLength waveId={props.match.params.id} />
     </div>
   );
 };
