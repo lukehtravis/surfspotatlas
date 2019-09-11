@@ -1,9 +1,11 @@
 import React, {Component} from "react";
 
 class Canvas extends Component {
-
+  constructor(props) {
+    super(props)
+  }
   componentDidMount() {
-    const points = this.convertNumericRange([180,270])
+    const points = this.convertNumericRange([this.props.windAngleOne,this.props.windAngleTwo])
     const canvas = this.refs.canvas
     var ctx = canvas.getContext("2d");
     ctx.beginPath();
@@ -47,6 +49,7 @@ class Canvas extends Component {
   }
 
   render() {
+    console.log("insidecanvas", this.props)
     return(
       <canvas ref="canvas" width={100} height={100} />
     )
