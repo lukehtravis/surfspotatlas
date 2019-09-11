@@ -6,17 +6,31 @@ class Canvas extends Component {
   }
   componentDidMount() {
     const points = this.convertNumericRange([this.props.windAngleOne,this.props.windAngleTwo])
+    this.drawRangeOfAttributes(points)
+    this.drawRemainingCircle(points, "blue")
+  }
+
+  drawRangeOfAttributes(arcBoundries) {
     const canvas = this.refs.canvas
     var ctx = canvas.getContext("2d");
-    ctx.beginPath();
-    ctx.arc(50, 50, 50, points[0] * Math.PI, points[1] * Math.PI);
+    ctx.arc(50, 50, 50, arcBoundries[0] * Math.PI, arcBoundries[1] * Math.PI);
+    ctx.strokeStyle = "red";
     ctx.stroke();
+  }
+
+  drawRemainingCircle(arcBoundries, color) {
+    const canvas2 = this.refs.canvas
+    let ctx2 = canvas2.getContext("2d");
+    ctx2.beginPath();
+    ctx2.arc(50, 50, 50, arcBoundries[1] * Math.PI, arcBoundries[0] * Math.PI);
+    ctx2.strokeStyle = color;
+    ctx2.stroke();
   }
 
   convertNumericRange(arrayOfArcPoints) {
     // parts of solution from https://stackoverflow.com/questions/929103/convert-a-number-range-to-another-range-maintaining-ratio
-    // Here we must convert 0 - 360 (compass degree scale) to a 0-2 (canvas radians)
-    // number scale, as well as prepare our arc to appear on the proper radius
+    // Here we must convert 0 - 360 (compass degree scale) to a 0-2 (<canvas> radians)
+    // number scale, as well as prepare our arc to appear on the proper circle
     let convertedPoints = []
     arrayOfArcPoints.map(point => {
       point = this.rotateArc(point);
@@ -27,8 +41,8 @@ class Canvas extends Component {
   }
 
   rotateArc(point) {
-    // Rotate arc starting and ending points by 90 degrees accross a 360 degree
-    // circle, if the starting or ending points are less than 90 degrees
+    // Rotate arcs' starting and ending points by 90 degrees accross a 360 degree
+    // circle...if the starting or ending points are less than 90 degrees
     // This is necessary as wind degrees are measured from zero at due north
     // (top of 2d circle plane), while the canvas element draws from the
     // right of the circle, which is due east on a compass
@@ -49,9 +63,8 @@ class Canvas extends Component {
   }
 
   render() {
-    console.log("insidecanvas", this.props)
     return(
-      <canvas ref="canvas" width={100} height={100} />
+      <canvas ref="canvas" width={105} height={105} />
     )
   }
 }
