@@ -12,7 +12,7 @@ const TideSlider = (props) => {
   const lowtide = props.data.Wave_Ratings_aggregate.aggregate.avg.lowtide
   const hightide = props.data.Wave_Ratings_aggregate.aggregate.avg.hightide
   return (
-    <Slider value={[lowtide, hightide]} valueLabelDisplay="on" getAriaValueText={(value, index) => {console.log(value, index)}} />
+    <Slider value={[lowtide, hightide]} valueLabelDisplay="on" />
   )
 }
 

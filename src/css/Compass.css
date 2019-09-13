@@ -1,0 +1,7 @@
+.compass {
+  position: relative;
+}
+
+.compass > svg, .compass > canvas {
+  position: absolute;
+}
