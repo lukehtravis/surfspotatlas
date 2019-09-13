@@ -8,6 +8,7 @@ class Canvas extends Component {
     const points = this.convertNumericRange([this.props.windAngleOne,this.props.windAngleTwo])
     this.drawRangeOfAttributes(points)
     this.drawRemainingCircle(points, "blue")
+    this.drawTextInsideCircle(this.props.windAngleOne, this.props.windAngleTwo);
   }
 
   drawRangeOfAttributes(arcBoundries) {
@@ -25,6 +26,13 @@ class Canvas extends Component {
     ctx2.arc(50, 50, 50, arcBoundries[1] * Math.PI, arcBoundries[0] * Math.PI);
     ctx2.strokeStyle = color;
     ctx2.stroke();
+  }
+
+  drawTextInsideCircle(angleOne, angleTwo) {
+    const canvas3 = this.refs.canvas
+    let ctx3 = canvas3.getContext("2d");
+    ctx3.font = "14px Arial";
+    ctx3.fillText(angleOne + " - " + angleTwo, 20, 54);
   }
 
   convertNumericRange(arrayOfArcPoints) {
