@@ -14,7 +14,7 @@ class Canvas extends Component {
   drawRangeOfAttributes(arcBoundries) {
     const canvas = this.refs.canvas
     var ctx = canvas.getContext("2d");
-    ctx.arc(50, 50, 50, arcBoundries[0] * Math.PI, arcBoundries[1] * Math.PI);
+    ctx.arc(50, 50, 48, arcBoundries[0] * Math.PI, arcBoundries[1] * Math.PI);
     ctx.strokeStyle = "red";
     ctx.stroke();
   }
@@ -23,7 +23,7 @@ class Canvas extends Component {
     const canvas2 = this.refs.canvas
     let ctx2 = canvas2.getContext("2d");
     ctx2.beginPath();
-    ctx2.arc(50, 50, 50, arcBoundries[1] * Math.PI, arcBoundries[0] * Math.PI);
+    ctx2.arc(50, 50, 48, arcBoundries[1] * Math.PI, arcBoundries[0] * Math.PI);
     ctx2.strokeStyle = color;
     ctx2.stroke();
   }
@@ -32,7 +32,7 @@ class Canvas extends Component {
     const canvas3 = this.refs.canvas
     let ctx3 = canvas3.getContext("2d");
     ctx3.font = "14px Arial";
-    ctx3.fillText(angleOne + " - " + angleTwo, 20, 54);
+    ctx3.fillText(angleOne + " - " + angleTwo, 18, 52);
   }
 
   convertNumericRange(arrayOfArcPoints) {
@@ -72,7 +72,7 @@ class Canvas extends Component {
 
   render() {
     return(
-      <canvas ref="canvas" width={105} height={105} />
+      <canvas ref="canvas" width={100} height={100} />
     )
   }
 }
