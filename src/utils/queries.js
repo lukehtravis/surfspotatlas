@@ -14,3 +14,4 @@ export const FETCH_WAVE_QUALITY = "query fetchWaveQuality($id: bigint) { Wave_Ra
 export const FETCH_WAVE_LENGTH = "query FetchWaveLength($id: Int) { Wave_Ratings_aggregate(where: {id: {_eq: $id}}) { aggregate { avg { wavelength } } } }"
 export const FETCH_WIND_ANGLES = "query FetchWindAngles($id: Int) { Wave_Ratings_aggregate(where: {waveid: {_eq: $id}}) { aggregate { avg { windangleone windangletwo } } } }"
 export const FETCH_TIDES = "query FetchTides($id: bigint) { Wave_Ratings_aggregate(where: {waveid: {_eq: $id}}) { aggregate { avg { lowtide, hightide } } } }"
+export const FETCH_CHOSEN_AREAS = "query FetchChosenAreas($listOfAreas: [Int]) { Locations(where: {id: {_in: $listOfAreas}}) { id longitude latitude area region country continent } }"
