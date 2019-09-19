@@ -31,15 +31,8 @@ const Home = (props) => {
             <header className="App-header">
               <img src={logo} className="App-logo" alt="logo" />
               <p>
-                Edit <code>src/App.js</code> and save to reload.
+                Welcome to the surf spot atlas
               </p>
-              <a
-                className="App-link"
-                href="https://reactjs.org"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-              </a>
               {props.data.Waves.map((wave) => {
                 return <div>
                           <Link to={toPath({ id: wave.id })}>{wave.name}</Link>
