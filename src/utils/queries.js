@@ -15,3 +15,4 @@ export const FETCH_WAVE_LENGTH = "query FetchWaveLength($id: Int) { Wave_Ratings
 export const FETCH_WIND_ANGLES = "query FetchWindAngles($id: Int) { Wave_Ratings_aggregate(where: {waveid: {_eq: $id}}) { aggregate { avg { windangleone windangletwo } } } }"
 export const FETCH_TIDES = "query FetchTides($id: bigint) { Wave_Ratings_aggregate(where: {waveid: {_eq: $id}}) { aggregate { avg { lowtide, hightide } } } }"
 export const FETCH_CHOSEN_AREAS = "query FetchChosenAreas($listOfAreas: [String]) { Locations(where: {area: {_in: $listOfAreas}}, order_by: {latitude: desc, area: asc}) { id longitude latitude area region country continent } }"
+export const FETCH_LOCATION_CATEGORIES = "query FetchLocationCategories { continents: Locations(distinct_on: continent) { continent } countries: Locations(distinct_on: country) { continent country } regions: Locations(distinct_on: region) { country region } areas: Locations(distinct_on: area) { region area } }"
