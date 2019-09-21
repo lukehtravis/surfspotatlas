@@ -20,9 +20,32 @@ class SearchFilters extends Component {
         [name]: value,
       });
     } else {
-      this.setState({
-        [name]: undefined
-      })
+      if (name == "continent") {
+        this.setState({
+          continent: undefined,
+          country: undefined,
+          region: undefined,
+          area: undefined
+        })
+      }
+      if (name == "country") {
+        this.setState({
+          country: undefined,
+          region: undefined,
+          area: undefined
+        })
+      }
+      if (name == "region") {
+        this.setState({
+          region: undefined,
+          area: undefined
+        })
+      }
+      if (name == "area") {
+        this.setState({
+          area: undefined
+        })
+      }
     }
   }
 
