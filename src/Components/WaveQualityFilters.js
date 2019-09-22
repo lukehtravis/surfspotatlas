@@ -1,15 +1,49 @@
-import React, {Compnent} from "react";
+import React, {Component} from "react";
 import {graphql} from "react-apollo";
 import gql from "graphql-tag";
+import Slider from '@material-ui/core/Slider';
+import {waveQualityMarks} from "../utils/labels";
 
-const WaveQualityFilters = (props) => {
 
+class WaveQualityFilters extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {}
+  }
 
-  return(
-    <div>
-      <p>Wave Quality Filters</p>
-    </div>
-  )
+  handleWaveQualityChange = (event, newValue) => {
+    this.setState({waveQuality: {low: newValue[0], high: newValue[1]}})
+  };
+
+  handleWaveDangerChange = (event, newValue) => {
+    this.setState({waveDanger: {low: newValue[0], high: newValue[1]}})
+  }
+
+  render() {
+
+    return (
+      <div>
+        <form>
+          <Slider
+            id="waveQuality"
+            marks={waveQualityMarks}
+            valueLabelDisplay="on"
+            defaultValue={[20, 80]}
+            onChange={this.handleWaveQualityChange}
+          />
+          <Slider
+            id="waveDanger"
+            marks={waveQualityMarks}
+            valueLabelDisplay="on"
+            defaultValue={[20, 80]}
+            onChange={this.handleWaveDangerChange}
+          />
+
+        </form>
+      </div>
+    )
+  }
+
 }
 
 export default WaveQualityFilters
