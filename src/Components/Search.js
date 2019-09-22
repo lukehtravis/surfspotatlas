@@ -13,7 +13,7 @@ class Search extends Component {
   render() {
     return (
       <div>
-        <SearchFilters />
+        <LocationSearchFilters />
         <SearchedSpots />
       </div>
     )
