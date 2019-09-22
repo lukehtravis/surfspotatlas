@@ -1,8 +1,10 @@
 import React, {Component} from "react";
 import {graphql} from "react-apollo";
 import gql from "graphql-tag";
-import SearchFilters from "./SearchFilters";
+import LocationSearchFilters from "./LocationSearchFilters";
 import SearchedSpots from "./SearchedSpots";
+import WaveQualityFilters from "./WaveQualityFilters";
+
 class Search extends Component {
   constructor(props) {
     super(props);
@@ -14,6 +16,7 @@ class Search extends Component {
     return (
       <div>
         <LocationSearchFilters />
+        <WaveQualityFilters />
         <SearchedSpots />
       </div>
     )
