@@ -3,6 +3,15 @@ import {graphql} from "react-apollo";
 import gql from "graphql-tag";
 import {FETCH_LOCATION_CATEGORIES} from "../utils/queries";
 
+// This component gets all Continents -> Countries -> Regions -> Areas in
+// initial apollo graphql query
+// Then stores results of query in variables that correspond to a level of the
+// location heirarchy
+// It iterates through those variables to create a resposive dropdown system,
+// which is executed in handleChange.
+// The areas that eventually get selected are sent back up to the SearchFilters component
+// via this.props.handleAreaChange(value)
+
 class LocationSearchFilters extends Component {
   constructor(props) {
     super(props);
@@ -11,9 +20,26 @@ class LocationSearchFilters extends Component {
 
   handleChange = (event) => {
     const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
-    // Logic to define state based on orientation of dropdowns
+    // We know there will never be two values for continent, country, & region,
+    // so we can set value like this for them
+    let value = target.value
+    // Users will sometimes choose multiple areas, so we use this logic to create
+    // a value array if the area dropdown is manipulated
+    if (name == "area") {
+      var options = target.options;
+      var areaVal = []
+      for (var i = 0, l = options.length; i < l; i++) {
+        if (options[i].selected) {
+          areaVal.push(options[i].value);
+        }
+      }
+      value = areaVal;
+    }
+    // Logic to define state based on orientation of dropdowns. Users are supposed
+    // to fill the dropdowns out in order, so if they reset a dropdown higher up
+    // the order (ie. continent), we need to reset the state and ui for all
+    // dropdowns below it
     if (value != "select") {
       if (name == "continent") {
         this.setState({
@@ -37,6 +63,7 @@ class LocationSearchFilters extends Component {
         });
       }
       if (name == "area") {
+        this.props.handleAreaChange(value)
         this.setState({
           [name]: value,
         });
@@ -91,12 +118,12 @@ class LocationSearchFilters extends Component {
       regions = []
     }
     if (this.state.continent && this.state.country && this.state.region) {
-      areas = areas.filter((area) => area.region == this.state.region)
+      areas = areas.filter((area) => area.region == this.state.region).map((area) => area.area);
     } else {
       areas = []
     }
     return (
-      <form>
+      <div>
         <div>
           <select name="continent" onChange={this.handleChange} >
             <option value="select">Select</option>
@@ -124,14 +151,14 @@ class LocationSearchFilters extends Component {
           </select>
         </div>
         <div>
-          <select name="area" onChange={this.handleChange} >
+          <select name="area" multiple={true} onChange={this.handleChange} >
             <option value="select">Select</option>
             {areas.map((area) => {
-              return <option value={area.area}>{area.area}</option>
+              return <option value={area}>{area}</option>
             })}
           </select>
         </div>
-      </form>
+      </div>
     )
   }
 }

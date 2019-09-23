@@ -2,8 +2,8 @@ import React, {Component} from "react";
 import {graphql} from "react-apollo";
 import gql from "graphql-tag";
 import LocationSearchFilters from "./LocationSearchFilters";
+import SearchFilters from "./SearchFilters";
 import SearchedSpots from "./SearchedSpots";
-import WaveQualityFilters from "./WaveQualityFilters";
 
 class Search extends Component {
   constructor(props) {
@@ -12,12 +12,15 @@ class Search extends Component {
 
     }
   }
+  handleSubmit = (searchFilters, event) => {
+    event.preventDefault();
+    this.setState({searchFilters})
+  }
   render() {
     return (
       <div>
-        <LocationSearchFilters />
-        <WaveQualityFilters />
-        <SearchedSpots />
+        <SearchFilters formSubmit={this.handleSubmit} />
+        <SearchedSpots filterResults={this.state} />
       </div>
     )
   }

@@ -29,14 +29,14 @@ class WaveQualityFilters extends Component {
             marks={waveQualityMarks}
             valueLabelDisplay="on"
             defaultValue={[20, 80]}
-            onChange={this.handleWaveQualityChange}
+            onChange={this.props.handleWaveQualityChange}
           />
           <Slider
             id="waveDanger"
             marks={waveQualityMarks}
             valueLabelDisplay="on"
             defaultValue={[20, 80]}
-            onChange={this.handleWaveDangerChange}
+            onChange={this.props.handleWaveDangerChange}
           />
 
         </form>
