@@ -14,7 +14,7 @@ class Search extends Component {
   }
   handleSubmit = (searchFilters, event) => {
     event.preventDefault();
-    this.setState({searchFilters})
+    this.setState(searchFilters)
   }
   render() {
     return (

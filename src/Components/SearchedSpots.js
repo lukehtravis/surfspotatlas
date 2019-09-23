@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {graphql} from "react-apollo";
 import gql from "graphql-tag";
+import {FETCH_CHOSEN_AREAS} from "../utils/queries"
 
 class SearchedSpots extends Component {
   render(){
@@ -10,4 +11,6 @@ class SearchedSpots extends Component {
   }
 }
 
-export default SearchedSpots;
+export default graphql(gql`${FETCH_CHOSEN_AREAS}`, {
+  options: (props) => {return {variables: {listOfAreas: props.filterResults.areas}}}
+})(SearchedSpots);
