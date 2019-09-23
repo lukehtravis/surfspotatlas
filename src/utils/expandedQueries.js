@@ -76,3 +76,18 @@ mutation InsertLocation($id: Int, $longitude: numeric, $latitude: numeric, $cont
     }
   }
 }
+
+query FetchSearchedSpots($searchedSpotsList: [Int], $waveQualityLow: Int, $waveQualityHigh: Int, $waveDangerLow: Int, $waveDangerHigh: Int) {
+  Waves(where: {locationid: {_in: $searchedSpotsList}}) {
+    name
+    wavedirection
+    wavetype
+    id
+    Wave_Ratings_aggregate(where: {wavequality: {_gte: $waveQualityLow, _lte: $waveQualityHigh}, wavedanger: {_gte: $waveDangerLow, _lte: $waveDangerHigh}}) {
+      nodes {
+        wavequality
+        wavedanger
+      }
+    }
+  }
+}
