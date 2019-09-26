@@ -9,16 +9,21 @@ class SearchedSpots extends Component {
     if (this.props.data.loading) {
       return "Loading"
     }
-    console.log(this.props)
+    
+    // Check if filteredResults object is empty
+    if  (!Object.keys(this.props.filterResults).length) {
+      return "No Spots Found yet";
+    }
+
     const spots = this.props.data.Locations.map(location => location.Wave.id)
     return(
       <div>
         <SearchedSpotsList
           spotId={spots}
-          waveQualityLow={this.props.filterResults.waveQualityLow}
-          waveQualityHigh={this.props.filterResults.waveQualityHigh}
-          waveDangerLow={this.props.filterResults.waveDangerLow}
-          waveDangerHigh={this.props.filterResults.waveDangerHigh}
+          waveQualityLow={this.props.filterResults.waveQuality.low}
+          waveQualityHigh={this.props.filterResults.waveQuality.high}
+          waveDangerLow={this.props.filterResults.waveDanger.low}
+          waveDangerHigh={this.props.filterResults.waveDanger.high}
         />
       </div>
     )
