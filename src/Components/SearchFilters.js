@@ -23,6 +23,7 @@ class SearchFilters extends Component {
   }
 
   handleAreaChange = (areas) => {
+    console.log("SearchFilters State", this.state);
     this.setState({areas: areas})
   }
 

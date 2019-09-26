@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {graphql} from "react-apollo";
 import gql from "graphql-tag";
-import {FETCH_CHOSEN_AREAS} from "../utils/queries";
+import {FETCH_SEARCHED_SPOTS} from "../utils/queries";
 import SearchedSpotsList from "./SearchedSpotsList";
 
 class SearchedSpots extends Component {
@@ -9,13 +9,13 @@ class SearchedSpots extends Component {
     if (this.props.data.loading) {
       return "Loading"
     }
-    
+
     // Check if filteredResults object is empty
     if  (!Object.keys(this.props.filterResults).length) {
       return "No Spots Found yet";
     }
-
-    const spots = this.props.data.Locations.map(location => location.Wave.id)
+    console.log("result of fetchsearchedspots areas", this.props);
+    const spots = this.props.data.Locations
     return(
       <div>
         <SearchedSpotsList
@@ -30,6 +30,6 @@ class SearchedSpots extends Component {
   }
 }
 
-export default graphql(gql`${FETCH_CHOSEN_AREAS}`, {
+export default graphql(gql`${FETCH_SEARCHED_SPOTS}`, {
   options: (props) => {return {variables: {listOfAreas: props.filterResults.areas}}}
 })(SearchedSpots);

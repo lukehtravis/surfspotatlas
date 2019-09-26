@@ -11,6 +11,4 @@ class SearchedSpotsList extends Component {
   }
 }
 
-export default graphql(gql`${FETCH_SEARCHED_SPOTS}`, {
-  options: (props) => {return {variables: {searchedSpotsList: props.spots, waveQualityLow: props.waveQualityLow, waveQualityHigh: props.waveQualityHigh, waveDangerLow: props.waveDangerLow, waveDangerHigh: props.waveDangerHigh}}}
-})(SearchedSpotsList);
+export default SearchedSpotsList;
