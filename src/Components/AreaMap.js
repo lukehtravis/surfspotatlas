@@ -78,7 +78,8 @@ class AreaMap extends Component {
     if (!this.props.areaSpots) {
       return "Loading"
     }
-    console.log("good stetly", this.state)
+    console.log("areamap state", this.state)
+    console.log("areamap this.props", this.props)
     return (
       <ReactMapGL
         {...this.state.viewport}

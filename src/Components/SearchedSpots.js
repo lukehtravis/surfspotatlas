@@ -3,6 +3,7 @@ import {graphql} from "react-apollo";
 import gql from "graphql-tag";
 import {FETCH_SEARCHED_SPOTS} from "../utils/queries";
 import SearchedSpotsList from "./SearchedSpotsList";
+import SearchMap from "./SearchMap";
 
 class SearchedSpots extends Component {
   render(){
@@ -30,8 +31,20 @@ class SearchedSpots extends Component {
            return spot.chosen = false
           }
       })
+    const mapMarkerInfo = spots.map(spot => {
+      return {
+        latitude: spot.latitude,
+        longitude: spot.longitude,
+        id: spot.Wave.id,
+        name: spot.Wave.name,
+        waveDirection: spot.Wave.wavedirection,
+        waveType: spot.wavetype,
+        waveQuality: spot.Wave.Wave_Ratings_aggregate.aggregate.avg.wavequality
+      }
+    })
     return(
       <div>
+        <SearchMap areaSpots={mapMarkerInfo} />
         <SearchedSpotsList
           spotId={spots}
         />

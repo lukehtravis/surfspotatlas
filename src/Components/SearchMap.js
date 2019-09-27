@@ -7,6 +7,7 @@ import Pin from "./Pin";
 import {FETCH_SPOT_FROM_LOCATIONID} from "../utils/queries";
 import SpotMarker from "./SpotMarker";
 import WavePopup from "./WavePopup";
+import SearchMapPin from "./SearchMapPin";
 
 const MAP_STYLE = 'mapbox://styles/mapbox/streets-v11';
 
@@ -38,7 +39,7 @@ class SearchMap extends Component {
   };
 
   _updateViewport = viewport => {
-
+    this.setState({viewport});
   };
 
   onMarkerDragEnd = (event) => {
@@ -50,11 +51,11 @@ class SearchMap extends Component {
   }
 
   _renderSpotMarker = (spotAttributes) => {
-    console.log("_renderSpotMarker", spotAttributes)
+    console.log("searchMap", spotAttributes)
     return (
-      <SpotMarker key={spotAttributes.id} id={spotAttributes.id} longitude={spotAttributes.longitude} pinEvent={this.pinClick} latitude={spotAttributes.latitude}>
-
-      </SpotMarker>
+      <Marker longitude={spotAttributes.longitude} latitude={spotAttributes.latitude}>
+          <SearchMapPin spotClick={this.pinClick} waveName={spotAttributes.name} waveQuality={spotAttributes.waveQualty} waveType={spotAttributes.waveType} waveDirection={spotAttributes.waveDirection} longitude={spotAttributes.longitude} latitude={spotAttributes.latitude} id={spotAttributes.id} />
+      </Marker>
     );
   }
 
@@ -78,22 +79,20 @@ class SearchMap extends Component {
 
   render() {
     const {longitude, latitude} = this.state
-    console.log("good stetly", this.state)
     return (
       <ReactMapGL
         {...this.state.viewport}
-        latitude={this.state.longitude}
-        longitude={this.state.latitude}
+        onViewportChange={(viewport) => this.setState({viewport})}
         mapboxApiAccessToken={MAPTOKEN}
         mapStyle={MAP_STYLE}
       >
         {
-          /* this.props.areaSpots.map(location => {
+          this.props.areaSpots.map(location => {
             return this._renderSpotMarker(location);
-          })*/
-          this._renderSpotMarker({longitude: this.state.longitude, latitude: this.state.latitude})
+          })
         }
         {this._renderWavePopup()}
+        <NavigationControl onViewportChange={this._updateViewport} />
       </ReactMapGL>
     )
   }
