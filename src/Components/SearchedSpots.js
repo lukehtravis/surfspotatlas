@@ -14,7 +14,7 @@ class SearchedSpots extends Component {
     if  (!Object.keys(this.props.filterResults).length) {
       return "No Spots Found yet";
     }
-    console.log("result of fetchsearchedspots areas", this.props);
+    console.log("SearchedSpos : filterResults", this.props.filterResults)
     const spots = this.props.data.Locations
     return(
       <div>
