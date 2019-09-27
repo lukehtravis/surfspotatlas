@@ -1,7 +1,8 @@
 import React, {Component} from "react";
 import {graphql} from "react-apollo";
 import gql from "graphql-tag";
-import {FETCH_SEARCHED_SPOTS} from "../utils/queries"
+import {FETCH_SEARCHED_SPOTS} from "../utils/queries";
+import SearchedSpot from "./SearchedSpot"
 
 class SearchedSpotsList extends Component {
 
@@ -23,7 +24,7 @@ class SearchedSpotsList extends Component {
     return(
       <div>
         {spots.map(spot => {
-          return <div>{spot.name} {spot.area}</div>
+          return <SearchedSpot name={spot.name} area={spot.area} direction={spot.direction} bathymetry={spot.bathymetry} quality={spot.quality} danger={spot.danger} />
         })}
       </div>
     )

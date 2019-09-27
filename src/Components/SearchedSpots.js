@@ -12,18 +12,28 @@ class SearchedSpots extends Component {
 
     // Check if filteredResults object is empty
     if  (!Object.keys(this.props.filterResults).length) {
-      return "No Spots Found yet";
+      return "Choose a few areas where you would like to look at the spots";
     }
-    console.log("SearchedSpos : filterResults", this.props.filterResults)
+    const waveQualityLow = this.props.filterResults.waveQuality.low
+    const waveQualityHigh = this.props.filterResults.waveQuality.high
+    const waveDangerLow = this.props.filterResults.waveDanger.low
+    const waveDangerHigh = this.props.filterResults.waveDanger.high
     const spots = this.props.data.Locations
+    // Add property to spot object that enumerates whether it meets the quality criteria set by filters
+    spots.map(spot => {
+      if (
+        (spot.Wave.Wave_Ratings_aggregate.aggregate.avg.wavequality >= waveQualityLow && spot.Wave.Wave_Ratings_aggregate.aggregate.avg.wavequality <= waveQualityHigh)
+        &&
+        (spot.Wave.Wave_Ratings_aggregate.aggregate.avg.wavedanger >= waveDangerLow && spot.Wave.Wave_Ratings_aggregate.aggregate.avg.wavedanger <= waveDangerHigh)) {
+           return spot.chosen = true
+          } else {
+           return spot.chosen = false
+          }
+      })
     return(
       <div>
         <SearchedSpotsList
           spotId={spots}
-          waveQualityLow={this.props.filterResults.waveQuality.low}
-          waveQualityHigh={this.props.filterResults.waveQuality.high}
-          waveDangerLow={this.props.filterResults.waveDanger.low}
-          waveDangerHigh={this.props.filterResults.waveDanger.high}
         />
       </div>
     )
