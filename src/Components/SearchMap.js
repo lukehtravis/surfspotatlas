@@ -18,9 +18,9 @@ class SearchMap extends Component {
       viewport: {
         width: "100%",
         height: 400,
-        zoom: 10,
-        longitude: 0,
-        latitude: 0
+        zoom: 5,
+        latitude: (this.props.coordAverages.latHigh + this.props.coordAverages.latLow) / 2,
+        longitude: (this.props.coordAverages.longHigh + this.props.coordAverages.longLow) / 2,
       },
       popupInfo: null
     };

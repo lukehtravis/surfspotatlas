@@ -15,6 +15,7 @@ class SearchedSpots extends Component {
     if  (!Object.keys(this.props.filterResults).length) {
       return "Choose a few areas where you would like to look at the spots";
     }
+
     const waveQualityLow = this.props.filterResults.waveQuality.low
     const waveQualityHigh = this.props.filterResults.waveQuality.high
     const waveDangerLow = this.props.filterResults.waveDanger.low
@@ -31,6 +32,9 @@ class SearchedSpots extends Component {
            return spot.chosen = false
           }
       })
+
+    let coordAverages = {}
+
     const mapMarkerInfo = spots.map(spot => {
       return {
         latitude: spot.latitude,
@@ -42,9 +46,30 @@ class SearchedSpots extends Component {
         waveQuality: spot.Wave.Wave_Ratings_aggregate.aggregate.avg.wavequality
       }
     })
+
+    for (var i = 0; i < mapMarkerInfo.length; i++) {
+      if (!Object.keys(coordAverages).length) {
+        coordAverages.latLow = mapMarkerInfo[i].latitude
+        coordAverages.latHigh = mapMarkerInfo[i].latitude
+        coordAverages.longLow = mapMarkerInfo[i].longitude
+        coordAverages.longHigh = mapMarkerInfo[i].longitude
+      }
+      if (mapMarkerInfo[i].latitude < coordAverages.latLow) {
+        coordAverages.latLow = mapMarkerInfo[i].latitude
+      }
+      if (mapMarkerInfo[i].latitude > coordAverages.latHigh) {
+        coordAverages.latHigh = mapMarkerInfo[i].latitude
+      }
+      if (mapMarkerInfo[i].longitude < coordAverages.longLow) {
+        coordAverages.longLow = mapMarkerInfo[i].longitude
+      }
+      if (mapMarkerInfo[i].longitude > coordAverages.longHigh) {
+        coordAverages.longHigh = mapMarkerInfo[i].longitude
+      }
+    }
     return(
       <div>
-        <SearchMap areaSpots={mapMarkerInfo} />
+        <SearchMap areaSpots={mapMarkerInfo} coordAverages={coordAverages} />
         <SearchedSpotsList
           spotId={spots}
         />
