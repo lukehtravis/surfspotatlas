@@ -15,16 +15,10 @@ class SpotMarker extends Component {
     if (!this.props.data.Waves) {
       return "Loading..."
     }
-    console.log(this.props.pinEvent)
     const wave = this.props.data.Waves[0]
-    console.log("spot marker", this.props)
     return (
       <Marker longitude={this.props.longitude} latitude={this.props.latitude}>
-        {!this.props.pinEvent ? (
-          <WavePin size={20} longitude={this.props.longitude} latitude={this.props.latitude} id={this.props.id} />
-        ) : (
-          <Pin size={20} spotClick={this.props.pinEvent} longitude={this.props.longitude} latitude={this.props.latitude} waveName={wave.name} waveDirection={wave.wavedirection} waveType={wave.wavetype} id={this.props.id} />
-        )}
+        <WavePin size={20} waveName={wave.name} waveDirection={wave.wavedirection} waveType={wave.wavetype} longitude={this.props.longitude} latitude={this.props.latitude} id={this.props.id} pinEvent={this.props.pinEvent} />
       </Marker>
     )
   }

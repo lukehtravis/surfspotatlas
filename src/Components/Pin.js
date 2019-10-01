@@ -13,25 +13,20 @@ const pinStyle = {
 };
 
 class Pin extends Component {
+
   render() {
-    if (this.props.data.loading) {
-      return "Loading..."
-    }
     const {size = 20} = this.props;
-    const waveQuality = this.props.data.Wave_Ratings_aggregate.aggregate.avg.wavequality
-    const {id, waveName, waveDirection, longitude, latitude, waveType} = this.props
+
     return (
       <svg
         height={size}
         viewBox="0 0 24 24"
         style={pinStyle}
-        onClick={() => this.props.spotClick({id, longitude, latitude, waveName, waveQuality, waveDirection, waveType})}
       >
         <path d={ICON}/>
       </svg>
     );
   }
 }
-export default graphql(gql`${FETCH_WAVE_QUALITY}`, {
-  options: (props) => {return {variables: {id: props.id}}}
-})(Pin)
+
+export default Pin

@@ -2,7 +2,8 @@ export const geonamesLocations = (geonamesUrl, stateObj, event) => {
   fetch(geonamesUrl)
   .then(promiseObject => promiseObject.json())
   .then(jsonObject => {
-    console.log("error", jsonObject)
+    console.log("inside geonames", event)
+    console.log("inside jsonobject", jsonObject)
     stateObj.props.onChangeCoords(event.lngLat[0], event.lngLat[1], jsonObject.geonames[1].name, jsonObject.geonames[2].name, jsonObject.geonames[3].name, jsonObject.geonames[4].name)
     stateObj
     .setState({
@@ -13,6 +14,7 @@ export const geonamesLocations = (geonamesUrl, stateObj, event) => {
     })
   })
   .catch(error => {
+    console.log(error)
     alert("try again that click failed. It doesn't always work if you've clicked on a piece of ocean. Try clicking on the nearest piece of land next to a wave")
     stateObj.setState({
       continent: "",
@@ -20,7 +22,6 @@ export const geonamesLocations = (geonamesUrl, stateObj, event) => {
       region: "",
       area: ""
     })
-    console.log(error)
   })
 }
 
