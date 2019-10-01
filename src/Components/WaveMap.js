@@ -59,11 +59,13 @@ class WaveMap extends Component {
         mapboxApiAccessToken={MAPTOKEN}
         mapStyle={MAP_STYLE}
       >
-        <SpotMarker
+        <Marker
           id={this.props.waveId}
           longitude={this.props.data.Locations[0].longitude}
-          latitude={this.props.data.Locations[0].latitude}>
-        </SpotMarker>
+          latitude={this.props.data.Locations[0].latitude}
+        >
+            <Pin />
+        </Marker>
       </ReactMapGL>
     )
   }
