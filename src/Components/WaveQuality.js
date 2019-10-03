@@ -5,22 +5,29 @@ import gql from "graphql-tag";
 import {WAVE_QUALITY} from "../utils/queries";
 import PercentageCircle from "./PercentageCircle";
 import WaveAttributeVote from "./WaveAttributeVote";
+import { useAuth0 } from "../react-auth0-wrapper";
 
 const WaveQuality = (props) => {
   const loading = props.data.loading
-  console.log("wave quality", props)
+  let userId = "";
+
   if (loading) {
     return "Loading..."
   }
 
+  const { isAuthenticated, user } = useAuth0()
   const waveQuality = props.data.Wave_Ratings_aggregate.aggregate.avg.wavequality
+  if (isAuthenticated) {
+    userId = user.sub
+  }
+
   return (
     <div>
       <PercentageCircle radius={50} percent={waveQuality}>
         <p>Epicness</p>
         <span>{waveQuality}%</span>
       </PercentageCircle>
-      <WaveAttributeVote refectch={props.data.refectch} />
+      {isAuthenticated && <WaveAttributeVote refetch={props.data.refetch} userId={userId} />}
     </div>
   )
 };

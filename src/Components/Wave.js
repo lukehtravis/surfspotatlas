@@ -4,7 +4,6 @@ import Footer from "./Footer";
 import ApolloClient from "apollo-boost";
 import { graphql } from 'react-apollo';
 import gql from "graphql-tag";
-import { useAuth0 } from "../react-auth0-wrapper";
 import {FETCH_WAVE} from "../utils/queries";
 import WaveMap from "./WaveMap";
 import WaveQuality from "./WaveQuality";
@@ -15,8 +14,6 @@ import WindAngle from "./WindAngle";
 import TideSlider from "./TideSlider";
 
 const Wave = (props) => {
-
-  const { isAuthenticated } = useAuth0();
 
   if (!props.data.Waves) {
     return "Loading"
