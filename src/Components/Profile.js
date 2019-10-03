@@ -7,7 +7,7 @@ const Profile = () => {
   if (loading || !user) {
     return "Loading...";
   }
-
+  console.log("user", user)
   return (
     <>
       <img src={user.picture} alt="Profile" />
