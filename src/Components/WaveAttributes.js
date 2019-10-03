@@ -15,16 +15,18 @@ class WaveAttributes extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    console.log("nextstate", nextState)
     if (nextState !== true) {
       return false
     }
   }
 
-  voteOnAttribute(objectName) {
-
+  voteOnAttribute = (someObject) => {
+    this.setState(someObject)
   }
 
   render() {
+    console.log("waveAttributesrender", this.state)
     return (
       <div>
         <WaveQuality waveId={this.props.waveId} voteOnAttribute={this.voteOnAttribute} />
