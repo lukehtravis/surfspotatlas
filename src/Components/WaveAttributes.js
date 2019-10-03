@@ -9,13 +9,25 @@ import TideSlider from "./TideSlider";
 class WaveAttributes extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      rerender: false
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextState !== true) {
+      return false
+    }
+  }
+
+  voteOnAttribute(objectName) {
 
   }
 
   render() {
     return (
       <div>
-        <WaveQuality waveId={this.props.waveId} />
+        <WaveQuality waveId={this.props.waveId} voteOnAttribute={this.voteOnAttribute} />
         <WaveHollowness waveId={this.props.waveId} />
         <WaveDanger waveId={this.props.waveId} />
         <WaveLength waveId={this.props.waveId} />

@@ -17,6 +17,7 @@ const WaveQuality = (props) => {
 
   const { isAuthenticated, user } = useAuth0()
   const waveQuality = props.data.Wave_Ratings_aggregate.aggregate.avg.wavequality
+
   if (isAuthenticated) {
     userId = user.sub
   }
@@ -27,7 +28,13 @@ const WaveQuality = (props) => {
         <p>Epicness</p>
         <span>{waveQuality}%</span>
       </PercentageCircle>
-      {isAuthenticated && <WaveAttributeVote refetch={props.data.refetch} userId={userId} />}
+      {isAuthenticated && (
+        <WaveAttributeVote
+          refetch={props.data.refetch}
+          userId={userId}
+          voteOnAttribute={props.voteOnAttribute}
+          sliderSettings={props.data.Wave_Ratings_aggregate.aggregate.avg}
+        />)}
     </div>
   )
 };
