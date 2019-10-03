@@ -21,7 +21,7 @@ const Wave = (props) => {
   if (!props.data.Waves) {
     return "Loading"
   }
-  console.log(isAuthenticated)
+
   return (
     <div>
       <p>Wave</p>

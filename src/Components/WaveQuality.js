@@ -4,6 +4,7 @@ import {graphql} from "react-apollo";
 import gql from "graphql-tag";
 import {WAVE_QUALITY} from "../utils/queries";
 import PercentageCircle from "./PercentageCircle";
+import WaveAttributeVote from "./WaveAttributeVote";
 
 const WaveQuality = (props) => {
   const loading = props.data.loading
@@ -19,6 +20,7 @@ const WaveQuality = (props) => {
         <p>Epicness</p>
         <span>{waveQuality}%</span>
       </PercentageCircle>
+      <WaveAttributeVote refectch={props.data.refectch} />
     </div>
   )
 };
