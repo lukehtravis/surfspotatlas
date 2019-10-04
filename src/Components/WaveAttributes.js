@@ -10,19 +10,29 @@ class WaveAttributes extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      rerender: false
+      rerender: false,
+      waveAttributes: {}
     }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    console.log("nextstate", nextState)
-    if (nextState !== true) {
+    // Should component update is set to prevent child components of WaveAttributes from re-rendering
+    // each time a user votes on one of them. The ui is designed so that WaveAttributes component
+    // will only update once user have pressed the vote button at bottom. When vote button is
+    // pressed, rerender part of state will equal true, and component will be re-rendered
+    console.log("shouldComponentUpdate rerend", nextState)
+    if (nextState.rerender !== true) {
       return false
     }
   }
 
   voteOnAttribute = (someObject) => {
-    this.setState(someObject)
+    this.setState({
+      waveAttributes: {
+        ...this.state.waveAttributes,
+        ...someObject
+      }
+    })
   }
 
   render() {
