@@ -1,4 +1,6 @@
 import React, {Component} from "react";
+import {graphql} from "react-apollo";
+import gql from "graphql-tag";
 import WaveQuality from "./WaveQuality";
 import WaveHollowness from "./WaveHollowness";
 import WaveDanger from "./WaveDanger";
@@ -6,6 +8,7 @@ import WaveLength from "./WaveLength";
 import WindAngle from "./WindAngle";
 import TideSlider from "./TideSlider";
 import { Auth0Context } from "../react-auth0-wrapper";
+import {ADD_RATING} from "../utils/queries"
 
 class WaveAttributes extends Component {
   constructor(props) {
@@ -39,7 +42,14 @@ class WaveAttributes extends Component {
   }
 
   handleVoteSubmit = (user) => {
-    console.log("vote submitted", this.state);
+    Object.keys(this.state)
+    this.props.addRating({
+      variables: {
+        waveid: this.props.waveId,
+        ...this.state.waveAttributes,
+        userid: user.sub
+      }
+    })
   }
 
   render() {
@@ -63,4 +73,6 @@ class WaveAttributes extends Component {
   }
 }
 
-export default WaveAttributes;
+export default graphql(gql`${ADD_RATING}`, {
+  name: "addRating"
+})(WaveAttributes);
