@@ -5,6 +5,7 @@ import WaveDanger from "./WaveDanger";
 import WaveLength from "./WaveLength";
 import WindAngle from "./WindAngle";
 import TideSlider from "./TideSlider";
+import { Auth0Context } from "../react-auth0-wrapper";
 
 class WaveAttributes extends Component {
   constructor(props) {
@@ -14,6 +15,8 @@ class WaveAttributes extends Component {
       waveAttributes: {}
     }
   }
+
+  static contextType = Auth0Context;
 
   shouldComponentUpdate(nextProps, nextState) {
     // Should component update is set to prevent child components of WaveAttributes from re-rendering
@@ -35,8 +38,13 @@ class WaveAttributes extends Component {
     })
   }
 
+  handleVoteSubmit = (user) => {
+    console.log("vote submitted", this.state);
+  }
+
   render() {
     console.log("waveAttributesrender", this.state)
+    const { isAuthenticated, loginWithRedirect, logout, user } = this.context
     return (
       <div>
         <WaveQuality waveId={this.props.waveId} voteOnAttribute={this.voteOnAttribute} />
@@ -45,6 +53,11 @@ class WaveAttributes extends Component {
         <WaveLength waveId={this.props.waveId} />
         <WindAngle waveId={this.props.waveId} />
         <TideSlider waveId={this.props.waveId} />
+        {isAuthenticated && (
+          <div>
+            <button onClick={() => this.handleVoteSubmit(user)}>Vote On Wave Attributes</button>
+          </div>
+        )}
       </div>
     )
   }
