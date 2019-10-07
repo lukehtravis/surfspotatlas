@@ -7,8 +7,8 @@ import PercentageCircle from './PercentageCircle';
 
 const WaveDanger = (props) => {
 
-  const waveDanger = props.waveDanger
-  
+  const waveDanger = props.attributeValue
+
   return (
     <div>
       <PercentageCircle radius={50} percent={waveDanger}>

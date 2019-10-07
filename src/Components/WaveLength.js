@@ -6,8 +6,8 @@ import gql from "graphql-tag";
 
 const WaveLength = (props) => {
 
-  const waveLength = props.waveLength
-  
+  const waveLength = props.attributeValue
+
   return(
     <div>
       <PercentageCircle radius={50} percent={waveLength} >

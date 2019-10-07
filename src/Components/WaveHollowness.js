@@ -7,7 +7,7 @@ import PercentageCircle from './PercentageCircle';
 
 const WaveHollowness = (props) => {
 
-  const waveHollowness = props.waveHollowness
+  const waveHollowness = props.attributeValue
 
   return (
     <div>

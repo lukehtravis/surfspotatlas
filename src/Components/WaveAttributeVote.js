@@ -15,21 +15,8 @@ class WaveAttributeVote extends Component {
   }
 
   render() {
-    let attributeName = "";
-    let attributeValue = 0;
-    // Here we put the keys of the iherited props into an array for two reasons
-    // 1. So that we can send a key/value property back up to the WaveAttributes component
-    // which we hope to later send off in a graphql mutation as a vote
-    // 2. Some of the Attributes represent one numeric value (waveQuality, danger)
-    // whereas some of the attributes (windangle, tide, etc) represent a range of values
-    // (high tide low tide, etc). So we use the object keys array to determine whether
-    // the attribute we are processing represents one or two values, and then act accordingly
-    const sliderSettingsKeys = Object.keys(this.props.sliderSettings).filter(indice => indice != "__typename")
-
-    if (sliderSettingsKeys.length <= 2) {
-      attributeName = sliderSettingsKeys[0]
-      attributeValue = this.props.sliderSettings[attributeName]
-    }
+    let attributeName = this.props.attributeName;
+    let attributeValue = this.props.attributeValue;
 
     return (
       <div>

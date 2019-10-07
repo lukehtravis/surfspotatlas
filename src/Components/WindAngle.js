@@ -7,9 +7,9 @@ import ReactSVG from 'react-svg';
 import "../css/Compass.css"
 
 const WindAngle = (props) => {
-  
-  const windAngleOne = props.windAngleOne
-  const windAngleTwo = props.windAngleTwo
+
+  const windAngleOne = props.attributeValue["windangleone"]
+  const windAngleTwo = props.attributeValue["windangletwo"]
 
   console.log("windangles", props, windAngleOne, windAngleTwo)
   return (

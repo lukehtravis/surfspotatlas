@@ -24,7 +24,9 @@ class WaveAttributes extends Component {
 
   static contextType = Auth0Context;
 
-
+  getAttributeName = (waveStatsObject, waveAttributeName) => {
+    return Object.keys(waveStatsObject).find(key => waveStatsObject[key] === waveAttributeName);
+  };
 
 /*  componentDidUpdate(prevProps, prevState) {
     // This re-sets the re-render command to false after the user submits their
@@ -68,12 +70,12 @@ class WaveAttributes extends Component {
     console.log("waveDetails", waveStats)
     return (
       <div>
-        <WaveQuality waveId={this.props.waveId} voteOnAttribute={this.voteOnAttribute} waveQuality={waveStats.wavequality} />
-        <WaveHollowness waveId={this.props.waveId} waveHollowness={waveStats.wavehollowness} />
-        <WaveDanger waveId={this.props.waveId} waveDanger={waveStats.wavedanger} />
-        <WaveLength waveId={this.props.waveId} waveLength={waveStats.wavelength} />
-        <WindAngle waveId={this.props.waveId} windAngleOne={waveStats.windangleone} windAngleTwo={waveStats.windangletwo} />
-        <TideSlider waveId={this.props.waveId} />
+        <WaveQuality voteOnAttribute={this.voteOnAttribute} attributeValue={waveStats.wavequality} attributeName="wavequality" />
+        <WaveHollowness attributeValue={waveStats.wavehollowness} attributeName="wavehollowness" />
+        <WaveDanger attributeValue={waveStats.wavedanger} attributeName="wavedanger" />
+        <WaveLength attributeValue={waveStats.wavelength} attributeName="wavelength" />
+        <WindAngle attributeValue={{"windangleone": waveStats.windangleone, "windangletwo": waveStats.windangletwo}} attributeName={["windangleone", "windangleone"]} />
+        <TideSlider />
         {isAuthenticated && (
           <div>
             <button onClick={() => this.handleVoteSubmit(user)}>Vote On Wave Attributes</button>

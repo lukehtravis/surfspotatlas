@@ -11,7 +11,7 @@ const WaveQuality = (props) => {
 
   let userId = "";
   const { isAuthenticated, user } = useAuth0()
-  const waveQuality = props.waveQuality
+  const waveQuality = props.attributeValue
 
   if (isAuthenticated) {
     userId = user.sub
@@ -25,7 +25,6 @@ const WaveQuality = (props) => {
       </PercentageCircle>
       {isAuthenticated && (
         <WaveAttributeVote
-          refetch={props.data.refetch}
           userId={userId}
           voteOnAttribute={props.voteOnAttribute}
           sliderSettings={waveQuality}
