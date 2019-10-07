@@ -7,12 +7,10 @@ import ReactSVG from 'react-svg';
 import "../css/Compass.css"
 
 const WindAngle = (props) => {
-  const loading = props.data.loading
-  if (loading) {
-    return "Loading..."
-  }
-  const windAngleOne = props.data.Wave_Ratings_aggregate.aggregate.avg.windangleone
-  const windAngleTwo = props.data.Wave_Ratings_aggregate.aggregate.avg.windangletwo
+  
+  const windAngleOne = props.windAngleOne
+  const windAngleTwo = props.windAngleTwo
+
   console.log("windangles", props, windAngleOne, windAngleTwo)
   return (
     <div className="compass">
@@ -28,6 +26,4 @@ const WindAngle = (props) => {
   )
 }
 
-export default graphql(gql`${FETCH_WIND_ANGLES}`, {
-  options: (props) => {return {variables: {id: props.waveId}}}
-})(WindAngle);
+export default (WindAngle);

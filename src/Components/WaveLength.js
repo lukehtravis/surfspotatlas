@@ -5,10 +5,9 @@ import {graphql} from "react-apollo";
 import gql from "graphql-tag";
 
 const WaveLength = (props) => {
-  if (props.data.loading) {
-    return "Loading..."
-  }
-  const waveLength = props.data.Wave_Ratings_aggregate.aggregate.avg.wavelength
+
+  const waveLength = props.waveLength
+  
   return(
     <div>
       <PercentageCircle radius={50} percent={waveLength} >
@@ -19,6 +18,4 @@ const WaveLength = (props) => {
   )
 }
 
-export default graphql(gql`${FETCH_WAVE_LENGTH}`, {
-  options: (props) => {return {variables: {id: props.waveId}}}
-})(WaveLength)
+export default WaveLength

@@ -8,15 +8,10 @@ import WaveAttributeVote from "./WaveAttributeVote";
 import { useAuth0 } from "../react-auth0-wrapper";
 
 const WaveQuality = (props) => {
-  const loading = props.data.loading
+
   let userId = "";
-
-  if (loading) {
-    return "Loading..."
-  }
-
   const { isAuthenticated, user } = useAuth0()
-  const waveQuality = props.data.Wave_Ratings_aggregate.aggregate.avg.wavequality
+  const waveQuality = props.waveQuality
 
   if (isAuthenticated) {
     userId = user.sub
@@ -33,12 +28,10 @@ const WaveQuality = (props) => {
           refetch={props.data.refetch}
           userId={userId}
           voteOnAttribute={props.voteOnAttribute}
-          sliderSettings={props.data.Wave_Ratings_aggregate.aggregate.avg}
+          sliderSettings={waveQuality}
         />)}
     </div>
   )
 };
 
-export default graphql(gql`${WAVE_QUALITY}`, {
-  options: (props) => {return {variables: {id: props.waveId}}}
-})(WaveQuality)
+export default WaveQuality

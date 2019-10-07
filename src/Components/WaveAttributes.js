@@ -64,15 +64,15 @@ class WaveAttributes extends Component {
       return "Loading.."
     }
     const { isAuthenticated, loginWithRedirect, logout, user } = this.context
-    const waveDetails = this.props.FetchWaveAttributes.Waves[0].Wave_Ratings_aggregate.aggregate.avg
-    console.log("waveDetails", waveDetails)
+    const waveStats = this.props.FetchWaveAttributes.Waves[0].Wave_Ratings_aggregate.aggregate.avg
+    console.log("waveDetails", waveStats)
     return (
       <div>
-        <WaveQuality waveId={this.props.waveId} voteOnAttribute={this.voteOnAttribute} />
-        <WaveHollowness waveId={this.props.waveId} />
-        <WaveDanger waveId={this.props.waveId} />
-        <WaveLength waveId={this.props.waveId} />
-        <WindAngle waveId={this.props.waveId} />
+        <WaveQuality waveId={this.props.waveId} voteOnAttribute={this.voteOnAttribute} waveQuality={waveStats.wavequality} />
+        <WaveHollowness waveId={this.props.waveId} waveHollowness={waveStats.wavehollowness} />
+        <WaveDanger waveId={this.props.waveId} waveDanger={waveStats.wavedanger} />
+        <WaveLength waveId={this.props.waveId} waveLength={waveStats.wavelength} />
+        <WindAngle waveId={this.props.waveId} windAngleOne={waveStats.windangleone} windAngleTwo={waveStats.windangletwo} />
         <TideSlider waveId={this.props.waveId} />
         {isAuthenticated && (
           <div>

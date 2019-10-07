@@ -6,11 +6,9 @@ import {WAVE_DANGER} from "../utils/queries";
 import PercentageCircle from './PercentageCircle';
 
 const WaveDanger = (props) => {
-  const loading = props.data.loading;
-  if (loading) {
-    return "Loading..."
-  }
-  const waveDanger = props.data.Wave_Ratings_aggregate.aggregate.avg.wavedanger
+
+  const waveDanger = props.waveDanger
+  
   return (
     <div>
       <PercentageCircle radius={50} percent={waveDanger}>
@@ -21,6 +19,4 @@ const WaveDanger = (props) => {
   )
 }
 
-export default graphql(gql`${WAVE_DANGER}`, {
-  options: (props) => {return {variables: {id: props.waveId}}}
-})(WaveDanger)
+export default WaveDanger
