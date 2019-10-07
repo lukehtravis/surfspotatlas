@@ -27,7 +27,8 @@ const WaveQuality = (props) => {
         <WaveAttributeVote
           userId={userId}
           voteOnAttribute={props.voteOnAttribute}
-          sliderSettings={waveQuality}
+          attributeValue={waveQuality}
+          attributeName={props.attributeName}
         />)}
     </div>
   )

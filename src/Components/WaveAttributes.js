@@ -55,7 +55,7 @@ class WaveAttributes extends Component {
         ...this.state.waveAttributes,
         userid: user.sub
       },
-      refetchQueries: () => [{ query: gql`${FETCH_WAVE}`, variables: {id: this.props.waveId} }]
+      refetchQueries: () => [{ query: gql`${FETCH_WAVE_ATTRIBUTES}`, variables: {id: this.props.waveId} }]
     }).then((graphqlObject) => {
       console.log("arrive at thennable", graphqlObject)
     })
