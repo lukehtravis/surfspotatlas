@@ -24,18 +24,7 @@ class WaveAttributes extends Component {
 
   static contextType = Auth0Context;
 
-  shouldComponentUpdate(nextProps, nextState) {
-    // Should component update is set to prevent child components of WaveAttributes from re-rendering
-    // each time a user votes on one of them. The ui is designed so that WaveAttributes component
-    // will only update once user have pressed the vote button at bottom. When vote button is
-    // pressed, rerender part of state will equal true, and component will be re-rendered
-    console.log("shouldComponentUpdate rerend", nextState)
-    if (nextState.rerender !== true) {
-      return false
-    } else {
-      return true
-    }
-  }
+
 
 /*  componentDidUpdate(prevProps, prevState) {
     // This re-sets the re-render command to false after the user submits their
@@ -71,8 +60,12 @@ class WaveAttributes extends Component {
   }
 
   render() {
-    console.log("waveAttributesrender", this.state)
+    if (this.props.FetchWaveAttributes.loading) {
+      return "Loading.."
+    }
     const { isAuthenticated, loginWithRedirect, logout, user } = this.context
+    const waveDetails = this.props.FetchWaveAttributes.Waves[0].Wave_Ratings_aggregate.aggregate.avg
+    console.log("waveDetails", waveDetails)
     return (
       <div>
         <WaveQuality waveId={this.props.waveId} voteOnAttribute={this.voteOnAttribute} />
@@ -92,11 +85,11 @@ class WaveAttributes extends Component {
 }
 
 export default compose(
-  graphql(gql`${ADD_RATING}`, {
-    name: "addRating"
-  }),
   graphql(gql`${FETCH_WAVE_ATTRIBUTES}`, {
     options: (props) => {return {variables: {id: props.waveId}}},
-    name: 'FetchWaveAttributes',
+    name: "FetchWaveAttributes"
+  }),
+  graphql(gql`${ADD_RATING}`, {
+    name: "addRating"
   })
 )(WaveAttributes);
