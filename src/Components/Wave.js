@@ -13,12 +13,12 @@ const Wave = (props) => {
   if (!props.data.Waves) {
     return "Loading"
   }
-
+  console.log("wave renders", props)
   return (
     <div>
       <p>Wave</p>
       <WaveMap waveId={props.match.params.id} locationId={props.data.Waves[0].locationid} />
-      <WaveAttributes waveId={props.match.params.id} />
+      <WaveAttributes waveId={Number(props.match.params.id)} refetch={props.data.refetch} />
     </div>
   );
 };
