@@ -9,13 +9,8 @@ import { useAuth0 } from "../react-auth0-wrapper";
 
 const WaveQuality = (props) => {
 
-  let userId = "";
   const { isAuthenticated, user } = useAuth0()
   const waveQuality = props.attributeValue
-
-  if (isAuthenticated) {
-    userId = user.sub
-  }
 
   return (
     <div>
@@ -25,9 +20,8 @@ const WaveQuality = (props) => {
       </PercentageCircle>
       {isAuthenticated && (
         <WaveAttributeVote
-          userId={userId}
           voteOnAttribute={props.voteOnAttribute}
-          attributeValue={waveQuality}
+          attributeValue={props.attributeValue}
           attributeName={props.attributeName}
         />)}
     </div>

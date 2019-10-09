@@ -74,7 +74,7 @@ class WaveAttributes extends Component {
         <WaveHollowness attributeValue={waveStats.wavehollowness} attributeName="wavehollowness" />
         <WaveDanger attributeValue={waveStats.wavedanger} attributeName="wavedanger" />
         <WaveLength attributeValue={waveStats.wavelength} attributeName="wavelength" />
-        <WindAngle attributeValue={{"windangleone": waveStats.windangleone, "windangletwo": waveStats.windangletwo}} attributeName={["windangleone", "windangleone"]} />
+        <WindAngle voteOnAttribute={this.voteOnAttribute} attributeValue={[waveStats.windangleone, waveStats.windangletwo]} attributeName={["windangleone", "windangletwo"]} />
         <TideSlider />
         {isAuthenticated && (
           <div>

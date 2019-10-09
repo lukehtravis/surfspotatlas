@@ -28,3 +28,7 @@
   top: 37%;
   left: -32%;
 }
+
+.compass .wind-angle {
+  position: relative;
+}
