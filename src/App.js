@@ -8,6 +8,10 @@ import Profile from "./Components/Profile";
 import PrivateRoute from "./Components/PrivateRoute";
 import Wave from "./Components/Wave";
 import Area from "./Components/Area";
+import Amplify, { Auth } from 'aws-amplify';
+import awsconfig from './aws-exports';
+Amplify.configure(awsconfig);
+console.log("awsconfig", awsconfig)
 
 class App extends Component {
   render() {

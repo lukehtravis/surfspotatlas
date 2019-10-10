@@ -1,0 +1,19 @@
+{
+    "spotatlas": {
+        "awscloudformation": {
+            "AuthRoleName": "surfspotatlas-spotatlas-20191009154547-authRole",
+            "UnauthRoleArn": "arn:aws:iam::084572728152:role/surfspotatlas-spotatlas-20191009154547-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::084572728152:role/surfspotatlas-spotatlas-20191009154547-authRole",
+            "Region": "us-west-2",
+            "DeploymentBucketName": "surfspotatlas-spotatlas-20191009154547-deployment",
+            "UnauthRoleName": "surfspotatlas-spotatlas-20191009154547-unauthRole",
+            "StackName": "surfspotatlas-spotatlas-20191009154547",
+            "StackId": "arn:aws:cloudformation:us-west-2:084572728152:stack/surfspotatlas-spotatlas-20191009154547/8adeddb0-eae6-11e9-ba18-024a7c148296"
+        },
+        "categories": {
+            "auth": {
+                "surfspotatlas478bd5f4": {}
+            }
+        }
+    }
+}
