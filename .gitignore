@@ -23,6 +23,7 @@ yarn-debug.log*
 yarn-error.log*
 
 src/utils/firebaseconfig.json
+src/firebase.json
 
 #amplify
 amplify/\#current-cloud-backend
