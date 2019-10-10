@@ -7,13 +7,12 @@ import gql from "graphql-tag";
 import {FETCH_WAVE} from "../utils/queries";
 import WaveMap from "./WaveMap";
 import WaveAttributes from "./WaveAttributes";
-
 const Wave = (props) => {
 
   if (!props.data.Waves) {
     return "Loading"
   }
-  console.log("wave renders", props)
+
   return (
     <div>
       <p>Wave</p>
