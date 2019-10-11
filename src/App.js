@@ -8,15 +8,6 @@ import Profile from "./Components/Profile";
 import PrivateRoute from "./Components/PrivateRoute";
 import Wave from "./Components/Wave";
 import Area from "./Components/Area";
-import fbcfg from "./utils/firebaseconfig"
-const firebase = require("firebase");
-// Required for side-effects
-require("firebase/firestore");
-// Initialize Cloud Firestore through Firebase
-
-firebase.initializeApp(fbcfg);
-
-var firestore = firebase.firestore();
 
 class App extends Component {
   render() {

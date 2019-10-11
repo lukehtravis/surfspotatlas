@@ -8,6 +8,7 @@ import * as serviceWorker from './serviceWorker';
 import {BrowserRouter} from 'react-router-dom';
 import { Auth0Provider } from "./react-auth0-wrapper";
 import config from "./utils/auth-config.json";
+import Firebase, { FirebaseContext } from './Components/Firebase';
 
 const client = new ApolloClient({
   uri: "https://surf-spot-check.herokuapp.com/v1alpha1/graphql"
@@ -34,7 +35,9 @@ ReactDOM.render(
         redirect_uri={window.location.origin}
         onRedirectCallback={onRedirectCallback}
       >
-        <App />
+        <FirebaseContext.Provider value={new Firebase()}>
+          <App />
+        </FirebaseContext.Provider>
       </Auth0Provider>
     </BrowserRouter>
   </ApolloProvider>,
