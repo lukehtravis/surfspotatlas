@@ -22,7 +22,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-src/utils/firebaseconfig.json
+src/utils/firebaseconfig.js
 src/firebase.json
 
 #amplify

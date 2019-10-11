@@ -8,21 +8,15 @@ import Profile from "./Components/Profile";
 import PrivateRoute from "./Components/PrivateRoute";
 import Wave from "./Components/Wave";
 import Area from "./Components/Area";
+import fbcfg from "./utils/firebaseconfig"
 const firebase = require("firebase");
 // Required for side-effects
 require("firebase/firestore");
 // Initialize Cloud Firestore through Firebase
-firebase.initializeApp({
-  apiKey: "AIzaSyAIwOaeqXqiJNqm_C5yvO_cWmm48fBiQNU",
-  authDomain: "surfspotatlas.firebaseapp.com",
-  projectId: "surfspotatlas",
-  storageBucket: "surfspotatlas.appspot.com",
-  storageBucket: "surfspotatlas.appspot.com",
-  messagingSenderId: "348127454502",
-  appId: "1:348127454502:web:4870568f0f2bab6da2cde7"
-});
 
-var db = firebase.firestore();
+firebase.initializeApp(fbcfg);
+
+var firestore = firebase.firestore();
 
 class App extends Component {
   render() {
