@@ -7,7 +7,7 @@ import ApolloClient from "apollo-boost";
 import * as serviceWorker from './serviceWorker';
 import {BrowserRouter} from 'react-router-dom';
 import { Auth0Provider } from "./react-auth0-wrapper";
-import config from "./auth-config.json";
+import config from "./utils/auth-config.json";
 
 const client = new ApolloClient({
   uri: "https://surf-spot-check.herokuapp.com/v1alpha1/graphql"
