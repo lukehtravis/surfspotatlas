@@ -9,12 +9,11 @@ class UserImages extends Component {
   }
 
   render(){
-    console.log("fb", this.props.context)
     return (
       <FirebaseContext.Consumer>
         {firebase => (
           <div>
-            <WaveImageUploader firebase={firebase} />
+            <WaveImageUploader firebase={firebase.firebase_} />
           </div>
         )}
       </FirebaseContext.Consumer>
