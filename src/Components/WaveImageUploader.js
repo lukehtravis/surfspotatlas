@@ -5,9 +5,9 @@ class WaveImageUploader extends Component {
     super(props);
   }
   render(){
-    var ref = this.props.firebase.storage().ref()
-    const refs = ref.child("/").listAll()
-    console.log(refs)
+    const {region, area, country} = this.props.location
+    const firebaseBucket = this.props.firebase.storage().ref();
+    //let imageUrl = storageRef.child(`${region}`/mountains.jpg');
     return(
       <div>
         Wave Image Uploader

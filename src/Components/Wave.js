@@ -7,7 +7,7 @@ import gql from "graphql-tag";
 import {FETCH_WAVE} from "../utils/queries";
 import WaveMap from "./WaveMap";
 import WaveAttributes from "./WaveAttributes";
-import UserImages from "./UserImages";
+import WaveImagesSection from "./WaveImagesSection";
 
 const Wave = (props) => {
 
@@ -15,12 +15,14 @@ const Wave = (props) => {
     return "Loading"
   }
 
+  const locationId = props.data.Waves[0].locationid;
+
   return (
     <div>
       <p>Wave</p>
-      <WaveMap waveId={props.match.params.id} locationId={props.data.Waves[0].locationid} />
+      <WaveMap waveId={props.match.params.id} locationId={locationId} />
       <WaveAttributes waveId={Number(props.match.params.id)} refetch={props.data.refetch} />
-      <UserImages />
+      <WaveImagesSection locationId={locationId} />
     </div>
   );
 };
