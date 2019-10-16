@@ -32,6 +32,7 @@ class WaveAttributeVote extends Component {
     // and represent the slider value that they have already chosen.
 
     if (Array.isArray(newValue)) {
+      // Checks if newValue is an Array
       // We make this check because some attributes (like wind and tide) have 2 values
       // while others (like quality and hollowness) only have 1
       const value1 = {[attributeName[0]]: newValue[0]}

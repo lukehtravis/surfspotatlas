@@ -5,6 +5,7 @@ import {FETCH_LOCATION} from "../utils/queries";
 import {FirebaseContext} from "./Firebase";
 import WaveImageGallery from "./WaveImageGallery";
 import WaveImageUploader from "./WaveImageUploader";
+import { Auth0Context } from "../react-auth0-wrapper";
 
 class WaveImagesSection extends Component {
   constructor(props) {
@@ -12,11 +13,14 @@ class WaveImagesSection extends Component {
 
   }
 
+  static contextType = Auth0Context;
+
   render(){
     if (!this.props.data.Locations) {
       return "Loading"
     }
 
+    const { isAuthenticated, user } = this.context
     const waveLocationDetails = this.props.data.Locations[0];
 
     return (
@@ -24,7 +28,9 @@ class WaveImagesSection extends Component {
         {firebase => (
           <div>
             <WaveImageGallery firebase={firebase.firebase_} location={waveLocationDetails} />
-            <WaveImageUploader firebase={firebase.firebase_} location={waveLocationDetails} />
+            
+              <WaveImageUploader firebase={firebase.firebase_} location={waveLocationDetails} user={user} />
+
           </div>
         )}
       </FirebaseContext.Consumer>
