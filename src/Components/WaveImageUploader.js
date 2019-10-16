@@ -83,7 +83,7 @@ class WaveImageUploader extends Component {
               name: snapshot.metadata.name,
               url: finalStorageUrl,
               type: snapshot.metadata.contentType,
-              creator: "somebodySpecial"
+              creator: this.props.user
             }
           }).then(returnedGraphql => {
             console.log(returnedGraphql)
