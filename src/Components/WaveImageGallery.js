@@ -12,17 +12,6 @@ class WaveImageGallery extends Component {
     }
   }
 
-  componentWillMount() {
-    const {continent, country, region, area, id, name} = this.props.location
-    const firebaseFolderPath = `${continent}/${country}/${region}/${area}/${this.props.waveName}`
-    var ref = this.props.firebase.storage().ref()
-    const refs = ref.child(firebaseFolderPath)
-    // Find all the prefixes and items.
-    let imageUrls = []
-
-  }
-
-
   render() {
     if (this.props.data.loading) {
       return "Loading..."

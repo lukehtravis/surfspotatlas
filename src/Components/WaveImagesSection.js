@@ -8,10 +8,6 @@ import WaveImageUploader from "./WaveImageUploader";
 import { Auth0Context } from "../react-auth0-wrapper";
 
 class WaveImagesSection extends Component {
-  constructor(props) {
-    super(props);
-
-  }
 
   static contextType = Auth0Context;
 
@@ -27,10 +23,8 @@ class WaveImagesSection extends Component {
       <FirebaseContext.Consumer>
         {firebase => (
           <div>
-            <WaveImageGallery firebase={firebase.firebase_} location={waveLocationDetails} waveName={this.props.waveName} waveId={this.props.id} />
-
-              <WaveImageUploader firebase={firebase.firebase_} location={waveLocationDetails} user={user} waveName={this.props.waveName} />
-
+            <WaveImageGallery firebase={firebase.firebase_} location={waveLocationDetails} waveName={this.props.waveName} waveId={this.props.waveId} />
+            <WaveImageUploader firebase={firebase.firebase_} location={waveLocationDetails} user={user} waveName={this.props.waveName} waveId={this.props.waveId} />
           </div>
         )}
       </FirebaseContext.Consumer>
