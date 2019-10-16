@@ -28,8 +28,8 @@ class WaveImagesSection extends Component {
         {firebase => (
           <div>
             <WaveImageGallery firebase={firebase.firebase_} location={waveLocationDetails} />
-            
-              <WaveImageUploader firebase={firebase.firebase_} location={waveLocationDetails} user={user} />
+
+              <WaveImageUploader firebase={firebase.firebase_} location={waveLocationDetails} user={user} waveName={this.props.waveName} />
 
           </div>
         )}

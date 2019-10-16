@@ -1,10 +1,26 @@
 import React, {Component} from "react";
+import {graphql} from "react-apollo";
+import gql from "graphql-tag";
 import Popup from "reactjs-popup";
 import Dropzone from 'react-dropzone';
+import {FIREBASE_BUCKET} from "../utils/constants";
+import {INSERT_WAVE_IMAGE} from "../utils/queries";
+
+/*
+
+External API's used:
+https://firebase.google.com/docs/storage/web/create-reference
+https://firebase.google.com/docs/storage/web/upload-files
+https://developer.mozilla.org/en-US/docs/Web/API/File
+https://github.com/react-dropzone/react-dropzone
+
+*/
 
 class WaveImageUploader extends Component {
-  // Logged in users can drag and drop photos from their computer into the interface
-  // Photos will have db fields : userid, datecreated (timestamp), url (in firebase)
+  // Logged in users can drag and drop photos from their computer into the Dropzone component
+  // Photos will then be submitted. Once submitted, the photos can will be uploaded to firestore
+  // Once each photo is uploaded to firestore, its' url will be returned, and then a database entry will be
+  // created for it in the wavePhotos table
   constructor(props) {
     super(props);
     this.state = {
@@ -14,17 +30,21 @@ class WaveImageUploader extends Component {
   }
 
   fileUpload = (filesUploaded) => {
-
+    // This function triggers after users upload photos into the Dropzone
+    // It gets a list  of properties from uploaded images :: lastModifiedDate, name, path, size, type
+    // Then, it uses the File js api to create an arrayBuffer (binary blob)
+    // which represents the data of the image which we want to store
+    // Once that blob has been created, it is added to the component state
     filesUploaded.forEach(file => {
       const reader = new FileReader()
       reader.readAsArrayBuffer(file)
       reader.onabort = () => console.log('file reading was aborted')
       reader.onerror = () => console.log('file reading has failed')
       reader.onload = () => {
-        // Do whatever you want with the file contents
+        // onload triggers once FileReader.readAsArrayBuffer finished succesfully
         const binaryStr = reader.result
+        // attaches binary back as property of uploaded image object (file)
         file.binary = binaryStr
-        console.log("filesUploaded", filesUploaded)
         this.setState({
           filename: [...this.state.filename, ...filesUploaded]
         })
@@ -33,34 +53,66 @@ class WaveImageUploader extends Component {
   }
 
   submitPhotos = () => {
-    var storageRef = this.props.firebase.storage().ref();
-
-    // Create a reference to 'mountains.jpg'
-
-    this.state.filename.map(file => {
-      var childRef = storageRef.child(file.name);
-      /*
-        lastModified: 1531876000395
-        lastModifiedDate: Tue Jul 17 2018 18:06:40 GMT-0700 (Pacific Daylight Time) {}
-        name: "black and white kitten small.jpg"
-        path: "black and white kitten small.jpg"
-        size: 109718
-        type: "image/jpeg"
-      */
+    // This function is triggered when a user presses the submit button, after
+    // they have uploaded photos to the dropzone.
+    // It creates a reference to our firestore property, and then sends each
+    // image off to our firebase bucket.
+    const {continent, country, region, area, id, name} = this.props.location
+    let storageRef = this.props.firebase.storage().ref();
+    // Putting this.props.insertWaveImage in variable is necessary to avoid conflicting this declaration in put callback below
+    const insertImageMutation = this.props.insertWaveImage
+    this.state.filename.map((file) => {
+      let childRef = storageRef.child(`${continent}/${country}/${region}/${area}/${this.props.waveName}/${file.name}`);
       var file = new File([file.binary], file.name, {
         type: file.type,
       });
-      childRef.put(file).then(function(snapshot) {
+      childRef.put(file).then((snapshot) => {
         console.log('Uploaded a blob or file!', snapshot);
+        insertImageMutation({
+          variables: {
+            waveid: 45,
+            name: snapshot.metadata.name,
+            url: snapshot.metadata.fullPath,
+            type: snapshot.metadata.contentType,
+            creator: "somebodySpecial"
+          }
+        }).then(returnedGraphql => {
+          console.log(returnedGraphql)
+        })
+        /*
+        metadata:
+          bucket: "surfspotatlas.appspot.com"
+          cacheControl: undefined
+          contentDisposition: "inline; filename*=utf-8''cats%20carolling.jpg"
+          contentEncoding: "identity"
+          contentLanguage: undefined
+          contentType: "image/jpeg"
+          customMetadata: undefined
+          fullPath: "North America/Mexico/Oaxaca/Bw Posada Real Pt Es/Puerto Escondido/cats carolling.jpg"
+          generation: "1571188757946773"
+          md5Hash: "4pA9+dp/aPBPpzKiGDIMdA=="
+          metageneration: "1"
+          name: "cats carolling.jpg"
+          size: 106860
+          timeCreated: "2019-10-16T01:19:17.946Z"
+          type: "file"
+          updated: "2019-10-16T01:19:17.946Z"
+        state: "success"
+
+        gql fields
+          waveid,
+          name,
+          url,
+          type,
+          creator,
+        */
+
       });
     })
   }
 
   render(){
-    const {region, area, country} = this.props.location
-    const firebaseBucket = this.props.firebase.storage().ref();
-    //let imageUrl = storageRef.child(`${region}`/mountains.jpg');
-    console.log(this.state.user, this.state.filename);
+
     return(
       <div>
         <Popup trigger={<button>Choose Photos</button>} position="right center">
@@ -81,4 +133,6 @@ class WaveImageUploader extends Component {
   }
 }
 
-export default WaveImageUploader;
+export default graphql(gql`${INSERT_WAVE_IMAGE}`, {
+  name: "insertWaveImage"
+})(WaveImageUploader);
