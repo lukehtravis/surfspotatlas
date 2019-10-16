@@ -7,6 +7,13 @@ import WaveImageGallery from "./WaveImageGallery";
 import WaveImageUploader from "./WaveImageUploader";
 import { Auth0Context } from "../react-auth0-wrapper";
 
+/*
+  In this component, the FirebaseContext.Consumer is summoned
+  (instantiated in Index.js -- we use the Provide - Consumer Context component so firebase is only initiated once through the entire app)
+  It is passed down to both
+
+*/
+
 class WaveImagesSection extends Component {
 
   static contextType = Auth0Context;
@@ -15,7 +22,7 @@ class WaveImagesSection extends Component {
     if (!this.props.data.Locations) {
       return "Loading"
     }
-
+    console.log("refetcher", this.props.data)
     const { isAuthenticated, user } = this.context
     const waveLocationDetails = this.props.data.Locations[0];
 

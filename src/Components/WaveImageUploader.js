@@ -17,7 +17,7 @@ https://github.com/react-dropzone/react-dropzone
 
 class WaveImageUploader extends Component {
   // Logged in users can drag and drop photos from their computer into the Dropzone component
-  // Photos will then be submitted. Once submitted, the photos can will be uploaded to firestore
+  // Photos will then be submitted. Once submitted, the photos will be uploaded to firestore
   // Once each photo is uploaded to firestore, its' url will be returned, and then a database entry will be
   // created for it in the wavePhotos table
   constructor(props) {
@@ -30,7 +30,7 @@ class WaveImageUploader extends Component {
 
   fileUpload = (filesUploaded) => {
     // This function triggers after users upload photos into the Dropzone
-    // It gets a list  of properties from uploaded images :: lastModifiedDate, name, path, size, type
+    // It gets a list (array of objects)  of properties from uploaded images :: lastModifiedDate, name, path, size, type
     // Then, it uses the File js api to create an arrayBuffer (binary blob)
     // which represents the data of the image which we want to store
     // Once that blob has been created, it is added to the component state
@@ -60,14 +60,16 @@ class WaveImageUploader extends Component {
     // image off to our firebase bucket.
     const {continent, country, region, area, id, name} = this.props.location
     let storageRef = this.props.firebase.storage().ref();
-    // Putting this.props.insertWaveImage in variable is necessary to avoid conflicting this declaration in put callback below
+    // Putting this.props.insertWaveImage in variable is necessary to avoid conflicting this declaration in put.() callback below
     const insertImageMutation = this.props.insertWaveImage
     this.state.filename.map((file) => {
       let childRef = storageRef.child(`${continent}/${country}/${region}/${area}/${this.props.waveName}/${file.name}`);
+      // using the js File Api to turn our binary data into something we can transfer to firebase
       var file = new File([file.binary], file.name, {
         type: file.type,
       });
 
+      // use the firebase .put() function to send to google firebase storage bucket
       childRef.put(file).then((snapshot) => {
         // storageRef.child('images/stars.jpg').getDownloadURL().then(function(url) {
         let finalStorageUrl = "";
@@ -87,36 +89,6 @@ class WaveImageUploader extends Component {
             console.log(returnedGraphql)
           })
         })
-
-
-        /*
-        metadata:
-          bucket: "surfspotatlas.appspot.com"
-          cacheControl: undefined
-          contentDisposition: "inline; filename*=utf-8''cats%20carolling.jpg"
-          contentEncoding: "identity"
-          contentLanguage: undefined
-          contentType: "image/jpeg"
-          customMetadata: undefined
-          fullPath: "North America/Mexico/Oaxaca/Bw Posada Real Pt Es/Puerto Escondido/cats carolling.jpg"
-          generation: "1571188757946773"
-          md5Hash: "4pA9+dp/aPBPpzKiGDIMdA=="
-          metageneration: "1"
-          name: "cats carolling.jpg"
-          size: 106860
-          timeCreated: "2019-10-16T01:19:17.946Z"
-          type: "file"
-          updated: "2019-10-16T01:19:17.946Z"
-        state: "success"
-
-        gql fields
-          waveid,
-          name,
-          url,
-          type,
-          creator,
-        */
-
       });
     })
   }
