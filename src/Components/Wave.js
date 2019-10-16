@@ -16,14 +16,15 @@ const Wave = (props) => {
   }
 
   const locationId = props.data.Waves[0].locationid;
-  const waveName =  props.data.Waves[0].name
+  const waveName =  props.data.Waves[0].name;
+  const waveId = props.data.Waves[0].id;
 
   return (
     <div>
       <p>Wave</p>
       <WaveMap waveId={props.match.params.id} locationId={locationId} />
       <WaveAttributes waveId={Number(props.match.params.id)} refetch={props.data.refetch} />
-      <WaveImagesSection locationId={locationId} waveName={waveName} />
+      <WaveImagesSection locationId={locationId} waveName={waveName} waveId={waveId} />
     </div>
   );
 };

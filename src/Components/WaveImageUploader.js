@@ -3,7 +3,6 @@ import {graphql} from "react-apollo";
 import gql from "graphql-tag";
 import Popup from "reactjs-popup";
 import Dropzone from 'react-dropzone';
-import {FIREBASE_BUCKET} from "../utils/constants";
 import {INSERT_WAVE_IMAGE} from "../utils/queries";
 
 /*
@@ -66,19 +65,28 @@ class WaveImageUploader extends Component {
       var file = new File([file.binary], file.name, {
         type: file.type,
       });
+
       childRef.put(file).then((snapshot) => {
-        console.log('Uploaded a blob or file!', snapshot);
-        insertImageMutation({
-          variables: {
-            waveid: 45,
-            name: snapshot.metadata.name,
-            url: snapshot.metadata.fullPath,
-            type: snapshot.metadata.contentType,
-            creator: "somebodySpecial"
-          }
-        }).then(returnedGraphql => {
-          console.log(returnedGraphql)
+        // storageRef.child('images/stars.jpg').getDownloadURL().then(function(url) {
+        let finalStorageUrl = "";
+        snapshot.ref.getDownloadURL().then(function(url) {
+          finalStorageUrl = url
+        }).then(url => {
+          console.log('Uploaded a blob or file!', snapshot);
+          insertImageMutation({
+            variables: {
+              waveid: 45,
+              name: snapshot.metadata.name,
+              url: finalStorageUrl,
+              type: snapshot.metadata.contentType,
+              creator: "somebodySpecial"
+            }
+          }).then(returnedGraphql => {
+            console.log(returnedGraphql)
+          })
         })
+
+
         /*
         metadata:
           bucket: "surfspotatlas.appspot.com"

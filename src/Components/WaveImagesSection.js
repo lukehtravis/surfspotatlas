@@ -27,7 +27,7 @@ class WaveImagesSection extends Component {
       <FirebaseContext.Consumer>
         {firebase => (
           <div>
-            <WaveImageGallery firebase={firebase.firebase_} location={waveLocationDetails} />
+            <WaveImageGallery firebase={firebase.firebase_} location={waveLocationDetails} waveName={this.props.waveName} waveId={this.props.id} />
 
               <WaveImageUploader firebase={firebase.firebase_} location={waveLocationDetails} user={user} waveName={this.props.waveName} />
 
