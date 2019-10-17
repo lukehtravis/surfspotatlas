@@ -5,10 +5,12 @@ import logo from '../logo.svg';
 import '../App.css';
 import ApolloClient from "apollo-boost";
 import { graphql } from 'react-apollo';
+import HomeHero from "./HomeHero";
 import Header from "./Header";
 import NavBar from "./NavBar"
 import {Link} from "react-router-dom";
 import {ALL_WAVES} from "../utils/queries";
+
 const pathToRegexp = require('path-to-regexp');
 
 const Home = (props) => {
@@ -28,6 +30,7 @@ const Home = (props) => {
     return (
         <Fragment>
           <div className="App">
+            <HomeHero />
             <header className="App-header">
               <img src={logo} className="App-logo" alt="logo" />
               <p>

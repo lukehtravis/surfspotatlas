@@ -124,9 +124,11 @@ export default function NavBar() {
               open={open}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>
-                <Link to="/profile">Profile</Link>
-              </MenuItem>
+              {isAuthenticated && ("Log In") && (
+                <MenuItem onClick={handleClose}>
+                  <Link to="/profile">Profile</Link>
+                </MenuItem>
+              )}
               <MenuItem onClick={handleLoginClose}>
                 {!isAuthenticated && ("Log In")}
                 {isAuthenticated && ("Log Out")}

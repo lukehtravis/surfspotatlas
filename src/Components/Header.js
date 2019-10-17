@@ -10,7 +10,6 @@ class Header extends Component {
     return (
       <div>
         <NavBar />
-        <p>Surf Spot Atlas</p>
       </div>
     )
   }
