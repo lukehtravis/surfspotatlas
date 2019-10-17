@@ -1,30 +1,140 @@
-import React from "react";
-import { useAuth0 } from "../react-auth0-wrapper";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import {Link} from "react-router-dom";
-import SpotMenu from "./SpotMenu/SpotMenu";
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormGroup from '@material-ui/core/FormGroup';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+import { useAuth0 } from "../react-auth0-wrapper";
 
-const NavBar = () => {
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+  },
+}));
+
+export default function NavBar() {
+  const classes = useStyles();
+  //const [auth, setAuth] = React.useState(true);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorElPrimary, setAnchorElPrimary] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const openPrimary = Boolean(anchorElPrimary);
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
   const { loading, user } = useAuth0();
 
-  if (loading) {
-    return "Loading Login Button...";
+  const handleChange = event => {
+    //setAuth(event.target.checked);
+  };
+
+  const handleMenuClick = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePrimaryMenuClick = event => {
+    setAnchorElPrimary(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleClosePrimary = () => {
+    setAnchorElPrimary(null);
   }
+
+  const handleLoginClose = () => {
+    if (!isAuthenticated) {
+      loginWithRedirect({})
+    } else {
+      logout()
+    }
+  };
+
   return (
-    <div>
-      <span>
-        <Link to="/">Home</Link>
-        <Link to="/profile">Profile</Link>
-        <Link to="/AddSpot">Add Spot</Link>
-        <Link to="/Area/San Diego">San Diego</Link>
-        <Link to="/Search">Search</Link>
-        <Link to="/profile">Profile</Link>
-      </span>
-      {!isAuthenticated && (<button onClick={() => loginWithRedirect({})}>Log in</button>)}
-      {isAuthenticated && <button onClick={() => logout()}>Log out</button>}
-      <SpotMenu />
+    <div className={classes.root}>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton edge="start" onClick={handlePrimaryMenuClick} className={classes.menuButton} color="inherit" aria-haspopup="true" aria-controls="primary-menu" aria-label="primary-menu">
+            <MenuIcon />
+          </IconButton>
+          <Menu
+           id="primary-menu"
+           anchorEl={anchorElPrimary}
+           anchorOrigin={{
+             vertical: 'top',
+             horizontal: 'right',
+           }}
+           keepMounted
+           transformOrigin={{
+             vertical: 'top',
+             horizontal: 'right',
+           }}
+           open={Boolean(anchorElPrimary)}
+           onClose={handleClosePrimary}
+          >
+            <MenuItem onClick={handleClose}>
+              <Link to="/AddSpot">Add Spot</Link>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+              <Link to="/Area/San Diego">San Diego</Link>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+              <Link to="/Search">Search</Link>
+            </MenuItem>
+          </Menu>
+          <Typography variant="h6" className={classes.title}>
+            The Surf Spot Atlas
+          </Typography>
+          <div>
+            <IconButton
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleMenuClick}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={open}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleClose}>
+                <Link to="/profile">Profile</Link>
+              </MenuItem>
+              <MenuItem onClick={handleLoginClose}>
+                {!isAuthenticated && ("Log In")}
+                {isAuthenticated && ("Log Out")}
+              </MenuItem>
+            </Menu>
+          </div>
+        </Toolbar>
+      </AppBar>
     </div>
   );
-};
-
-export default NavBar;
+}
