@@ -7,7 +7,8 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import {FETCH_LOCATION_CATEGORIES} from "../utils/queries";
 import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import ListItemText from '@material-ui/core/ListItemText';
 import Select from '@material-ui/core/Select';
@@ -41,6 +42,7 @@ const styles = theme => ({
     margin: theme.spacing(1),
     minWidth: 120,
     maxWidth: 300,
+    marginTop: 16
   },
   chips: {
     display: 'flex',
@@ -51,6 +53,7 @@ const styles = theme => ({
   }
 });
 
+// Used for Area Multi-Select Input
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -70,27 +73,9 @@ class LocationSearchFilters extends Component {
 
   handleChange = (event) => {
     const target = event.target;
-    console.log("target", target, "event", event)
-    console.log("state", this.state);
-
     const name = target.name;
-    // We know there will never be two values for continent, country, & region,
-    // so we can set value like this for them
-    console.log("name", name);
-    let value = target.value;
-    // Users will sometimes choose multiple areas, so we use this logic to create
-    // a value array if the area dropdown is manipulated
-    /*if (name == "area") {
-      var options = target.options;
-      var areaVal = []
-      for (var i = 0, l = options.length; i < l; i++) {
-        if (options[i].selected) {
-          areaVal.push(options[i].value);
-        }
-      }
-      value = areaVal;
-    }*/
-    console.log("value,", value)
+    const value = target.value;
+
     // Logic to define state based on orientation of dropdowns. Users are supposed
     // to fill the dropdowns out in order, so if they reset a dropdown higher up
     // the order (ie. continent), we need to reset the state and ui for all
@@ -179,9 +164,9 @@ class LocationSearchFilters extends Component {
     } else {
       areas = []
     }
-    console.log("areas", areas)
+
     return (
-      <div>
+      <div className="location-search-inputs">
         <div>
           <TextField
             id="continent"
@@ -267,13 +252,13 @@ class LocationSearchFilters extends Component {
           </TextField>
         </div>
         <div>
-          <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="select-multiple-chip">Chip</InputLabel>
+          <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel htmlFor="select-multiple-chip">Area</InputLabel>
             <Select
               multiple
               value={this.state.area ? this.state.area : []}
               onChange={this.handleChange}
-              input={<Input id="area" />}
+              input={<OutlinedInput id="area" />}
               renderValue={selected => (
                 <div className={classes.chips}>
                   {selected.map(value => (
@@ -293,6 +278,7 @@ class LocationSearchFilters extends Component {
                 </MenuItem>
               ))}
             </Select>
+            <FormHelperText>Choose Areas</FormHelperText>
           </FormControl>
         </div>
       </div>

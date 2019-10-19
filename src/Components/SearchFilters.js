@@ -27,7 +27,6 @@ class SearchFilters extends Component {
   }
 
   render() {
-    console.log("SearchFilters State", this.state);
     return (
       <div>
         <form>

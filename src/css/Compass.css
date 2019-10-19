@@ -32,3 +32,9 @@
 .compass .wind-angle {
   position: relative;
 }
+
+/* LocationSearchFilters */
+
+.location-search-inputs {
+  display: flex;
+}
