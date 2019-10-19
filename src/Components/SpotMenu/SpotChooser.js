@@ -41,12 +41,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function SpotChooser() {
   const classes = useStyles();
-  const [values, setValues] = React.useState({
-    name: 'Cat in the Hat',
-    age: '',
-    multiline: 'Controlled',
-    currency: 'EUR',
-  });
+  const [values, setValues] = React.useState({});
 
   const handleChange = name => event => {
     setValues({ ...values, [name]: event.target.value });

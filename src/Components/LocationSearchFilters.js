@@ -1,7 +1,17 @@
 import React, {Component} from "react";
+import SpotChooser from "./SpotMenu/SpotChooser";
 import {graphql} from "react-apollo";
 import gql from "graphql-tag";
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
 import {FETCH_LOCATION_CATEGORIES} from "../utils/queries";
+import FormControl from '@material-ui/core/FormControl';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import ListItemText from '@material-ui/core/ListItemText';
+import Select from '@material-ui/core/Select';
+import Chip from '@material-ui/core/Chip';
 
 // This component gets all Continents -> Countries -> Regions -> Areas in
 // initial apollo graphql query
@@ -12,6 +22,46 @@ import {FETCH_LOCATION_CATEGORIES} from "../utils/queries";
 // The areas that eventually get selected are sent back up to the SearchFilters component
 // via this.props.handleAreaChange(value)
 
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+  },
+  dense: {
+    marginTop: theme.spacing(2),
+  },
+  menu: {
+    width: 200,
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+    maxWidth: 300,
+  },
+  chips: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  chip: {
+    margin: 2,
+  }
+});
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
 class LocationSearchFilters extends Component {
   constructor(props) {
     super(props);
@@ -20,13 +70,17 @@ class LocationSearchFilters extends Component {
 
   handleChange = (event) => {
     const target = event.target;
+    console.log("target", target, "event", event)
+    console.log("state", this.state);
+
     const name = target.name;
     // We know there will never be two values for continent, country, & region,
     // so we can set value like this for them
-    let value = target.value
+    console.log("name", name);
+    let value = target.value;
     // Users will sometimes choose multiple areas, so we use this logic to create
     // a value array if the area dropdown is manipulated
-    if (name == "area") {
+    /*if (name == "area") {
       var options = target.options;
       var areaVal = []
       for (var i = 0, l = options.length; i < l; i++) {
@@ -35,12 +89,13 @@ class LocationSearchFilters extends Component {
         }
       }
       value = areaVal;
-    }
+    }*/
+    console.log("value,", value)
     // Logic to define state based on orientation of dropdowns. Users are supposed
     // to fill the dropdowns out in order, so if they reset a dropdown higher up
     // the order (ie. continent), we need to reset the state and ui for all
     // dropdowns below it
-    if (value != "select") {
+    if (value != "unchosen") {
       if (name == "continent") {
         this.setState({
           [name]: value,
@@ -99,9 +154,11 @@ class LocationSearchFilters extends Component {
   }
 
   render() {
+
     if (!this.props.data.continents) {
       return "Loading..."
     }
+    const { classes } = this.props;
     // Store props in seperate vars to avoid mutating state (props) directly
     let continents = this.props.data.continents;
     let countries = this.props.data.countries;
@@ -122,45 +179,125 @@ class LocationSearchFilters extends Component {
     } else {
       areas = []
     }
+    console.log("areas", areas)
     return (
       <div>
         <div>
-          <select name="continent" onChange={this.handleChange} >
-            <option value="select">Select</option>
-            {continents.map((continent) => {
-              return <option onClick={this.handleChange} value={continent.continent}>{continent.continent}</option>
-            })}
-          </select>
+          <TextField
+            id="continent"
+            select
+            label="Select"
+            className={classes.textField}
+            value={this.state.continent}
+            SelectProps={{
+              MenuProps: {
+                className: classes.menu,
+              },
+            }}
+            helperText="Select A Continent"
+            margin="normal"
+            variant="outlined"
+            name="continent"
+            onChange={this.handleChange}
+          >
+            <MenuItem key="select" value="unchosen">
+              Select
+            </MenuItem>
+            {continents.map(option => (
+              <MenuItem key={option.continent} value={option.continent}>
+                {option.continent}
+              </MenuItem>
+            ))}
+          </TextField>
         </div>
         <div>
-          <select name="country" onChange={this.handleChange} >
-            <option value="select">Select</option>
-            {
-              countries.map((country) => {
-                return <option value={country.country}>{country.country}</option>
-              })
-            }
-          </select>
+          <TextField
+            id="country"
+            select
+            label="Select"
+            className={classes.textField}
+            value={this.state.country}
+            SelectProps={{
+              MenuProps: {
+                className: classes.menu,
+              },
+            }}
+            helperText="Select A Country"
+            margin="normal"
+            variant="outlined"
+            name="country"
+            onChange={this.handleChange}
+          >
+            <MenuItem key="select" value="unchosen">
+              Select
+            </MenuItem>
+            {countries.map(option => (
+              <MenuItem key={option.country} value={option.country}>
+                {option.country}
+              </MenuItem>
+            ))}
+          </TextField>
         </div>
         <div>
-          <select name="region" onChange={this.handleChange} >
-            <option value="select">Select</option>
-            {regions.map((region) => {
-              return <option value={region.region}>{region.region}</option>
-            })}
-          </select>
+          <TextField
+            id="region"
+            select
+            label="Select"
+            className={classes.textField}
+            value={this.state.region}
+            SelectProps={{
+              MenuProps: {
+                className: classes.menu,
+              },
+            }}
+            helperText="Select A Country"
+            margin="normal"
+            variant="outlined"
+            name="region"
+            onChange={this.handleChange}
+          >
+            <MenuItem key="select" value="unchosen">
+              Select
+            </MenuItem>
+            {regions.map(option => (
+              <MenuItem key={option.region} value={option.region}>
+                {option.region}
+              </MenuItem>
+            ))}
+          </TextField>
         </div>
         <div>
-          <select name="area" multiple={true} onChange={this.handleChange} >
-            <option value="select">Select</option>
-            {areas.map((area) => {
-              return <option value={area}>{area}</option>
-            })}
-          </select>
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="select-multiple-chip">Chip</InputLabel>
+            <Select
+              multiple
+              value={this.state.area ? this.state.area : []}
+              onChange={this.handleChange}
+              input={<Input id="area" />}
+              renderValue={selected => (
+                <div className={classes.chips}>
+                  {selected.map(value => (
+                    <Chip key={value} label={value} className={classes.chip} />
+                  ))}
+                </div>
+              )}
+              name="area"
+              MenuProps={MenuProps}
+            >
+              <MenuItem key="select" value="unchosen">
+                Select
+              </MenuItem>
+              {areas.map(option => (
+                <MenuItem key={option} value={option} >
+                  {option}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </div>
       </div>
     )
   }
 }
 
-export default graphql(gql`${FETCH_LOCATION_CATEGORIES}`)(LocationSearchFilters);
+export default withStyles(styles)(graphql(gql`${FETCH_LOCATION_CATEGORIES}`)(LocationSearchFilters));

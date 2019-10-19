@@ -3,7 +3,7 @@ import {graphql} from "react-apollo";
 import gql from "graphql-tag";
 import LocationSearchFilters from "./LocationSearchFilters";
 import WaveQualityFilters from "./WaveQualityFilters";
-import SearchedSpots from "./SearchedSpots"
+import SearchedSpots from "./SearchedSpots";
 
 
 class SearchFilters extends Component {
@@ -23,11 +23,11 @@ class SearchFilters extends Component {
   }
 
   handleAreaChange = (areas) => {
-    console.log("SearchFilters State", this.state);
     this.setState({areas: areas})
   }
 
   render() {
+    console.log("SearchFilters State", this.state);
     return (
       <div>
         <form>
