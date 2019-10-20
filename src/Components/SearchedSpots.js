@@ -13,7 +13,7 @@ class SearchedSpots extends Component {
 
     // Check if filteredResults object is empty
     if  (!Object.keys(this.props.filterResults).length) {
-      return "Choose a few areas where you would like to look at the spots";
+      return "";
     }
 
     const waveQualityLow = this.props.filterResults.waveQuality.low

@@ -14,7 +14,13 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   metaGrid: {
-    marginTop: theme.spacing(5),
+    marginTop: theme.spacing(2),
+  },
+  topSpacing: {
+    marginTop: theme.spacing(2)
+  },
+  slider: {
+    paddingTop: theme.spacing(4)
   }
 })
 
@@ -31,8 +37,11 @@ class WaveQualityFilters extends Component {
     const {defaultValue} = this.state
     return (
       <div>
+        <Typography className={classes.topSpacing}>
+          Narrow your search to just the right waves
+        </Typography>
         <Grid container justify="space-around" alignItems="center" className={classes.metaGrid} >
-          <Grid item xs={5}>
+          <Grid item xs={11}>
             <Typography gutterBottom>
               Wave Quality
             </Typography>
@@ -44,7 +53,7 @@ class WaveQualityFilters extends Component {
               onChange={this.props.handleWaveQualityChange}
             />
           </Grid>
-          <Grid item xs={5}>
+          <Grid item xs={11} className={classes.slider}>
             <Typography gutterBottom>
               Wave Danger
             </Typography>
