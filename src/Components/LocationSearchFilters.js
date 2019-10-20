@@ -31,8 +31,9 @@ const styles = theme => ({
     flexWrap: 'wrap',
   },
   textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
+    marginLeft: theme.spacing(0),
+    marginRight: theme.spacing(0),
+    width: "100%"
   },
   dense: {
     marginTop: theme.spacing(2),
@@ -41,10 +42,10 @@ const styles = theme => ({
     width: 200,
   },
   formControl: {
-    margin: theme.spacing(1),
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
     minWidth: 120,
-    maxWidth: 300,
-    marginTop: 16
+    width: "100%",
   },
   chips: {
     display: 'flex',
@@ -173,8 +174,8 @@ class LocationSearchFilters extends Component {
         <Typography className={classes.dense}>
           Choose the areas you would like to explore
         </Typography>
-        <Grid container justify="space-evenly" >
-          <Grid item>
+        <Grid container justify="space-between">
+          <Grid item xs={5}>
             <div>
               <TextField
                 id="continent"
@@ -203,6 +204,8 @@ class LocationSearchFilters extends Component {
                 ))}
               </TextField>
             </div>
+          </Grid>
+          <Grid item xs={5}>
             <div>
               <TextField
                 id="country"
@@ -232,7 +235,7 @@ class LocationSearchFilters extends Component {
               </TextField>
             </div>
           </Grid>
-          <Grid item>
+          <Grid item xs={5}>
             <div>
               <TextField
                 id="region"
@@ -245,7 +248,7 @@ class LocationSearchFilters extends Component {
                     className: classes.menu,
                   },
                 }}
-                helperText="Select A Country"
+                helperText="Select A Region"
                 margin="normal"
                 variant="outlined"
                 name="region"
@@ -261,6 +264,8 @@ class LocationSearchFilters extends Component {
                 ))}
               </TextField>
             </div>
+          </Grid>
+          <Grid item xs={5}>
             <div>
               <FormControl variant="outlined" className={classes.formControl}>
                 <InputLabel htmlFor="select-multiple-chip">Area</InputLabel>
