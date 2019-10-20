@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import LocationSearchFilters from "./LocationSearchFilters";
 import WaveQualityFilters from "./WaveQualityFilters";
 import SearchedSpots from "./SearchedSpots";
+import Grid from '@material-ui/core/Grid';
 
 // This component get information from the WaveQualityFilters component whenever
 // a user changes one of the form inputs, and stores it in local state so that
@@ -34,11 +35,17 @@ class SearchFilters extends Component {
 
   render() {
     return (
-      <div>
+      <div className="MuiToolbar-gutters">
         <form>
-          <LocationSearchFilters handleAreaChange={this.handleAreaChange} />
-          <WaveQualityFilters handleWaveQualityChange={this.handleWaveQualityChange} handleWaveDangerChange={this.handleWaveDangerChange} />
-          <button onClick={(event) => this.props.formSubmit(this.state, event)} />
+          <Grid container>
+            <Grid item xs={6}>
+              <LocationSearchFilters handleAreaChange={this.handleAreaChange} />
+            </Grid>
+            <Grid item xs={6}>
+              <WaveQualityFilters handleWaveQualityChange={this.handleWaveQualityChange} handleWaveDangerChange={this.handleWaveDangerChange} />
+            </Grid>
+          </Grid>
+            <button onClick={(event) => this.props.formSubmit(this.state, event)} />
         </form>
       </div>
     )

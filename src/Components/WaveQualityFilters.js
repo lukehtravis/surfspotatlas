@@ -2,8 +2,9 @@ import React, {Component} from "react";
 import {graphql} from "react-apollo";
 import gql from "graphql-tag";
 import Slider from '@material-ui/core/Slider';
-import {waveQualityMarks} from "../utils/labels";
+import {waveQualityMarks, waveDangerMarks} from "../utils/labels";
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 
 // This component provides an interface for users to set filters on the types of
@@ -13,7 +14,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   metaGrid: {
-    marginTop: theme.spacing(5)
+    marginTop: theme.spacing(5),
   }
 })
 
@@ -32,20 +33,24 @@ class WaveQualityFilters extends Component {
       <div>
         <Grid container justify="space-around" alignItems="center" className={classes.metaGrid} >
           <Grid item xs={5}>
+            <Typography gutterBottom>
+              Wave Quality
+            </Typography>
             <Slider
               id="waveQuality"
               name="waveQuality"
               marks={waveQualityMarks}
-              valueLabelDisplay="on"
               defaultValue={defaultValue}
               onChange={this.props.handleWaveQualityChange}
             />
           </Grid>
           <Grid item xs={5}>
+            <Typography gutterBottom>
+              Wave Danger
+            </Typography>
             <Slider
               id="waveDanger"
-              marks={waveQualityMarks}
-              valueLabelDisplay="on"
+              marks={waveDangerMarks}
               defaultValue={defaultValue}
               onChange={this.props.handleWaveDangerChange}
             />

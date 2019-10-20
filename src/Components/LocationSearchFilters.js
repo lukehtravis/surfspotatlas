@@ -11,7 +11,9 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import ListItemText from '@material-ui/core/ListItemText';
+import Grid from "@material-ui/core/Grid";
 import Select from '@material-ui/core/Select';
+import Typography from "@material-ui/core/Typography";
 import Chip from '@material-ui/core/Chip';
 
 // This component gets all Continents -> Countries -> Regions -> Areas in
@@ -53,7 +55,8 @@ const styles = theme => ({
   }
 });
 
-// Used for Area Multi-Select Input
+// Used for Area Multi-Select Input. Keeps height from expanding too much
+// when users select many areas
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -166,121 +169,130 @@ class LocationSearchFilters extends Component {
     }
 
     return (
-      <div className="location-search-inputs">
-        <div>
-          <TextField
-            id="continent"
-            select
-            label="Select"
-            className={classes.textField}
-            value={this.state.continent}
-            SelectProps={{
-              MenuProps: {
-                className: classes.menu,
-              },
-            }}
-            helperText="Select A Continent"
-            margin="normal"
-            variant="outlined"
-            name="continent"
-            onChange={this.handleChange}
-          >
-            <MenuItem key="select" value="unchosen">
-              Select
-            </MenuItem>
-            {continents.map(option => (
-              <MenuItem key={option.continent} value={option.continent}>
-                {option.continent}
-              </MenuItem>
-            ))}
-          </TextField>
-        </div>
-        <div>
-          <TextField
-            id="country"
-            select
-            label="Select"
-            className={classes.textField}
-            value={this.state.country}
-            SelectProps={{
-              MenuProps: {
-                className: classes.menu,
-              },
-            }}
-            helperText="Select A Country"
-            margin="normal"
-            variant="outlined"
-            name="country"
-            onChange={this.handleChange}
-          >
-            <MenuItem key="select" value="unchosen">
-              Select
-            </MenuItem>
-            {countries.map(option => (
-              <MenuItem key={option.country} value={option.country}>
-                {option.country}
-              </MenuItem>
-            ))}
-          </TextField>
-        </div>
-        <div>
-          <TextField
-            id="region"
-            select
-            label="Select"
-            className={classes.textField}
-            value={this.state.region}
-            SelectProps={{
-              MenuProps: {
-                className: classes.menu,
-              },
-            }}
-            helperText="Select A Country"
-            margin="normal"
-            variant="outlined"
-            name="region"
-            onChange={this.handleChange}
-          >
-            <MenuItem key="select" value="unchosen">
-              Select
-            </MenuItem>
-            {regions.map(option => (
-              <MenuItem key={option.region} value={option.region}>
-                {option.region}
-              </MenuItem>
-            ))}
-          </TextField>
-        </div>
-        <div>
-          <FormControl variant="outlined" className={classes.formControl}>
-            <InputLabel htmlFor="select-multiple-chip">Area</InputLabel>
-            <Select
-              multiple
-              value={this.state.area ? this.state.area : []}
-              onChange={this.handleChange}
-              input={<OutlinedInput id="area" />}
-              renderValue={selected => (
-                <div className={classes.chips}>
-                  {selected.map(value => (
-                    <Chip key={value} label={value} className={classes.chip} />
-                  ))}
-                </div>
-              )}
-              name="area"
-              MenuProps={MenuProps}
-            >
-              <MenuItem key="select" value="unchosen">
-                Select
-              </MenuItem>
-              {areas.map(option => (
-                <MenuItem key={option} value={option} >
-                  {option}
+      <div>
+        <Typography className={classes.dense}>
+          Choose the areas you would like to explore
+        </Typography>
+        <Grid container justify="space-evenly" >
+          <Grid item>
+            <div>
+              <TextField
+                id="continent"
+                select
+                label="Select"
+                className={classes.textField}
+                value={this.state.continent}
+                SelectProps={{
+                  MenuProps: {
+                    className: classes.menu,
+                  },
+                }}
+                helperText="Select A Continent"
+                margin="normal"
+                variant="outlined"
+                name="continent"
+                onChange={this.handleChange}
+              >
+                <MenuItem key="select" value="unchosen">
+                  Select
                 </MenuItem>
-              ))}
-            </Select>
-            <FormHelperText>Choose Areas</FormHelperText>
-          </FormControl>
-        </div>
+                {continents.map(option => (
+                  <MenuItem key={option.continent} value={option.continent}>
+                    {option.continent}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </div>
+            <div>
+              <TextField
+                id="country"
+                select
+                label="Select"
+                className={classes.textField}
+                value={this.state.country}
+                SelectProps={{
+                  MenuProps: {
+                    className: classes.menu,
+                  },
+                }}
+                helperText="Select A Country"
+                margin="normal"
+                variant="outlined"
+                name="country"
+                onChange={this.handleChange}
+              >
+                <MenuItem key="select" value="unchosen">
+                  Select
+                </MenuItem>
+                {countries.map(option => (
+                  <MenuItem key={option.country} value={option.country}>
+                    {option.country}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </div>
+          </Grid>
+          <Grid item>
+            <div>
+              <TextField
+                id="region"
+                select
+                label="Select"
+                className={classes.textField}
+                value={this.state.region}
+                SelectProps={{
+                  MenuProps: {
+                    className: classes.menu,
+                  },
+                }}
+                helperText="Select A Country"
+                margin="normal"
+                variant="outlined"
+                name="region"
+                onChange={this.handleChange}
+              >
+                <MenuItem key="select" value="unchosen">
+                  Select
+                </MenuItem>
+                {regions.map(option => (
+                  <MenuItem key={option.region} value={option.region}>
+                    {option.region}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </div>
+            <div>
+              <FormControl variant="outlined" className={classes.formControl}>
+                <InputLabel htmlFor="select-multiple-chip">Area</InputLabel>
+                <Select
+                  multiple
+                  value={this.state.area ? this.state.area : []}
+                  onChange={this.handleChange}
+                  input={<OutlinedInput id="area" />}
+                  renderValue={selected => (
+                    <div className={classes.chips}>
+                      {selected.map(value => (
+                        <Chip key={value} label={value} className={classes.chip} />
+                      ))}
+                    </div>
+                  )}
+                  name="area"
+                  MenuProps={MenuProps}
+                >
+                  <MenuItem key="select" value="unchosen">
+                    Select
+                  </MenuItem>
+                  {areas.map(option => (
+                    <MenuItem key={option} value={option} >
+                      {option}
+                    </MenuItem>
+                  ))}
+                </Select>
+                <FormHelperText>Choose Areas</FormHelperText>
+              </FormControl>
+            </div>
+          </Grid>
+        </Grid>
       </div>
     )
   }
