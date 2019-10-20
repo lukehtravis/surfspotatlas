@@ -21,7 +21,6 @@ class SearchFilters extends Component {
   // We must use a different function for each wave attribute because material ui
   // doesnt send information about which thing was clicked through the event handdler
   handleWaveQualityChange = (event, newValue) => {
-    console.log(event.target)
     this.setState({waveQuality: {low: newValue[0], high: newValue[1]}})
   };
 

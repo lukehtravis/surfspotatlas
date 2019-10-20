@@ -9,12 +9,18 @@ class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      
+
     }
   }
   handleSubmit = (searchFilters, event) => {
     event.preventDefault();
     console.log("searchFilters", searchFilters)
+    if (searchFilters.waveDanger == undefined) {
+      searchFilters.waveDanger = {low: 1, high: 100}
+    }
+    if (searchFilters.waveQuality == undefined) {
+      searchFilters.waveQuality = {low: 1, high: 100}
+    }
     this.setState(searchFilters)
   }
   render() {
