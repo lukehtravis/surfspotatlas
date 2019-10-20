@@ -9,11 +9,12 @@ class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      
     }
   }
   handleSubmit = (searchFilters, event) => {
     event.preventDefault();
+    console.log("searchFilters", searchFilters)
     this.setState(searchFilters)
   }
   render() {
