@@ -34,14 +34,15 @@ class WaveQualityFilters extends Component {
 
   render() {
     const { classes } = this.props;
-    const {defaultValue} = this.state
+    const {defaultValue} = this.state;
+    let sliderSize = 11;
     return (
       <div>
         <Typography className={classes.topSpacing}>
           Narrow your search to just the right waves
         </Typography>
         <Grid container justify="space-around" alignItems="center" className={classes.metaGrid} >
-          <Grid item xs={11}>
+          <Grid item xs={sliderSize}>
             <Typography gutterBottom>
               Wave Quality
             </Typography>
@@ -53,7 +54,7 @@ class WaveQualityFilters extends Component {
               onChange={this.props.handleWaveQualityChange}
             />
           </Grid>
-          <Grid item xs={11} className={classes.slider}>
+          <Grid item xs={sliderSize} className={classes.slider}>
             <Typography gutterBottom>
               Wave Danger
             </Typography>
