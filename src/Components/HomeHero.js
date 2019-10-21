@@ -4,7 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import HomeHeroLayout from './HomeHeroLayout';
-import heroImage from '../images/surfboardheroimage.jpg'
+import heroImage from '../images/surfboardheroimage.jpg';
+import { Link } from 'react-router-dom';
 
 const styles = theme => ({
   background: {
@@ -46,7 +47,8 @@ function HomeHero(props) {
         size="large"
         className={classes.button}
         component="a"
-        href="/Search"
+        to="/Search"
+        component={Link}
       >
         Search
       </Button>

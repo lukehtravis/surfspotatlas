@@ -99,7 +99,7 @@ class SearchedSpots extends Component {
       <div>
         <SearchMap areaSpots={mapMarkerInfo} coordAverages={coordAverages} />
         <SearchedSpotsList
-          spotId={spots}
+          spots={spots}
         />
       </div>
     )

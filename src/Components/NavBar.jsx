@@ -86,18 +86,18 @@ export default function NavBar() {
            open={Boolean(anchorElPrimary)}
            onClose={handleClosePrimary}
           >
-            <MenuItem onClick={handleClose}>
-              <Link to="/AddSpot">Add Spot</Link>
+            <MenuItem onClick={handleClose} to="/AddSpot" component={Link} >
+              Add Spot
             </MenuItem>
-            <MenuItem onClick={handleClose}>
-              <Link to="/Area/San Diego">San Diego</Link>
+            <MenuItem onClick={handleClose} to="/Area/San Diego" component={Link} >
+              San Diego Area
             </MenuItem>
-            <MenuItem onClick={handleClose}>
-              <Link to="/Search">Search</Link>
+            <MenuItem onClick={handleClose} to="/Search" component={Link} >
+              Search
             </MenuItem>
           </Menu>
           <Typography variant="h6" className={classes.title}>
-            The Surf Spot Atlas
+            <Link to="/" style={{ textDecoration: 'none', color: "#fff" }}>The Surf Spot Atlas</Link>
           </Typography>
           <div>
             <IconButton
@@ -125,8 +125,8 @@ export default function NavBar() {
               onClose={handleClose}
             >
               {isAuthenticated && ("Log In") && (
-                <MenuItem onClick={handleClose}>
-                  <Link to="/profile">Profile</Link>
+                <MenuItem onClick={handleClose} component={Link} to={"/profile"} >
+                  Profile
                 </MenuItem>
               )}
               <MenuItem onClick={handleLoginClose}>
