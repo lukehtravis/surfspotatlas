@@ -7,6 +7,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import StaticProgressBar from "./StaticProgressBar";
+import {bathymetryStringConverter, directionStringConverter} from "../utils/dbNameConversions";
 
 const styles = theme => ({
   root: {
@@ -35,11 +37,11 @@ class SearchedSpotsTable extends Component {
             <TableHead>
               <TableRow>
                 <TableCell>Name</TableCell>
-                <TableCell align="right">Area</TableCell>
-                <TableCell align="right">Direction</TableCell>
-                <TableCell align="right">Bathymetry</TableCell>
-                <TableCell align="right">Quality</TableCell>
-                <TableCell align="right">Quality</TableCell>
+                <TableCell align="left">Area</TableCell>
+                <TableCell align="left">Direction</TableCell>
+                <TableCell align="left">Bathymetry</TableCell>
+                <TableCell align="center">Quality</TableCell>
+                <TableCell align="center">Danger</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -48,11 +50,11 @@ class SearchedSpotsTable extends Component {
                   <TableCell component="th" component={Link} to={`Wave/${spot.id}`} scope="row">
                     {spot.name}
                   </TableCell>
-                  <TableCell align="right">{spot.area}</TableCell>
-                  <TableCell align="right">{spot.direction}</TableCell>
-                  <TableCell align="right">{spot.bathymetry}</TableCell>
-                  <TableCell align="right">{spot.quality}</TableCell>
-                  <TableCell align="right">{spot.danger}</TableCell>
+                  <TableCell align="left">{spot.area}</TableCell>
+                  <TableCell align="left">{directionStringConverter(spot.direction)}</TableCell>
+                  <TableCell align="left">{bathymetryStringConverter(spot.bathymetry)}</TableCell>
+                  <TableCell align="right"><StaticProgressBar value={Math.round(spot.quality)} /></TableCell>
+                  <TableCell align="right"><StaticProgressBar value={Math.round(spot.danger)} /></TableCell>
                 </TableRow>
               ))}
             </TableBody>
