@@ -4,12 +4,12 @@ import {withStyles} from "@material-ui/core/styles";
 import { lighten, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
 import Paper from '@material-ui/core/Paper';
 import StaticProgressBar from "./StaticProgressBar";
 import TableSortLabel from '@material-ui/core/TableSortLabel';
+import EnhancedTableHeader from "./EnhancedTableHeader";
 import {bathymetryStringConverter, directionStringConverter} from "../utils/dbNameConversions";
 
 /*
@@ -25,10 +25,18 @@ const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
     overflowX: 'auto',
+    backgroundColor: theme.palette.background.default
   },
   table: {
     minWidth: 200,
+    width: "90%",
+    margin: `${theme.spacing(4)}px auto`,
+    backgroundColor: theme.palette.background.paper,
+    borderRadius: "5px"
   },
+  tableCell: {
+    border: "none"
+  }
 }));
 
 function desc(a, b, orderBy) {
@@ -55,50 +63,6 @@ function getSorting(order, orderBy) {
   return order === 'desc' ? (a, b) => desc(a, b, orderBy) : (a, b) => -desc(a, b, orderBy);
 }
 
-const headCells = [
-  { id: 'name', numeric: false, disablePadding: false, label: 'Name' },
-  { id: 'area', numeric: false, disablePadding: false, label: 'Area' },
-  { id: 'direction', numeric: false, disablePadding: false, label: 'Direction' },
-  { id: 'bathymetry', numeric: false, disablePadding: false, label: 'Bottom' },
-  { id: 'waveQuality', numeric: true, disablePadding: false, label: 'Quality' },
-  { id: 'waveDanger', numeric: true, disablePadding: false, label: 'Danger' }
-];
-
-function EnhancedTableHead(props) {
-  const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
-  const createSortHandler = property => event => {
-    onRequestSort(event, property);
-  };
-
-  return (
-    <TableHead>
-      <TableRow>
-        {headCells.map(headCell => (
-          <TableCell
-            key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'default'}
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={order}
-              onClick={createSortHandler(headCell.id)}
-            >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <span className={classes.visuallyHidden}>
-                  {order === 'desc' ? '' : ''}
-                </span>
-              ) : null}
-            </TableSortLabel>
-          </TableCell>
-        ))}
-      </TableRow>
-    </TableHead>
-  );
-}
-
 export default function SearchedSpotsTable(props) {
   const classes = useStyles();
   const {spots} = props;
@@ -110,12 +74,11 @@ export default function SearchedSpotsTable(props) {
     setOrder(isDesc ? 'asc' : 'desc');
     setOrderBy(property);
   };
-
   return (
     <div>
       <Paper className={classes.root}>
         <Table className={classes.table} aria-label="simple table">
-          <EnhancedTableHead
+          <EnhancedTableHeader
             order={order}
             orderBy={orderBy}
             onRequestSort={handleRequestSort}
@@ -128,14 +91,14 @@ export default function SearchedSpotsTable(props) {
                 const labelId = `enhanced-table-checkbox-${index}`;
                 return (
                   <TableRow key={spot.name} hover>
-                    <TableCell component="th" id={labelId} component={Link} to={`Wave/${spot.id}`} scope="row">
+                    <TableCell className={classes.tableCell} component="th" id={labelId} component={Link} to={`Wave/${spot.id}`} scope="row">
                       {spot.name}
                     </TableCell>
-                    <TableCell align="left" component={Link} to={`Area/${spot.area}`}>{spot.area}</TableCell>
-                    <TableCell align="left">{directionStringConverter(spot.direction)}</TableCell>
-                    <TableCell align="left">{bathymetryStringConverter(spot.bathymetry)}</TableCell>
-                    <TableCell align="right"><StaticProgressBar value={Math.round(spot.quality)} /></TableCell>
-                    <TableCell align="right"><StaticProgressBar value={Math.round(spot.danger)} /></TableCell>
+                    <TableCell className={classes.tableCell} align="left" component={Link} to={`Area/${spot.area}`}>{spot.area}</TableCell>
+                    <TableCell className={classes.tableCell} align="left">{directionStringConverter(spot.direction)}</TableCell>
+                    <TableCell className={classes.tableCell} align="left">{bathymetryStringConverter(spot.bathymetry)}</TableCell>
+                    <TableCell className={classes.tableCell} align="center"><StaticProgressBar value={Math.round(spot.quality)} /></TableCell>
+                    <TableCell className={classes.tableCell} align="center"><StaticProgressBar value={Math.round(spot.danger)} /></TableCell>
                   </TableRow>
                 )
               })
