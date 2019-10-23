@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import Popup from "reactjs-popup";
 import Slider from '@material-ui/core/Slider';
+import EditIcon from '@material-ui/icons/Edit';
 import {waveQualityMarks} from "../utils/labels";
 
 // Each WaveAttributeVote component is attached to one of the children components of WaveAttributes,
@@ -53,7 +54,7 @@ class WaveAttributeVote extends Component {
 
     return (
       <div>
-        <Popup trigger={<button> Trigger</button>} position="right center">
+        <Popup trigger={<div><EditIcon /></div>} position="right center">
           <Slider
             marks={waveQualityMarks}
             valueLabelDisplay="on"

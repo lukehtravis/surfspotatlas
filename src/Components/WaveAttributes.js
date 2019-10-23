@@ -23,7 +23,11 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.default,
     width: "100%",
     paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4)
+    paddingBottom: theme.spacing(4),
+  },
+  Grid: {
+    width: "98%",
+    margin: "0 auto"
   }
 })
 
@@ -86,15 +90,21 @@ class WaveAttributes extends Component {
     return (
       <div>
         <Paper className={classes.Paper}>
-          <Grid container>
+          <Grid container className={classes.Grid}>
             <Grid item xs={3}>
               <WaveQuality voteOnAttribute={this.voteOnAttribute} attributeValue={waveStats.wavequality} attributeName="wavequality" />
             </Grid>
+            <Grid item xs={3}>
+              <WaveHollowness attributeValue={waveStats.wavehollowness} attributeName="wavehollowness" />
+            </Grid>
+            <Grid item xs={3}>
+              <WaveDanger attributeValue={waveStats.wavedanger} attributeName="wavedanger" />
+            </Grid>
+            <Grid item xs={3}>
+              <WaveLength attributeValue={waveStats.wavelength} attributeName="wavelength" />
+            </Grid>
           </Grid>
         </Paper>
-        <WaveHollowness attributeValue={waveStats.wavehollowness} attributeName="wavehollowness" />
-        <WaveDanger attributeValue={waveStats.wavedanger} attributeName="wavedanger" />
-        <WaveLength attributeValue={waveStats.wavelength} attributeName="wavelength" />
         <WindAngle voteOnAttribute={this.voteOnAttribute} attributeValue={[waveStats.windangleone, waveStats.windangletwo]} attributeName={["windangleone", "windangletwo"]} />
         <TideSlider />
         {isAuthenticated && (
