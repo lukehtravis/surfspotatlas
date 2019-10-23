@@ -43,3 +43,77 @@ export const waveDangerMarks = [
     label: "Death Awaits"
   }
 ]
+
+export const tideMarks = [
+  {
+    value: 0,
+    label: "Lowest"
+  },
+  {
+    value: 25,
+    label: "Low-Mid"
+  },
+  {
+    value: 50,
+    label: "Mid"
+  },
+  {
+    value: 75,
+    label: "Mid-High"
+  },
+  {
+    value: 100,
+    label: "Highest"
+  }
+]
+
+export const monthMarks = [
+  {
+    value: 0,
+    label: "January"
+  },
+  {
+    value: 30,
+    label: "February"
+  },
+  {
+    value: 60,
+    label: "March"
+  },
+  {
+    value: 90,
+    label: "April"
+  },
+  {
+    value: 120,
+    label: "May"
+  },
+  {
+    value: 150,
+    label: "June"
+  },
+  {
+    value: 180,
+    label: "July"
+  },
+  {
+    value: 210,
+    label: "August"
+  },
+  {
+    value: 240,
+    label: "September"
+  },
+  {
+    value: 270,
+    label: "October"
+  },
+  {
+    value: 300,
+    label: "November"
+  },
+  {
+    value: 330,
+    label: "December"
+  }
+]

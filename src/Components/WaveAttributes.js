@@ -6,12 +6,13 @@ import WaveQuality from "./WaveQuality";
 import WaveHollowness from "./WaveHollowness";
 import WaveDanger from "./WaveDanger";
 import WaveLength from "./WaveLength";
-import WindAngle from "./WindAngle";
+import AngleRangeCircle from "./AngleRangeCircle";
 import TideSlider from "./TideSlider";
 import {withStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
 import StaticProgressBar from "./StaticProgressBar";
 import { Auth0Context } from "../react-auth0-wrapper";
 import {ADD_RATING} from "../utils/queries";
@@ -28,6 +29,20 @@ const styles = theme => ({
   Grid: {
     width: "98%",
     margin: "0 auto"
+  },
+  Container: {
+    margin: theme.spacing(3),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2)
+  },
+  h5: theme.typography.h5,
+  h5Margin: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    fontWeight: 700
+  },
+  paragraph: {
+    fontSize: "1.35rem"
   }
 })
 
@@ -83,7 +98,7 @@ class WaveAttributes extends Component {
     if (this.props.FetchWaveAttributes.loading) {
       return "Loading.."
     }
-    const {classes} = this.props
+    const {classes, waveDetails} = this.props
     const { isAuthenticated, loginWithRedirect, logout, user } = this.context
     const waveStats = this.props.FetchWaveAttributes.Waves[0].Wave_Ratings_aggregate.aggregate.avg
     console.log("waveDetails", waveStats)
@@ -95,21 +110,38 @@ class WaveAttributes extends Component {
               <WaveQuality voteOnAttribute={this.voteOnAttribute} attributeValue={waveStats.wavequality} attributeName="wavequality" />
             </Grid>
             <Grid item xs={3}>
-              <WaveHollowness attributeValue={waveStats.wavehollowness} attributeName="wavehollowness" />
+              <WaveHollowness voteOnAttribute={this.voteOnAttribute} attributeValue={waveStats.wavehollowness} attributeName="wavehollowness" />
             </Grid>
             <Grid item xs={3}>
-              <WaveDanger attributeValue={waveStats.wavedanger} attributeName="wavedanger" />
+              <WaveDanger voteOnAttribute={this.voteOnAttribute} attributeValue={waveStats.wavedanger} attributeName="wavedanger" />
             </Grid>
             <Grid item xs={3}>
-              <WaveLength attributeValue={waveStats.wavelength} attributeName="wavelength" />
+              <WaveLength voteOnAttribute={this.voteOnAttribute} attributeValue={waveStats.wavelength} attributeName="wavelength" />
             </Grid>
           </Grid>
         </Paper>
-        <WindAngle voteOnAttribute={this.voteOnAttribute} attributeValue={[waveStats.windangleone, waveStats.windangletwo]} attributeName={["windangleone", "windangletwo"]} />
+        <Paper className={classes.Container}>
+          <Grid container>
+            <Grid item xs={8}>
+              <h5 className={`${classes.h5} ${classes.h5Margin}`}>Description</h5>
+              <Typography className={classes.paragraph}>{waveDetails.description}</Typography>
+              <h5 className={`${classes.h5} ${classes.h5Margin}`}>Directions</h5>
+              <Typography className={classes.paragraph}>{waveDetails.directions}</Typography>
+            </Grid>
+            <Grid item>
+
+            </Grid>
+            <Grid item>
+
+            </Grid>
+          </Grid>
+        </Paper>
+        <AngleRangeCircle voteOnAttribute={this.voteOnAttribute} attributeValue={[waveStats.windangleone, waveStats.windangletwo]} attributeName={["windangleone", "windangletwo"]} />
+        <AngleRangeCircle voteOnAttribute={this.voteOnAttribute} attributeValue={[waveStats.windangleone, waveStats.windangletwo]} attributeName={["windangleone", "windangletwo"]} />
         <TideSlider />
         {isAuthenticated && (
           <div>
-            <button onClick={() => this.handleVoteSubmit(user)}>Vote On Wave Attributes</button>
+            <Button onClick={() => this.handleVoteSubmit(user)}>Vote On Wave Attributes</Button>
           </div>
         )}
       </div>

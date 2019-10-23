@@ -8,7 +8,7 @@ import {FETCH_WIND_ANGLES} from "../utils/queries";
 import ReactSVG from 'react-svg';
 import "../css/Compass.css";
 
-const WindAngle = (props) => {
+const AngleRangeCircle = (props) => {
 
   const { isAuthenticated, user } = useAuth0()
   const windAngleOne = props.attributeValue[0]
@@ -38,4 +38,4 @@ const WindAngle = (props) => {
   )
 }
 
-export default (WindAngle);
+export default (AngleRangeCircle);
