@@ -49,11 +49,12 @@ class Canvas extends Component {
   }
 
   rotateArc(point) {
-    // Rotate arcs' starting and ending points by 90 degrees accross a 360 degree
-    // circle...if the starting or ending points are less than 90 degrees
-    // This is necessary as wind degrees are measured from zero at due north
-    // (top of 2d circle plane), while the canvas element draws from the
-    // right of the circle, which is due east on a compass
+    // This function is necessary because the degrees of a compass are measured from 0 - 360
+    // where zero is the top of the circle, and the degrees increment up clockwise
+    // However, the canvas tool we are using to draw the circle use the right side of the circle
+    // as a starting point (and also increments up clockwise). Therefore, we need to rotate our range 90 degrees left (-90) so that
+    // we can feed a range to the convertCompassDegreesToRadians() function, which will convert it
+    // to a radian value
     if (point < 90) {
       var rotation = 90 - point;
       rotation = 360 - rotation;

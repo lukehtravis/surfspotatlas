@@ -8,10 +8,24 @@ import WaveDanger from "./WaveDanger";
 import WaveLength from "./WaveLength";
 import WindAngle from "./WindAngle";
 import TideSlider from "./TideSlider";
+import {withStyles} from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import StaticProgressBar from "./StaticProgressBar";
 import { Auth0Context } from "../react-auth0-wrapper";
 import {ADD_RATING} from "../utils/queries";
 import {FETCH_WAVE} from "../utils/queries";
 import {FETCH_WAVE_ATTRIBUTES} from "../utils/queries";
+
+const styles = theme => ({
+  Paper: {
+    backgroundColor: theme.palette.background.default,
+    width: "100%",
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4)
+  }
+})
 
 class WaveAttributes extends Component {
   constructor(props) {
@@ -65,12 +79,19 @@ class WaveAttributes extends Component {
     if (this.props.FetchWaveAttributes.loading) {
       return "Loading.."
     }
+    const {classes} = this.props
     const { isAuthenticated, loginWithRedirect, logout, user } = this.context
     const waveStats = this.props.FetchWaveAttributes.Waves[0].Wave_Ratings_aggregate.aggregate.avg
     console.log("waveDetails", waveStats)
     return (
       <div>
-        <WaveQuality voteOnAttribute={this.voteOnAttribute} attributeValue={waveStats.wavequality} attributeName="wavequality" />
+        <Paper className={classes.Paper}>
+          <Grid container>
+            <Grid item xs={3}>
+              <WaveQuality voteOnAttribute={this.voteOnAttribute} attributeValue={waveStats.wavequality} attributeName="wavequality" />
+            </Grid>
+          </Grid>
+        </Paper>
         <WaveHollowness attributeValue={waveStats.wavehollowness} attributeName="wavehollowness" />
         <WaveDanger attributeValue={waveStats.wavedanger} attributeName="wavedanger" />
         <WaveLength attributeValue={waveStats.wavelength} attributeName="wavelength" />
@@ -94,4 +115,4 @@ export default compose(
   graphql(gql`${ADD_RATING}`, {
     name: "addRating"
   })
-)(WaveAttributes);
+)(withStyles(styles)(WaveAttributes));
