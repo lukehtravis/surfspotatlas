@@ -23,6 +23,7 @@ import Typography from "@material-ui/core/Typography";
 
 
 const barHeight = 15
+const thumbSize = barHeight * 1.66
 
 const styles = theme => {
   return {
@@ -34,11 +35,11 @@ const styles = theme => {
       borderRadius: barHeight * 0.5,
     },
     thumb: {
-      height: (barHeight * 1.66),
-      width: (barHeight * 1.66),
+      height: thumbSize,
+      width: thumbSize,
       marginTop: barHeight * -0.33,
-      opacity: 0.6,
-      marginLeft: (barHeight * 1.66) * -0.5
+      opacity: 0.4,
+      marginLeft: thumbSize * -0.5
     },
     rail: {
       height: barHeight

@@ -2,7 +2,7 @@ import React, {Component} from "react";
 
 class Canvas extends Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
   componentDidMount() {
     const points = this.convertNumericRange([this.props.windAngleOne,this.props.windAngleTwo])
@@ -14,7 +14,7 @@ class Canvas extends Component {
   drawRangeOfAttributes(arcBoundries) {
     const canvas = this.refs.canvas
     var ctx = canvas.getContext("2d");
-    ctx.arc(50, 50, 48, arcBoundries[0] * Math.PI, arcBoundries[1] * Math.PI);
+    ctx.arc(this.props.circleCenterXY, this.props.circleCenterXY, this.props.circleRadius, arcBoundries[0] * Math.PI, arcBoundries[1] * Math.PI);
     ctx.strokeStyle = "red";
     ctx.stroke();
   }
@@ -23,7 +23,7 @@ class Canvas extends Component {
     const canvas2 = this.refs.canvas
     let ctx2 = canvas2.getContext("2d");
     ctx2.beginPath();
-    ctx2.arc(50, 50, 48, arcBoundries[1] * Math.PI, arcBoundries[0] * Math.PI);
+    ctx2.arc(this.props.circleCenterXY, this.props.circleCenterXY, this.props.circleRadius, arcBoundries[1] * Math.PI, arcBoundries[0] * Math.PI);
     ctx2.strokeStyle = color;
     ctx2.stroke();
   }
@@ -73,7 +73,7 @@ class Canvas extends Component {
 
   render() {
     return(
-      <canvas ref="canvas" width={100} height={100} />
+      <canvas ref="canvas" width={this.props.circleBoundary} height={this.props.circleBoundary} />
     )
   }
 }

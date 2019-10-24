@@ -8,6 +8,10 @@ import {FETCH_WIND_ANGLES} from "../utils/queries";
 import ReactSVG from 'react-svg';
 import "../css/Compass.css";
 
+const circleBoundary = 100
+const circleCenterXY = circleBoundary * 0.5
+const circleRadius = circleCenterXY * 0.96
+
 const AngleRangeCircle = (props) => {
 
   const { isAuthenticated, user } = useAuth0()
@@ -21,10 +25,10 @@ const AngleRangeCircle = (props) => {
       <span className="east">90</span>
       <span className="south">180</span>
       <span className="west">270</span>
-      <svg width={100} height={100}>
-         <circle r={48} cx={50} cy={50} fill="transparent" stroke="#133C99" strokeWidth={6} strokeDasharray="1% 24%" />
+      <svg width={circleBoundary} height={circleBoundary}>
+         <circle r={circleRadius} cx={circleCenterXY} cy={circleCenterXY} fill="transparent" stroke="#133C99" strokeWidth={6} strokeDasharray="1% 24%" />
       </svg>
-      <Canvas windAngleOne={windAngleOne} windAngleTwo={windAngleTwo} />
+      <Canvas circleBoundary={circleBoundary} circleRadius={circleRadius} circleCenterXY={circleCenterXY} windAngleOne={windAngleOne} windAngleTwo={windAngleTwo} />
       {isAuthenticated && (
         <div className="wind-angle">
           <WaveAttributeVote

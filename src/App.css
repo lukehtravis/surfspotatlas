@@ -30,9 +30,10 @@ span.MuiSlider-markLabel {
   margin-top: 1rem
 }
 
-span.MuiSlider-mark {
+span.MuiSlider-mark, span.MuiSlider-markActive {
   width: 3px;
-  height: 15px
+  height: 15px;
+  background-color: #fff;
 }
 
 @keyframes App-logo-spin {
