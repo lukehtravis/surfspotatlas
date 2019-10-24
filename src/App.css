@@ -26,7 +26,13 @@
 /* WaveAttributeFilter */
 
 span.MuiSlider-markLabel {
-  font-size: .5rem
+  font-size: 0.8rem;
+  margin-top: 1rem
+}
+
+span.MuiSlider-mark {
+  width: 3px;
+  height: 15px
 }
 
 @keyframes App-logo-spin {
