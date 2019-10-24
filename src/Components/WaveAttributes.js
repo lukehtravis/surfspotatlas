@@ -24,16 +24,18 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.default,
     width: "100%",
     paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
+    paddingBottom: theme.spacing(4)
+  },
+  smallPaper: {
+    backgroundColor: theme.palette.background.default,
+    padding: theme.spacing(3),
+    marginTop: theme.spacing(3),
+    boxShadow: "none",
+    borderRadius: 0
   },
   Grid: {
-    width: "98%",
-    margin: "0 auto"
-  },
-  Container: {
-    margin: theme.spacing(3),
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2)
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3)
   },
   h5: theme.typography.h5,
   h5Margin: {
@@ -120,25 +122,24 @@ class WaveAttributes extends Component {
             </Grid>
           </Grid>
         </Paper>
-        <Paper className={classes.Container}>
-          <Grid container>
-            <Grid item xs={8}>
+        <Grid container className={classes.Grid} justify={"space-around"}>
+          <Grid item xs={6}>
+            <Paper className={classes.smallPaper}>
               <h5 className={`${classes.h5} ${classes.h5Margin}`}>Description</h5>
               <Typography className={classes.paragraph}>{waveDetails.description}</Typography>
               <h5 className={`${classes.h5} ${classes.h5Margin}`}>Directions</h5>
               <Typography className={classes.paragraph}>{waveDetails.directions}</Typography>
-            </Grid>
-            <Grid item>
-
-            </Grid>
-            <Grid item>
-
-            </Grid>
+            </Paper>
           </Grid>
-        </Paper>
+          <Grid item xs={5}>
+            <Paper className={classes.smallPaper}>
+              <TideSlider />
+            </Paper>
+          </Grid>
+        </Grid>
         <AngleRangeCircle voteOnAttribute={this.voteOnAttribute} attributeValue={[waveStats.windangleone, waveStats.windangletwo]} attributeName={["windangleone", "windangletwo"]} />
         <AngleRangeCircle voteOnAttribute={this.voteOnAttribute} attributeValue={[waveStats.windangleone, waveStats.windangletwo]} attributeName={["windangleone", "windangletwo"]} />
-        <TideSlider />
+
         {isAuthenticated && (
           <div>
             <Button onClick={() => this.handleVoteSubmit(user)}>Vote On Wave Attributes</Button>
