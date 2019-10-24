@@ -40,6 +40,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function desc(a, b, orderBy) {
+  console.log("desc", a,b,orderBy)
   if (b[orderBy] < a[orderBy]) {
     return -1;
   }
@@ -52,6 +53,7 @@ function desc(a, b, orderBy) {
 function stableSort(array, cmp) {
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
+    console.log("stableSort", a,b)
     const order = cmp(a[0], b[0]);
     if (order !== 0) return order;
     return a[1] - b[1];

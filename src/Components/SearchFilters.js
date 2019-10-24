@@ -43,7 +43,17 @@ class SearchFilters extends Component {
   }
 
   render() {
+    let quality = [0,100]
+    let danger = [0, 100]
     const {classes} = this.props
+    console.log("SearchFilters component state", this.state)
+    if ("waveQuality" in this.state) {
+      quality = [this.state.waveQuality.low, this.state.waveQuality.high]
+      console.log("here's quality", quality)
+    }
+    if (this.state.waveDanger) {
+      danger = [this.state.waveDanger.low, this.state.waveDanger.high]
+    }
     return (
       <div className="MuiToolbar-gutters">
         <form>
@@ -52,7 +62,7 @@ class SearchFilters extends Component {
               <LocationSearchFilters handleAreaChange={this.handleAreaChange} />
             </Grid>
             <Grid item xs={6}>
-              <WaveQualityFilters handleWaveQualityChange={this.handleWaveQualityChange} handleWaveDangerChange={this.handleWaveDangerChange} />
+              <WaveQualityFilters danger={danger} quality={quality} handleWaveQualityChange={this.handleWaveQualityChange} handleWaveDangerChange={this.handleWaveDangerChange} />
             </Grid>
           </Grid>
           <Button onClick={(event) => this.props.formSubmit(this.state, event)}

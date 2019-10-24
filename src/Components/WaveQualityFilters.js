@@ -25,17 +25,11 @@ const styles = theme => ({
 })
 
 class WaveQualityFilters extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      defaultValue: [1, 100]
-    }
-  }
 
   render() {
     const { classes } = this.props;
-    const {defaultValue} = this.state;
     let sliderSize = 11;
+    console.log("WaveQualityFilters component state", this.state)
     return (
       <div>
         <Typography className={classes.topSpacing}>
@@ -50,7 +44,7 @@ class WaveQualityFilters extends Component {
               id="waveQuality"
               name="waveQuality"
               marks={waveQualityMarks}
-              defaultValue={defaultValue}
+              value={this.props.quality}
               onChange={this.props.handleWaveQualityChange}
             />
           </Grid>
@@ -61,7 +55,7 @@ class WaveQualityFilters extends Component {
             <Slider
               id="waveDanger"
               marks={waveDangerMarks}
-              defaultValue={defaultValue}
+              value={this.props.danger}
               onChange={this.props.handleWaveDangerChange}
             />
           </Grid>

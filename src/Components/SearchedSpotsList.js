@@ -31,26 +31,3 @@ class SearchedSpotsList extends Component {
 }
 
 export default SearchedSpotsList;
-
-/*
-Wave:
-  Wave_Ratings_aggregate:
-    aggregate:
-      avg:
-        wavedanger: null
-        wavequality: 53.333333333333336
-  bathymetry: null
-  id: 33
-  name: "Ocean Beach"
-  wavedirection: "rightleft"
-  wavetype: null
-area: "San Francisco County"
-chosen: false
-continent: "North America"
-country: "United States"
-id: 29
-latitude: 37.77191937590985
-longitude: -122.51196880772179
-region: "California"
-
-*/
