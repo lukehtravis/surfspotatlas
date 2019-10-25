@@ -1,37 +1,4 @@
-.compass {
-  position: relative;
-  height: 105px;
-  width: 105px;
-  margin: 0 auto;
-}
 
-.compass > svg, .compass > canvas, .compass > span {
-  position: absolute;
-}
-
-.compass > span.north {
-  top: -20%;
-  left: 43%;
-}
-
-.compass > span.east {
-  top: 37%;
-  right: -20%;
-}
-
-.compass > span.south {
-  bottom: -19%;
-  left: 34%;
-}
-
-.compass > span.west {
-  top: 37%;
-  left: -32%;
-}
-
-.compass .wind-angle {
-  position: relative;
-}
 
 /* LocationSearchFilters */
 

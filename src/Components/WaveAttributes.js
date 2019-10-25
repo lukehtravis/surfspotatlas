@@ -45,6 +45,10 @@ const styles = theme => ({
   },
   paragraph: {
     fontSize: "1.35rem"
+  },
+  dialsContainer: {
+    marginTop: theme.spacing(9),
+    marginBottom: theme.spacing(5)
   }
 })
 
@@ -134,11 +138,17 @@ class WaveAttributes extends Component {
           <Grid item xs={5}>
             <Paper className={classes.smallPaper}>
               <TideSlider />
+              <Grid container justify="space-around" className={classes.dialsContainer}>
+                <Grid item xs={6}>
+                  <AngleRangeCircle voteOnAttribute={this.voteOnAttribute} attributeValue={[waveStats.windangleone, waveStats.windangletwo]} attributeName={["windangleone", "windangletwo"]} />
+                </Grid>
+                <Grid item xs={6}>
+                  <AngleRangeCircle voteOnAttribute={this.voteOnAttribute} attributeValue={[waveStats.windangleone, waveStats.windangletwo]} attributeName={["windangleone", "windangletwo"]} />
+                </Grid>
+              </Grid>
             </Paper>
           </Grid>
         </Grid>
-        <AngleRangeCircle voteOnAttribute={this.voteOnAttribute} attributeValue={[waveStats.windangleone, waveStats.windangletwo]} attributeName={["windangleone", "windangletwo"]} />
-        <AngleRangeCircle voteOnAttribute={this.voteOnAttribute} attributeValue={[waveStats.windangleone, waveStats.windangletwo]} attributeName={["windangleone", "windangletwo"]} />
 
         {isAuthenticated && (
           <div>
