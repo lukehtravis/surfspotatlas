@@ -5,6 +5,7 @@ import gql from "graphql-tag";
 import { useAuth0 } from "../react-auth0-wrapper";
 import {withStyles} from "@material-ui/core/styles";
 import WaveAttributeVote from "./WaveAttributeVote";
+import Typography from "@material-ui/core/Typography";
 import {FETCH_WIND_ANGLES} from "../utils/queries";
 import ReactSVG from 'react-svg';
 import "../css/Compass.css";
@@ -40,8 +41,6 @@ const styles = theme => ({
   },
   compass: {
     position: "relative",
-    height: `${circleBoundary}px`,
-    width: `${circleBoundary}px`,
     margin: "0 auto",
     position: "relative"
   },
@@ -50,6 +49,11 @@ const styles = theme => ({
   },
   circleFonts: {
     fontSize: `${defaultFontSize * circleFontScalar}px`
+  },
+  northFont: {
+    fontSize: "12px",
+    color: "#616161",
+    textAlign: "center",
   }
 })
 
@@ -69,6 +73,7 @@ const AngleRangeCircle = (props) => {
       <svg className={classes.positionedElement} width={circleBoundary} height={circleBoundary}>
          <circle r={circleRadius} cx={circleCenterXY} cy={circleCenterXY} fill="transparent" stroke="#133C99" strokeWidth={circleBorderStrokeWidth} strokeDasharray="1% 24%" />
       </svg>*/}
+      <Typography className={classes.northFont}>0° N</Typography>
       <Canvas className={classes.positionedElement} circleBoundary={circleBoundary} circleRadius={circleRadius} circleCenterXY={circleCenterXY} windAngleOne={windAngleOne} windAngleTwo={windAngleTwo} />
       {isAuthenticated && (
         <div className="wind-angle">

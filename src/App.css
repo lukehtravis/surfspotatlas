@@ -31,8 +31,8 @@ span.MuiSlider-markLabel {
 }
 
 span.MuiSlider-mark, span.MuiSlider-markActive {
-  width: 3px;
-  height: 15px;
+  width: 1px;
+  height: 3px;
   background-color: #fff;
 }
 

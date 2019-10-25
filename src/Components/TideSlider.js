@@ -34,16 +34,25 @@ const styles = theme => {
       height: barHeight,
       borderRadius: barHeight * 0.5,
     },
-    thumb: {
+    /*thumb: {
       height: thumbSize,
       width: thumbSize,
       marginTop: barHeight * -0.33,
       opacity: 0.4,
       marginLeft: thumbSize * -0.5
+    },*/
+    thumb: {
+      display: "none"
     },
     rail: {
       height: barHeight
     },
+    header: {
+      textAlign: "center",
+      textTransform: "uppercase",
+      color: "#616161",
+    },
+    h6: theme.typography.h6,
   }
 }
 
@@ -56,7 +65,7 @@ const TideSlider = (props) => {
   const hightide = props.data.Wave_Ratings_aggregate.aggregate.avg.hightide
   return (
     <div>
-      <Typography>Ideal Tide Range</Typography>
+      <Typography className={`${classes.header} ${classes.h6}`}>Ideal Tide Range</Typography>
       <Slider marks={tideMarks} value={[lowtide, hightide]} classes={{...classes}} />
     </div>
   )

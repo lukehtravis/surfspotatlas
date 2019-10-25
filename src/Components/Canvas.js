@@ -38,6 +38,8 @@ class Canvas extends Component {
   drawRangeOfAttributes(arcBoundries, windAngleOne, windAngleTwo) {
     // first, the part of the circle that will represent the provided range is drawn
     const canvas = this.refs.canvas
+    canvas.style.width=this.props.circleBoundary;//actual width of canvas
+    canvas.style.height=this.props.circleBoundary;//actual height of canvas
     var ctx = canvas.getContext("2d");
     ctx.beginPath()
     ctx.arc(this.props.circleCenterXY, this.props.circleCenterXY, this.props.circleRadius, arcBoundries[0] * Math.PI, arcBoundries[1] * Math.PI);

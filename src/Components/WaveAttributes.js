@@ -37,18 +37,26 @@ const styles = theme => ({
     paddingLeft: theme.spacing(3),
     paddingRight: theme.spacing(3)
   },
-  h5: theme.typography.h5,
-  h5Margin: {
+  h6: theme.typography.h6,
+  h6Margin: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
-    fontWeight: 700
+    fontWeight: 700,
+    fontSize: "1.1rem"
+  },
+  circleHeaders: {
+    fontSize: "1.1rem",
+    textAlign: "center",
   },
   paragraph: {
-    fontSize: "1rem"
+    fontSize: "0.7rem"
   },
   dialsContainer: {
     marginTop: theme.spacing(9),
     marginBottom: theme.spacing(5)
+  },
+  alignSelf: {
+    textAlign: "center"
   }
 })
 
@@ -120,20 +128,22 @@ class WaveAttributes extends Component {
         <Grid container className={classes.Grid} justify={"space-around"}>
           <Grid item xs={6}>
             <Paper className={classes.smallPaper}>
-              <h5 className={`${classes.h5} ${classes.h5Margin}`}>Description</h5>
+              <h6 className={`${classes.h6} ${classes.h6Margin}`}>Description</h6>
               <Typography className={classes.paragraph}>{waveDetails.description}</Typography>
-              <h5 className={`${classes.h5} ${classes.h5Margin}`}>Directions</h5>
+              <h6 className={`${classes.h6} ${classes.h6Margin}`}>Directions</h6>
               <Typography className={classes.paragraph}>{waveDetails.directions}</Typography>
             </Paper>
           </Grid>
           <Grid item xs={5}>
             <Paper className={classes.smallPaper}>
               <TideSlider />
-              <Grid container justify="space-around" className={classes.dialsContainer}>
-                <Grid item xs={6}>
+              <Grid container justify="space-between" className={classes.dialsContainer}>
+                <Grid item xs={6} className={classes.alignSelf}>
+                  <Typography className={classes.circleHeaders}>Best Wind</Typography>
                   <AngleRangeCircle voteOnAttribute={this.voteOnAttribute} attributeValue={[waveStats.windangleone, waveStats.windangletwo]} attributeName={["windangleone", "windangletwo"]} />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={6} className={classes.alignSelf}>
+                  <Typography className={classes.circleHeaders}>Best Swell</Typography>
                   <AngleRangeCircle voteOnAttribute={this.voteOnAttribute} attributeValue={[waveStats.windangleone, waveStats.windangletwo]} attributeName={["windangleone", "windangletwo"]} />
                 </Grid>
               </Grid>
