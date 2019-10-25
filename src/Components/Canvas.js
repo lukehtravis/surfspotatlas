@@ -15,7 +15,12 @@ TODO - Improve and extend docs here
 
 */
 const styles = theme => ({
-  color: theme.palette.primary
+  color: theme.palette.primary,
+  pointAttributes: {
+    pointType: theme.typography.fontSize,
+    pointFont: theme.typography.fontFamily,
+    pointColor: "#3f51b5"
+  }
 })
 
 class Canvas extends Component {
@@ -27,7 +32,7 @@ class Canvas extends Component {
     console.log("points", points)
     this.drawRemainingCircle(points, "rgba(255, 181, 173, 0.3)")
     this.drawRangeOfAttributes(points, this.props.windAngleOne, this.props.windAngleTwo)
-    this.drawTextInsideCircle(this.props.windAngleOne, this.props.windAngleTwo);
+    // this.drawTextInsideCircle(this.props.windAngleOne, this.props.windAngleTwo);
   }
 
   drawRangeOfAttributes(arcBoundries, windAngleOne, windAngleTwo) {
@@ -115,9 +120,11 @@ class Canvas extends Component {
   drawPoint(pointX, pointY, ctx, label){
     ctx.beginPath();
     ctx.arc(pointX,pointY, 5, 0, 2 * Math.PI);
+    ctx.fillStyle = "#3f51b5";
     ctx.fill();
-    ctx.font = 14;
-    ctx.fillText(label, pointX + 10,pointY);
+    ctx.fillStyle = "#616161";
+    ctx.font = `normal 12px Helvetica`
+    ctx.fillText(`${label}°`, pointX + 10,pointY);
   }
 
   render() {
@@ -127,4 +134,4 @@ class Canvas extends Component {
   }
 }
 
-export default Canvas
+export default withStyles(styles)(Canvas)

@@ -44,7 +44,7 @@ const styles = theme => ({
     fontWeight: 700
   },
   paragraph: {
-    fontSize: "1.35rem"
+    fontSize: "1rem"
   },
   dialsContainer: {
     marginTop: theme.spacing(9),
@@ -66,15 +66,6 @@ class WaveAttributes extends Component {
   getAttributeName = (waveStatsObject, waveAttributeName) => {
     return Object.keys(waveStatsObject).find(key => waveStatsObject[key] === waveAttributeName);
   };
-
-/*  componentDidUpdate(prevProps, prevState) {
-    // This re-sets the re-render command to false after the user submits their
-    // attribute votes and triggers the addRating mutation, so that components
-    // don't keep re-rendering after users submit their first vote.
-    if (this.state.rerender == true) {
-      this.setState({rerender: false})
-    }
-  }*/
 
   voteOnAttribute = (someObject) => {
     this.setState({
