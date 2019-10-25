@@ -1,6 +1,19 @@
 import React, {Component} from "react";
 import {withStyles} from "@material-ui/core/styles";
+/*
 
+This component takes in averaged user input about what the best wind angles for this spot are,
+and uses it to draw a circle which represents wind angles as if they were degrees on a compass.
+The .arc function of the js canvas element is used. Two seperate lines must be drawn with arc
+1. The line that represents the actual values inside of the range (drawRangeOfAttributes)
+2. The line that represents everything outside of the specified range (drawRemaining Circle)
+
+After that, points are drawn on the circle which correspond to the start and end of the range, which act
+as labels
+
+TODO - Improve and extend docs here
+
+*/
 const styles = theme => ({
   color: theme.palette.primary
 })
@@ -12,12 +25,12 @@ class Canvas extends Component {
   componentDidMount() {
     const points = this.convertNumericRange([this.props.windAngleOne,this.props.windAngleTwo])
     console.log("points", points)
-    this.drawRangeOfAttributes(points)
-    this.drawRemainingCircle(points, "rgba(121, 134, 203, 0.45)")
+    this.drawRemainingCircle(points, "rgba(255, 181, 173, 0.3)")
+    this.drawRangeOfAttributes(points, this.props.windAngleOne, this.props.windAngleTwo)
     this.drawTextInsideCircle(this.props.windAngleOne, this.props.windAngleTwo);
   }
 
-  drawRangeOfAttributes(arcBoundries) {
+  drawRangeOfAttributes(arcBoundries, windAngleOne, windAngleTwo) {
     // first, the part of the circle that will represent the provided range is drawn
     const canvas = this.refs.canvas
     var ctx = canvas.getContext("2d");
@@ -30,12 +43,18 @@ class Canvas extends Component {
     let eX = this.props.circleCenterXY + this.props.circleRadius * Math.cos(arcBoundries[1] * Math.PI);
     let eY = this.props.circleCenterXY + this.props.circleRadius * Math.sin(arcBoundries[1] * Math.PI);
     let gradient = ctx.createLinearGradient(sX, sY, eX, eY)
-    gradient.addColorStop(0, "#ff4962") // red
-    gradient.addColorStop(.5, "#fbff49") // yellow
-    gradient.addColorStop(1, "#ff4962") // red
+    gradient.addColorStop(0, "rgba(255, 92, 141, 0.9)") // red
+    gradient.addColorStop(.1, "rgba(255, 149, 92, 1)") // red
+    gradient.addColorStop(.5, "rgba(255, 108, 92, 1)") // yellow
+    gradient.addColorStop(.9, "rgba(255, 149, 92, 1)") // red
+    gradient.addColorStop(1, "rgba(255, 92, 141, 0.9)") // red
     ctx.strokeStyle = gradient;
-    ctx.lineWidth = 10;
+    ctx.lineWidth = 5;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
     ctx.stroke();
+    this.drawPoint(sX, sY, ctx, windAngleOne)
+    this.drawPoint(eX, eY, ctx, windAngleTwo)
   }
 
   drawRemainingCircle(arcBoundries, color) {
@@ -46,7 +65,7 @@ class Canvas extends Component {
     ctx2.beginPath();
     ctx2.arc(this.props.circleCenterXY, this.props.circleCenterXY, this.props.circleRadius, arcBoundries[1] * Math.PI, arcBoundries[0] * Math.PI);
     ctx2.strokeStyle = color;
-    ctx2.lineWidth = 10;
+    ctx2.lineWidth = 5;
     ctx2.stroke();
   }
 
@@ -91,6 +110,14 @@ class Canvas extends Component {
     const newRange = (2 - 0);
     let radianPoint = (((rotatedDegreePoint - 1) * newRange) / oldRange) + 0;
     return radianPoint
+  }
+
+  drawPoint(pointX, pointY, ctx, label){
+    ctx.beginPath();
+    ctx.arc(pointX,pointY, 5, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.font = 14;
+    ctx.fillText(label, pointX + 10,pointY);
   }
 
   render() {

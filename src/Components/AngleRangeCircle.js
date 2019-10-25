@@ -63,12 +63,12 @@ const AngleRangeCircle = (props) => {
   return (
     <div className={`${classes.circleFonts} ${classes.compass}`} >
       <span className={classes.north}>0</span>
-      <span className={classes.east}>90</span>
+      {/*<span className={classes.east}>90</span>*/}
       <span className={classes.south}>180</span>
-      <span className={classes.west}>270</span>
-      <svg className={classes.positionedElement} width={circleBoundary} height={circleBoundary}>
+      {/*<span className={classes.west}>270</span>*/}
+      {/*<svg className={classes.positionedElement} width={circleBoundary} height={circleBoundary}>
          <circle r={circleRadius} cx={circleCenterXY} cy={circleCenterXY} fill="transparent" stroke="#133C99" strokeWidth={circleBorderStrokeWidth} strokeDasharray="1% 24%" />
-      </svg>
+      </svg>*/}
       <Canvas className={classes.positionedElement} circleBoundary={circleBoundary} circleRadius={circleRadius} circleCenterXY={circleCenterXY} windAngleOne={windAngleOne} windAngleTwo={windAngleTwo} />
       {isAuthenticated && (
         <div className="wind-angle">
