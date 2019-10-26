@@ -46,7 +46,7 @@ export const waveDangerMarks = [
 
 export const tideMarks = [
   {
-    value: 0,
+    value: 1,
     label: "Lowest"
   },
   {
@@ -62,7 +62,7 @@ export const tideMarks = [
     label: "Mid-High"
   },
   {
-    value: 100,
+    value: 99,
     label: "Highest"
   }
 ]

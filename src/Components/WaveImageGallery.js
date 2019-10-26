@@ -3,6 +3,7 @@ import {graphql} from "react-apollo";
 import gql from "graphql-tag";
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
+import Popup from "reactjs-popup";
 import {FIREBASE_BUCKET} from "../utils/constants";
 import {FETCH_WAVE_IMAGES} from "../utils/queries"
 import {withStyles} from "@material-ui/core/styles";
@@ -18,6 +19,10 @@ const styles = theme => ({
   gridList: {
     width: 500,
     maxHeight: 450,
+  },
+  popupImage: {
+    width: "500px",
+    height: "500px"
   }
 })
 
@@ -31,6 +36,27 @@ const styles = theme => ({
 
 
 class WaveImageGallery extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isModalOpen: false,
+      imageUrl: ""
+    }
+  }
+  openModal = (url) => {
+    console.log(url)
+    this.setState({isModalOpen: true, imageUrl: url})
+  }
+  closeModal = () => {
+    this.setState({isModalOpen: false, imageUrl: "" });
+  }
+  isOdd = (num) => {
+    if (num % 2 == 1) {
+      return true
+    } else {
+      return false
+    }
+  }
 
   render() {
     if (this.props.data.loading) {
@@ -38,16 +64,66 @@ class WaveImageGallery extends Component {
     }
 
     let images = [];
+    let rowNumber = 1 // Keeps track of current row
+    let tileSpot = 1 // Keeps track of current tile
+    let spaceOccupied = 1 // Keeps track of how long tile should be
+
+    /*
+      Gallery will follow format of below grid (fractions represent row length)
+      Row 1. 1/3 2/3 (2 photos)
+      Row 2. 1/3 1/3 1/3 (3 photos)
+      Row 3. 1/3 2/3 (2 photos)
+      Row 4. 1/3 1/3 1/3 (3 photos)
+    */
+
     this.props.data.Wave_Images.map(image => {
-      images.push({url: image.url, id:image.id})
+      // Check if we are in two photo or three photo row
+      if (this.isOdd(rowNumber)) {
+        // We are in two photo row
+        if (tileSpot == 1) {
+          // we are on the first tile of the row
+          images.push({url: image.url, id:image.id, cols: spaceOccupied})
+          tileSpot++
+          spaceOccupied++
+        } else {
+          // we are on second tile of the row
+          images.push({url: image.url, id:image.id, cols: spaceOccupied})
+          rowNumber++
+          tileSpot = 1
+          spaceOccupied = 1
+        }
+      } else {
+        // We are in a three photo row
+        if (tileSpot == 3) {
+          // we are at the last tile in the row
+          images.push({url: image.url, id:image.id, cols: spaceOccupied})
+          rowNumber++
+          tileSpot = 1
+        } else {
+          // we are in tile one or two
+          images.push({url: image.url, id:image.id, cols: spaceOccupied})
+          tileSpot++
+        }
+      }
     })
+
     const {classes} = this.props
     return(
       <div className={classes.root}>
-        <GridList cellHeight={160} className={classes.gridList} cols={2}>
+        <GridList cellHeight={160} className={classes.gridList} cols={3}>
           {images.map(tile => (
-            <GridListTile key={tile.url} cols={tile.cols || 1}>
-              <img src={tile.url} />
+            <GridListTile key={tile.url} cols={tile.cols}>
+                <img src={tile.url} onClick={() => this.openModal(tile.url)} />
+                  {this.state.imageUrl == tile.url && (
+                    <Popup
+                      modal
+                      onClose={this.closeModal}
+                      open={this.state.isModalOpen}
+                      closeOnDocumentClick
+                    >
+                      <img src={tile.url} className={classes.popupImage} />
+                    </Popup>
+                  )}
             </GridListTile>
           ))}
         </GridList>

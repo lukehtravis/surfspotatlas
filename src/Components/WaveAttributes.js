@@ -18,6 +18,8 @@ import { Auth0Context } from "../react-auth0-wrapper";
 import {ADD_RATING} from "../utils/queries";
 import {FETCH_WAVE} from "../utils/queries";
 import {FETCH_WAVE_ATTRIBUTES} from "../utils/queries";
+import { waveAttributeHeadings } from "../utils/styleComponents";
+import {bathymetryStringConverter, waveTypeStringConverter} from "../utils/dbNameConversions";
 
 const styles = theme => ({
   Paper: {
@@ -33,31 +35,48 @@ const styles = theme => ({
     boxShadow: "none",
     borderRadius: 0
   },
+  longPaper: {
+    backgroundColor: theme.palette.background.default,
+    boxShadow: "none",
+    borderRadius: 0,
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(3)
+  },
   Grid: {
     paddingLeft: theme.spacing(3),
     paddingRight: theme.spacing(3)
   },
+  attributeHeader: waveAttributeHeadings,
   h6: theme.typography.h6,
   h6Margin: {
     marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
-    fontWeight: 700,
-    fontSize: "1.1rem"
+    marginBottom: theme.spacing(0),
+    color: "#616161",
+    fontSize: "1rem",
+    textTransform: "uppercase"
   },
   circleHeaders: {
-    fontSize: "1.1rem",
+    fontSize: "1rem",
     textAlign: "center",
   },
   paragraph: {
     fontSize: "0.7rem"
   },
   dialsContainer: {
-    marginTop: theme.spacing(9),
-    marginBottom: theme.spacing(5)
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(0)
   },
   alignSelf: {
     textAlign: "center"
-  }
+  },
+  waveTypeTextContainer: {
+    textAlign: "center"
+  },
+  waveTypeTextType: {
+    display: "inline"
+  },
 })
 
 class WaveAttributes extends Component {
@@ -86,7 +105,6 @@ class WaveAttributes extends Component {
 
   handleVoteSubmit = (user) => {
     Object.keys(this.state)
-    console.log("inside handle submit");
     this.props.addRating({
       variables: {
         waveid: this.props.waveId,
@@ -106,7 +124,7 @@ class WaveAttributes extends Component {
     const {classes, waveDetails} = this.props
     const { isAuthenticated, loginWithRedirect, logout, user } = this.context
     const waveStats = this.props.FetchWaveAttributes.Waves[0].Wave_Ratings_aggregate.aggregate.avg
-    console.log("waveDetails", waveStats)
+    console.log("waveDetails", waveDetails)
     return (
       <div>
         <Paper className={classes.Paper}>
@@ -125,7 +143,7 @@ class WaveAttributes extends Component {
             </Grid>
           </Grid>
         </Paper>
-        <Grid container className={classes.Grid} justify={"space-around"}>
+        <Grid container className={classes.Grid} justify={"space-between"}>
           <Grid item xs={6}>
             <Paper className={classes.smallPaper}>
               <h6 className={`${classes.h6} ${classes.h6Margin}`}>Description</h6>
@@ -150,7 +168,20 @@ class WaveAttributes extends Component {
             </Paper>
           </Grid>
         </Grid>
-
+        <Grid container className={classes.Grid} justify={"space-around"}>
+          <Grid item xs={12}>
+            <Paper className={classes.longPaper}>
+              <Grid item xs={3} >
+                <Typography className={`${classes.attributeHeader} ${classes.alignSelf}`}>Wave Type</Typography>
+                <div className={classes.waveTypeTextContainer}>
+                  <Typography className={classes.waveTypeTextType}>{bathymetryStringConverter(waveDetails.bathymetry)}</Typography>
+                  <Typography className={classes.waveTypeTextType}> | </Typography>
+                  <Typography className={classes.waveTypeTextType}>{waveTypeStringConverter(waveDetails.wavetype)}</Typography>
+                </div>
+              </Grid>
+            </Paper>
+          </Grid>
+        </Grid>
         {isAuthenticated && (
           <div>
             <Button onClick={() => this.handleVoteSubmit(user)}>Vote On Wave Attributes</Button>

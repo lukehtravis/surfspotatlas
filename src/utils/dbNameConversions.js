@@ -32,3 +32,18 @@ export const bathymetryStringConverter = (bathymetryString) => {
     return "Mysterious"
   }
 }
+
+export const waveTypeStringConverter = (waveTypeString) => {
+  if (waveTypeString == "pointbreak") {
+    return "Point Break"
+  }
+  if (waveTypeString == "reefbreak") {
+    return "Reef Break"
+  }
+  if (waveTypeString == "beachbreak") {
+    return "Beach Break"
+  }
+  if (waveTypeString !== "pointbreak" || waveTypeString !== "reefbreak" || waveTypeString !== "beachbreak" ) {
+    return "Mysterious"
+  }
+}

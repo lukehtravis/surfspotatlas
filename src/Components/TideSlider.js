@@ -52,7 +52,13 @@ const styles = theme => {
       textTransform: "uppercase",
       color: "#616161",
     },
-    h6: theme.typography.h6,
+    h6: {
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(0),
+      color: "#616161",
+      fontSize: "1rem",
+      textTransform: "uppercase"
+    }
   }
 }
 
