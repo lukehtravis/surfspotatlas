@@ -3,6 +3,7 @@ import {graphql} from "react-apollo";
 import gql from "graphql-tag";
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
+import Typography from "@material-ui/core/Typography";
 import Popup from "reactjs-popup";
 import {FIREBASE_BUCKET} from "../utils/constants";
 import {FETCH_WAVE_IMAGES} from "../utils/queries"
@@ -12,7 +13,8 @@ const styles = theme => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'space-around',
+    marginLeft: theme.spacing(3),
+    justifyContent: 'left',
     overflow: 'hidden',
     backgroundColor: theme.palette.background.paper,
   },
@@ -22,8 +24,17 @@ const styles = theme => ({
   },
   popupImage: {
     width: "500px",
-    height: "500px"
-  }
+    height: "500px",
+    width: "100%",
+  },
+  h6Margin: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    marginLeft: theme.spacing(3),
+    color: "#616161",
+    fontSize: "1rem",
+    textTransform: "uppercase"
+  },
 })
 
 /*
@@ -109,24 +120,27 @@ class WaveImageGallery extends Component {
 
     const {classes} = this.props
     return(
-      <div className={classes.root}>
-        <GridList cellHeight={160} className={classes.gridList} cols={3}>
-          {images.map(tile => (
-            <GridListTile key={tile.url} cols={tile.cols}>
-                <img src={tile.url} onClick={() => this.openModal(tile.url)} />
-                  {this.state.imageUrl == tile.url && (
-                    <Popup
-                      modal
-                      onClose={this.closeModal}
-                      open={this.state.isModalOpen}
-                      closeOnDocumentClick
-                    >
-                      <img src={tile.url} className={classes.popupImage} />
-                    </Popup>
-                  )}
-            </GridListTile>
-          ))}
-        </GridList>
+      <div>
+        <Typography className={classes.h6Margin}>Photo Gallery</Typography>
+        <div className={classes.root}>
+          <GridList cellHeight={160} className={classes.gridList} cols={3}>
+            {images.map(tile => (
+              <GridListTile key={tile.url} cols={tile.cols}>
+                  <img src={tile.url} onClick={() => this.openModal(tile.url)} />
+                    {this.state.imageUrl == tile.url && (
+                      <Popup
+                        modal
+                        onClose={this.closeModal}
+                        open={this.state.isModalOpen}
+                        closeOnDocumentClick
+                      >
+                        <img src={tile.url} className={classes.popupImage} />
+                      </Popup>
+                    )}
+              </GridListTile>
+            ))}
+          </GridList>
+        </div>
       </div>
     )
   }

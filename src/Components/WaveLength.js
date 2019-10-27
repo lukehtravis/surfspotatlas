@@ -10,6 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import StaticProgressBar from "./StaticProgressBar";
 import WhatshotIcon from '@material-ui/icons/Whatshot';
+import SettingsEthernetIcon from '@material-ui/icons/SettingsEthernet';
 import { waveAttributeHeadings } from "../utils/styleComponents";
 import { useAuth0 } from "../react-auth0-wrapper";
 
@@ -27,7 +28,7 @@ const WaveLength = (props) => {
       <Typography className={classes.attributeHeader}>Length</Typography>
       <Grid container>
         <Grid item xs={1}>
-          <WhatshotIcon />
+          <SettingsEthernetIcon />
         </Grid>
         <Grid item xs={10}>
           <StaticProgressBar value={waveLength} />

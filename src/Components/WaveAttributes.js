@@ -19,7 +19,7 @@ import {ADD_RATING} from "../utils/queries";
 import {FETCH_WAVE} from "../utils/queries";
 import {FETCH_WAVE_ATTRIBUTES} from "../utils/queries";
 import { waveAttributeHeadings } from "../utils/styleComponents";
-import {bathymetryStringConverter, waveTypeStringConverter} from "../utils/dbNameConversions";
+import {bathymetryStringConverter, directionStringConverter, waveTypeStringConverter} from "../utils/dbNameConversions";
 
 const styles = theme => ({
   Paper: {
@@ -124,7 +124,7 @@ class WaveAttributes extends Component {
     const {classes, waveDetails} = this.props
     const { isAuthenticated, loginWithRedirect, logout, user } = this.context
     const waveStats = this.props.FetchWaveAttributes.Waves[0].Wave_Ratings_aggregate.aggregate.avg
-    console.log("waveDetails", waveDetails)
+    console.log("waveDetails", waveStats)
     return (
       <div>
         <Paper className={classes.Paper}>
@@ -171,13 +171,27 @@ class WaveAttributes extends Component {
         <Grid container className={classes.Grid} justify={"space-around"}>
           <Grid item xs={12}>
             <Paper className={classes.longPaper}>
-              <Grid item xs={3} >
-                <Typography className={`${classes.attributeHeader} ${classes.alignSelf}`}>Wave Type</Typography>
-                <div className={classes.waveTypeTextContainer}>
-                  <Typography className={classes.waveTypeTextType}>{bathymetryStringConverter(waveDetails.bathymetry)}</Typography>
-                  <Typography className={classes.waveTypeTextType}> | </Typography>
-                  <Typography className={classes.waveTypeTextType}>{waveTypeStringConverter(waveDetails.wavetype)}</Typography>
-                </div>
+              <Grid container>
+                <Grid item xs={4} >
+                  <Typography className={`${classes.attributeHeader} ${classes.alignSelf}`}>Type</Typography>
+                  <div className={classes.waveTypeTextContainer}>
+                    <Typography className={classes.waveTypeTextType}>{bathymetryStringConverter(waveDetails.bathymetry)}</Typography>
+                    <Typography className={classes.waveTypeTextType}> | </Typography>
+                    <Typography className={classes.waveTypeTextType}>{waveTypeStringConverter(waveDetails.wavetype)}</Typography>
+                  </div>
+                </Grid>
+                <Grid item xs={4} >
+                  <Typography className={`${classes.attributeHeader} ${classes.alignSelf}`}>Direction</Typography>
+                  <div className={classes.waveTypeTextContainer}>
+                    <Typography className={classes.waveTypeTextType}>{directionStringConverter(waveDetails.wavedirection)}</Typography>
+                  </div>
+                </Grid>
+                <Grid item xs={4} >
+                  <Typography className={`${classes.attributeHeader} ${classes.alignSelf}`}>Features</Typography>
+                  <div className={classes.waveTypeTextContainer}>
+                    <Typography className={classes.waveTypeTextType}>{directionStringConverter(waveDetails.wavelandmarks)}</Typography>
+                  </div>
+                </Grid>
               </Grid>
             </Paper>
           </Grid>
