@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Header from "./Components/Header";
+import Footer from "./Components/Footer";
 import Home from "./Components/Home";
 import AddSpot from "./Components/AddSpot";
 import Search from "./Components/Search";
@@ -23,6 +24,7 @@ class App extends Component {
             <Route path="/Area/:areaName" component={Area} />
             <PrivateRoute path="/Profile" component={Profile} />
           </Switch>
+          <Footer />
         </Fragment>
       </Router>
     );

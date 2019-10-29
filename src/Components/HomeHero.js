@@ -53,7 +53,7 @@ function HomeHero(props) {
         Search
       </Button>
       <Typography variant="body2" color="inherit" className={classes.more}>
-        Or scan the short list below
+
       </Typography>
     </HomeHeroLayout>
   );
