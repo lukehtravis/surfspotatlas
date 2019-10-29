@@ -162,7 +162,7 @@ class WaveAttributes extends Component {
                 </Grid>
                 <Grid item xs={6} className={classes.alignSelf}>
                   <Typography className={classes.circleHeaders}>Best Swell</Typography>
-                  <AngleRangeCircle voteOnAttribute={this.voteOnAttribute} attributeValue={[waveStats.windangleone, waveStats.windangletwo]} attributeName={["windangleone", "windangletwo"]} />
+                  <AngleRangeCircle voteOnAttribute={this.voteOnAttribute} attributeValue={[waveStats.swellangleone, waveStats.swellangletwo]} attributeName={["swellangleone", "swellangletwo"]} />
                 </Grid>
               </Grid>
             </Paper>

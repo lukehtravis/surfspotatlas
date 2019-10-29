@@ -15,7 +15,7 @@ const circleBoundary = 150
 const circleBoundaryComparator = 100 /* for font sizing relative to circle size */
 const circleFontScalar = circleBoundary / circleBoundaryComparator
 const circleCenterXY = circleBoundary * 0.5
-const circleRadius = circleCenterXY * 0.96
+const circleRadius = circleCenterXY * 0.7
 const circleBorderStrokeWidth = circleBoundary * 0.06
 
 const styles = theme => ({
