@@ -8,6 +8,11 @@ import {FETCH_SPOT_FROM_LOCATIONID} from "../utils/queries";
 import SpotMarker from "./SpotMarker";
 import WavePopup from "./WavePopup";
 import SearchMapPin from "./SearchMapPin";
+import {mapNavStyle} from "../utils/styleComponents"
+
+/*
+  Map that appears on the search page of the application (Search.js)
+*/
 
 const MAP_STYLE = 'mapbox://styles/mapbox/streets-v11';
 
@@ -92,7 +97,9 @@ class SearchMap extends Component {
           })
         }
         {this._renderWavePopup()}
-        <NavigationControl onViewportChange={this._updateViewport} />
+        <div className="nav" style={mapNavStyle}>
+          <NavigationControl onViewportChange={this._updateViewport} />
+        </div>
       </ReactMapGL>
     )
   }

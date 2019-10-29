@@ -7,6 +7,10 @@ import SpotMarker from "./SpotMarker";
 import Pin from "./Pin";
 import {FETCH_LOCATION} from "../utils/queries";
 
+/*
+  This map appears on the Wave.js component, and renders a of one specific wave
+*/
+
 const MAP_STYLE = 'mapbox://styles/mapbox/streets-v11';
 
 class WaveMap extends Component {

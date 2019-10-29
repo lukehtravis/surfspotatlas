@@ -3,6 +3,7 @@ import ReactMapGL, {Marker, NavigationControl} from 'react-map-gl';
 import {MAPTOKEN} from "../utils/token";
 import {geonamesLocations, GEONAME_LOGIN} from "../utils/geonames";
 import Pin from "./Pin";
+import {mapNavStyle} from "../utils/styleComponents";
 
 const MAP_STYLE = 'mapbox://styles/mapbox/streets-v11';
 
@@ -83,7 +84,9 @@ class Map extends Component {
           onDragEnd={this.onMarkerDragEnd} >
           <Pin size={20} />
         </Marker>
-        <NavigationControl onViewportChange={this._updateViewport} />
+        <div className="nav" style={mapNavStyle}>
+          <NavigationControl onViewportChange={this._updateViewport} />
+        </div>
       </ReactMapGL>
     )
   }
