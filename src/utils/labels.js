@@ -1,7 +1,7 @@
 export const waveQualityMarks = [
   {
     value: 0,
-    label: "Un-surfable"
+    label: "Poor"
   },
   {
     value: 25,

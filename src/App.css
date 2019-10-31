@@ -23,14 +23,27 @@
   color: #61dafb;
 }
 
-/* WaveAttributeFilter */
+/* WaveQualityFilter Page */
 
-span.MuiSlider-markLabel {
+.quality-filter span.MuiSlider-markLabel {
   font-size: 0.8rem;
   margin-top: 1rem
 }
 
-span.MuiSlider-mark, span.MuiSlider-markActive {
+.quality-filter span.MuiSlider-mark, .quality-filter span.MuiSlider-markActive {
+  width: 1px;
+  height: 3px;
+  background-color: #fff;
+}
+
+/* AddSpot component Page */
+
+.slider-input span.MuiSlider-markLabel {
+  font-size: 0.6rem;
+  margin-top: 0rem
+}
+
+.slider-input span.MuiSlider-mark, .slider-input span.MuiSlider-markActive {
   width: 1px;
   height: 3px;
   background-color: #fff;

@@ -10,7 +10,7 @@ const MAP_STYLE = 'mapbox://styles/mapbox/streets-v11';
 class Map extends Component {
   state = {
     viewport: {
-      width: 400,
+      width: "100%",
       height: 400,
       zoom: 2
     },

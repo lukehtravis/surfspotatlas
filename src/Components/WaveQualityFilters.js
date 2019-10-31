@@ -41,6 +41,7 @@ class WaveQualityFilters extends Component {
               Wave Quality
             </Typography>
             <Slider
+              className="quality-filter"
               id="waveQuality"
               name="waveQuality"
               marks={waveQualityMarks}
@@ -53,6 +54,7 @@ class WaveQualityFilters extends Component {
               Wave Danger
             </Typography>
             <Slider
+              className="quality-filter"
               id="waveDanger"
               marks={waveDangerMarks}
               value={this.props.danger}
