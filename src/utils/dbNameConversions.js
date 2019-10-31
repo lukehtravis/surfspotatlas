@@ -1,3 +1,4 @@
+import {monthToDayConversion} from "../utils/constants";
 /*
 This file is used to create functions that will convert some of the names for
 plain data in the database into more readable dataforms for rendering
@@ -46,4 +47,8 @@ export const waveTypeStringConverter = (waveTypeString) => {
   if (waveTypeString !== "pointbreak" || waveTypeString !== "reefbreak" || waveTypeString !== "beachbreak" ) {
     return "Mysterious"
   }
+}
+
+export const convertMonthToDay = (monthName) => {
+  return monthToDayConversion[monthName]
 }

@@ -21,6 +21,52 @@ export const waveQualityMarks = [
   }
 ]
 
+export const waveLengthMarks = [
+  {
+    value: 1,
+    label: "Closeout"
+  },
+  {
+    value: 25,
+    label: "Short"
+  },
+  {
+    value: 50,
+    label: "Average"
+  },
+  {
+    value: 75,
+    label: "Above Average"
+  },
+  {
+    value: 100,
+    label: "Endless"
+  }
+]
+
+export const waveHollownessMarks = [
+  {
+    value: 1,
+    label: "Mushy"
+  },
+  {
+    value: 25,
+    label: "Almost Never"
+  },
+  {
+    value: 50,
+    label: "Sometimes"
+  },
+  {
+    value: 75,
+    label: "Usually Barreling"
+  },
+  {
+    value: 100,
+    label: "Pipeline"
+  }
+]
+
 export const waveDangerMarks = [
   {
     value: 0,
