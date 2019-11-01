@@ -80,6 +80,7 @@ class SearchedSpots extends Component {
     // initial zoom setting on the map
     for (var i = 0; i < mapMarkerInfo.length; i++) {
       // This initiates the loop. If coordAverages is empty, then this is the first item in the loop
+      console.log("mapMarkerInfo", mapMarkerInfo)
       if (!Object.keys(coordAverages).length) {
         coordAverages.latLow = mapMarkerInfo[i].latitude
         coordAverages.latHigh = mapMarkerInfo[i].latitude
@@ -98,14 +99,21 @@ class SearchedSpots extends Component {
       if (mapMarkerInfo[i].longitude > coordAverages.longHigh) {
         coordAverages.longHigh = mapMarkerInfo[i].longitude
       }
+      console.log("coordAverage", coordAverages)
     }
 
     return(
       <div>
-        <SearchMap areaSpots={mapMarkerInfo} coordAverages={coordAverages} />
-        <SearchedSpotsList
-          spots={spots}
-        />
+        {!(Object.keys(spots).length === 0) ? (
+          <div>
+            <SearchMap areaSpots={mapMarkerInfo} coordAverages={coordAverages} />
+            <SearchedSpotsList
+              spots={spots}
+            />
+          </div>
+        ) : (
+          <p>Sorry, no spots exist to meet that criteria, or we are missing data on one of the spots. Please try another search</p>
+        )}
       </div>
     )
   }

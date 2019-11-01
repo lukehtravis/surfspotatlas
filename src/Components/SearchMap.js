@@ -84,6 +84,9 @@ class SearchMap extends Component {
 
   render() {
     const {longitude, latitude} = this.state
+    console.log("longHigh", this.props.coordAverages.longHigh, "longLow", this.props.coordAverages.longLow)
+    console.log("latHigh", this.props.coordAverages.latHigh, "latLow", this.props.coordAverages.latLow)
+    console.log("longy", longitude, "laty", latitude)
     return (
       <ReactMapGL
         {...this.state.viewport}

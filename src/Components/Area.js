@@ -6,9 +6,30 @@ import gql from "graphql-tag";
 import Pin from "./Pin";
 import AreaMap from "./AreaMap";
 import AreaTable from "./AreaTable";
+import {withStyles} from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 import {FETCH_AREA_LOCATION_DATA} from "../utils/queries";
 
 const MAP_STYLE = 'mapbox://styles/mapbox/streets-v11';
+
+const styles = theme => ({
+  header: {
+    margin: theme.spacing(3)
+  },
+  breadcrumbContainer: {
+    marginTop: theme.spacing(1)
+  },
+  headerText: theme.typography.h4,
+  breadcrumbText: theme.typography.h6,
+  uppercase: {
+    textTransform: "uppercase",
+  },
+  divider: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1)
+  }
+})
 
 class Area extends Component {
   constructor(props) {
@@ -20,8 +41,13 @@ class Area extends Component {
     if (!this.props.data.Locations) {
       return "Loading"
     }
+    const {classes} = this.props
+    let country = ""
+    let region = ""
     let mapLocations = this.props.data.Locations.map(location => {
-      return {id: location.id, latitude: location.latitude, longitude: location.longitude}
+      country = location.country
+      region = location.region
+      return {id: location.id, latitude: location.latitude, longitude: location.longitude, region: location.region, country: location.country}
     })
     let tableLocations = this.props.data.Locations.map(location => {
       return {
@@ -34,18 +60,27 @@ class Area extends Component {
         area: this.props.match.params.areaName
       }
     })
-    /*
-    id: spot.Wave.id,
-    name: spot.Wave.name,
-    direction: spot.Wave.wavedirection,
-    bathymetry: spot.Wave.bathymetry,
-    quality: spot.Wave.Wave_Ratings_aggregate.aggregate.avg.wavequality,
-    danger: spot.Wave.Wave_Ratings_aggregate.aggregate.avg.wavedanger,
-    area: spot.area
-    */
+
     return (
       <div>
-        <p>Area</p>
+        <Grid container className={classes.header}>
+          <Grid item>
+            <Typography className={`${classes.headerText} ${classes.uppercase} ${classes.boldness}`} >{this.props.match.params.areaName}</Typography>
+            <Grid container className={classes.breadcrumbContainer} >
+              <Grid item>
+                <Typography className={`${classes.breadcrumbText} ${classes.uppercase}`} >{country}</Typography>
+              </Grid>
+              <span className={`${classes.breadcrumbText} ${classes.divider}`}>|</span>
+              <Grid item>
+                <Typography className={`${classes.breadcrumbText} ${classes.uppercase}`}>{region}</Typography>
+              </Grid>
+              <span className={`${classes.breadcrumbText} ${classes.divider}`}>|</span>
+              <Grid item>
+                <Typography className={`${classes.breadcrumbText} ${classes.uppercase}`}>{this.props.match.params.areaName}</Typography>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
         <AreaMap areaSpots={mapLocations} />
         <AreaTable spots={tableLocations} />
       </div>
@@ -55,50 +90,4 @@ class Area extends Component {
 
 export default graphql(gql`${FETCH_AREA_LOCATION_DATA}`, {
   options: (props) => {return {variables: {areaName: props.match.params.areaName} } }
-})(Area)
-/*
-{
-  "data": {
-    "Locations": [
-      {
-        "latitude": 32.9975969236175,
-        "longitude": -117.27655321564285,
-        "id": 36,
-        "Wave": {
-          "name": "tabletops",
-          "Wave_Ratings_aggregate": {
-            "aggregate": {
-              "avg": {
-                "wavequality": 80,
-                "wavedanger": 54
-              }
-            }
-          },
-          "bathymetry": "reef",
-          "wavedirection": "left",
-          "id": 40
-        }
-      },
-      {
-        "latitude": 33.03498381683269,
-        "longitude": -117.29280788193414,
-        "id": 35,
-        "Wave": {
-          "name": "Swamis",
-          "Wave_Ratings_aggregate": {
-            "aggregate": {
-              "avg": {
-                "wavequality": 64.66666666666667,
-                "wavedanger": 74
-              }
-            }
-          },
-          "bathymetry": "sand-reef",
-          "wavedirection": null,
-          "id": 39
-        }
-      }
-    ]
-  }
-}
-*/
+})(withStyles(styles)(Area))
