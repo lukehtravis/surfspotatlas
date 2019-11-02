@@ -154,7 +154,9 @@ class WaveAttributes extends Component {
           </Grid>
           <Grid item xs={5}>
             <Paper className={classes.smallPaper}>
-              <TideSlider />
+              <div className={"quality-filter"}>
+                <TideSlider />
+              </div>
               <Grid container justify="space-between" className={classes.dialsContainer}>
                 <Grid item xs={6} className={classes.alignSelf}>
                   <Typography className={classes.circleHeaders}>Best Wind</Typography>

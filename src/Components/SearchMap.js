@@ -59,7 +59,7 @@ class SearchMap extends Component {
     console.log("searchMap", spotAttributes)
     return (
       <Marker longitude={spotAttributes.longitude} latitude={spotAttributes.latitude}>
-          <SearchMapPin spotClick={this.pinClick} waveName={spotAttributes.name} waveQuality={spotAttributes.waveQualty} waveType={spotAttributes.waveType} waveDirection={spotAttributes.waveDirection} longitude={spotAttributes.longitude} latitude={spotAttributes.latitude} id={spotAttributes.id} />
+          <SearchMapPin spotClick={this.pinClick} waveName={spotAttributes.name} waveQuality={spotAttributes.waveQuality} waveType={spotAttributes.waveType} waveDirection={spotAttributes.waveDirection} longitude={spotAttributes.longitude} latitude={spotAttributes.latitude} id={spotAttributes.id} />
       </Marker>
     );
   }
@@ -84,9 +84,6 @@ class SearchMap extends Component {
 
   render() {
     const {longitude, latitude} = this.state
-    console.log("longHigh", this.props.coordAverages.longHigh, "longLow", this.props.coordAverages.longLow)
-    console.log("latHigh", this.props.coordAverages.latHigh, "latLow", this.props.coordAverages.latLow)
-    console.log("longy", longitude, "laty", latitude)
     return (
       <ReactMapGL
         {...this.state.viewport}
