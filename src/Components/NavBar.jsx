@@ -89,9 +89,6 @@ export default function NavBar() {
             <MenuItem onClick={handleClose} to="/AddSpot" component={Link} >
               Add Spot
             </MenuItem>
-            <MenuItem onClick={handleClose} to="/Area/San Diego" component={Link} >
-              San Diego Area
-            </MenuItem>
             <MenuItem onClick={handleClose} to="/Search" component={Link} >
               Search
             </MenuItem>

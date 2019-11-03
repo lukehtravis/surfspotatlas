@@ -3,6 +3,7 @@ import {graphql} from "react-apollo";
 import gql from "graphql-tag";
 import Popup from "reactjs-popup";
 import Dropzone from 'react-dropzone';
+import Typography from "@material-ui/core/Typography";
 import {INSERT_WAVE_IMAGE} from "../utils/queries";
 
 /*
@@ -108,6 +109,11 @@ class WaveImageUploader extends Component {
               </section>
             )}
           </Dropzone>
+          {this.state.filename.length > 0 && (
+            this.state.filename.map(file => (
+              <Typography>{file.name}</Typography>
+            ))
+          )}
           <button onClick={this.submitPhotos}>Submit Photos</button>
         </Popup>
       </div>
