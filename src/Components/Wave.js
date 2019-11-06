@@ -12,6 +12,7 @@ import {withStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
+import { useAuth0 } from "../react-auth0-wrapper"
 
 const styles = theme => ({
   header: {
@@ -38,6 +39,10 @@ const styles = theme => ({
 const Wave = (props) => {
 
   if (!props.data.Waves) {
+    return "Loading"
+  }
+  const { loading, user, isAuthenticated } = useAuth0();
+  if (isAuthenticated && !user) {
     return "Loading"
   }
   const {classes} = props

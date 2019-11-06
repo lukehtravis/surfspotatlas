@@ -9,8 +9,12 @@ import Profile from "./Components/Profile";
 import PrivateRoute from "./Components/PrivateRoute";
 import Wave from "./Components/Wave";
 import Area from "./Components/Area";
+import Callback from "./Components/Callback";
+import { useAuth0 } from "./react-auth0-wrapper";
+
 
 class App extends Component {
+
   render() {
     return (
       <Router>
