@@ -5,6 +5,18 @@ import Popup from "reactjs-popup";
 import Dropzone from 'react-dropzone';
 import Typography from "@material-ui/core/Typography";
 import {INSERT_WAVE_IMAGE} from "../utils/queries";
+import Button from  "@material-ui/core/Button";
+import {withStyles} from "@material-ui/core/styles"
+
+const styles = theme => ({
+  root: {
+    marginLeft: theme.spacing(3)
+  },
+  button: {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.contrastText
+  }
+})
 
 /*
 
@@ -95,10 +107,10 @@ class WaveImageUploader extends Component {
   }
 
   render(){
-
+    const {classes} = this.props
     return(
-      <div>
-        <Popup trigger={<button>Choose Photos</button>} position="right center">
+      <div className={classes.root}>
+        <Popup trigger={<Button className={classes.button}>Choose Photos</Button>} position="right center">
           <Dropzone onDrop={acceptedFiles => this.fileUpload(acceptedFiles)}>
             {({getRootProps, getInputProps}) => (
               <section>
@@ -114,7 +126,7 @@ class WaveImageUploader extends Component {
               <Typography>{file.name}</Typography>
             ))
           )}
-          <button onClick={this.submitPhotos}>Submit Photos</button>
+          <Button className={classes.button} onClick={this.submitPhotos}>Submit Photos</Button>
         </Popup>
       </div>
     )
@@ -123,4 +135,4 @@ class WaveImageUploader extends Component {
 
 export default graphql(gql`${INSERT_WAVE_IMAGE}`, {
   name: "insertWaveImage"
-})(WaveImageUploader);
+})(withStyles(styles)(WaveImageUploader));

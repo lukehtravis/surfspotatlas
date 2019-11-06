@@ -34,7 +34,7 @@ const styles = theme => ({
     color: "#616161",
     fontSize: "1rem",
     textTransform: "uppercase"
-  },
+  }
 })
 
 /*

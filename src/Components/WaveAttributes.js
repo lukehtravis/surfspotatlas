@@ -77,6 +77,10 @@ const styles = theme => ({
   waveTypeTextType: {
     display: "inline"
   },
+  button: {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.contrastText
+  }
 })
 
 class WaveAttributes extends Component {
@@ -197,12 +201,12 @@ class WaveAttributes extends Component {
               </Grid>
             </Paper>
           </Grid>
+          {isAuthenticated && (
+            <div>
+              <Button className={classes.button} onClick={() => this.handleVoteSubmit(user)}>Vote On Wave Attributes</Button>
+            </div>
+          )}
         </Grid>
-        {isAuthenticated && (
-          <div>
-            <Button onClick={() => this.handleVoteSubmit(user)}>Vote On Wave Attributes</Button>
-          </div>
-        )}
       </div>
     )
   }
