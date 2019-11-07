@@ -23,10 +23,9 @@ yarn-debug.log*
 yarn-error.log*
 
 #tokens
-src/utils/firebaseconfig.js
-src/firebase.json
-src/utils/auth-config.json
-src/utils/token.js
+# src/utils/firebaseconfig.js
+# src/utils/auth-config.json
+# src/utils/token.js
 
 #amplify
 amplify/\#current-cloud-backend
