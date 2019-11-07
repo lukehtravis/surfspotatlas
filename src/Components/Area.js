@@ -15,7 +15,9 @@ const MAP_STYLE = 'mapbox://styles/mapbox/streets-v11';
 
 const styles = theme => ({
   header: {
-    margin: theme.spacing(3)
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    paddingLeft: theme.spacing(3)
   },
   breadcrumbContainer: {
     marginTop: theme.spacing(1)
