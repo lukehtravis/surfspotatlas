@@ -5,7 +5,7 @@ import LocationSearchFilters from "./LocationSearchFilters";
 import WaveQualityFilters from "./WaveQualityFilters";
 import SearchedSpots from "./SearchedSpots";
 import Grid from '@material-ui/core/Grid';
-import Button from "@material-ui/core/button";
+import Button from "@material-ui/core/Button";
 import {withStyles} from "@material-ui/core/styles"
 
 // This component get information from the WaveQualityFilters component whenever
