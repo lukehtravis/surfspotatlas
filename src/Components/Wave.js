@@ -16,7 +16,9 @@ import { useAuth0 } from "../react-auth0-wrapper"
 
 const styles = theme => ({
   header: {
-    margin: theme.spacing(3)
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    paddingLeft: theme.spacing(3)
   },
   headerText: theme.typography.h4,
   breadcrumbContainer: {
