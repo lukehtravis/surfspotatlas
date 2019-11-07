@@ -1,3 +1,18 @@
+/*
+
+  This is the function used in Map.js to create a place heirarchy to be inserted in the Locations
+  table for each Wave (represented in Wave table by the location Id).
+
+  The onChangeCoords function changes the state in the AddSpot.js component
+  The stateObj.setState call changes the state in the Map.js component
+
+  There is currently a problem where on rare occasions, the thennable jsonObject returned
+  is missing the "Area" level of the heirarchy, in which case, we can't populate that piece
+  of the database, so the user is asked to select a different area. A solution needs to be
+  developed for this exception. Usually this only happens in very lowly populated areas.
+
+*/
+
 export const geonamesLocations = (geonamesUrl, stateObj, event) => {
   fetch(geonamesUrl)
   .then(promiseObject => promiseObject.json())
