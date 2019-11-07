@@ -83,13 +83,13 @@ export default function NavBar() {
              vertical: 'top',
              horizontal: 'right',
            }}
-           open={Boolean(anchorElPrimary)}
+           open={anchorElPrimary}
            onClose={handleClosePrimary}
           >
-            <MenuItem onClick={handleClose} to="/AddSpot" component={Link} >
+            <MenuItem onClick={handleClosePrimary} to="/AddSpot" component={Link} >
               Add Spot
             </MenuItem>
-            <MenuItem onClick={handleClose} to="/Search" component={Link} >
+            <MenuItem onClick={handleClosePrimary} to="/Search" component={Link} >
               Search
             </MenuItem>
           </Menu>
