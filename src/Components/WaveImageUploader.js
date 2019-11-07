@@ -14,7 +14,8 @@ const styles = theme => ({
   },
   button: {
     backgroundColor: theme.palette.primary.main,
-    color: theme.palette.primary.contrastText
+    color: theme.palette.primary.contrastText,
+    marginTop: theme.spacing(2)
   }
 })
 
