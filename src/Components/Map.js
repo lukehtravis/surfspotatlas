@@ -5,6 +5,17 @@ import {geonamesLocations, GEONAME_LOGIN} from "../utils/geonames";
 import Pin from "./Pin";
 import {mapNavStyle} from "../utils/styleComponents";
 
+/*
+
+  This component is the Map that appears on the AddSpot component
+  API reference for Geonames call -> http://www.geonames.org/export/place-hierarchy.html#hierarchy
+  The geonames call takes lat/long coordinates from map (which user has selected
+  via click), and triggers a call to the geonames api, which does some reverse geocoding
+  to get the heirarchy of place names that the lat long belongs to, and then sends those back up
+  to the AddSpot component to be added to the database.
+
+*/
+
 const MAP_STYLE = 'mapbox://styles/mapbox/streets-v11';
 
 class Map extends Component {

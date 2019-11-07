@@ -4,7 +4,14 @@ export const geonamesLocations = (geonamesUrl, stateObj, event) => {
   .then(jsonObject => {
     console.log("inside geonames", event)
     console.log("inside jsonobject", jsonObject)
-    stateObj.props.onChangeCoords(event.lngLat[0], event.lngLat[1], jsonObject.geonames[1].name, jsonObject.geonames[2].name, jsonObject.geonames[3].name, jsonObject.geonames[4].name)
+    stateObj.props.onChangeCoords(
+      event.lngLat[0],
+      event.lngLat[1],
+      jsonObject.geonames[1].name/*Continent*/,
+      jsonObject.geonames[2].name/*Country*/,
+      jsonObject.geonames[3].name/*Region*/,
+      jsonObject.geonames[4].name/*Area*/
+    )
     stateObj
     .setState({
       continent: jsonObject.geonames[1].name,

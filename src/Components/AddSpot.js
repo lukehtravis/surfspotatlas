@@ -24,6 +24,21 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 
+/*
+
+  This component allows users to add waves to the surf spot atlas.
+  They can add descriptions, attributes and a location (via mapbox map)
+  Once users submit details of the new wave, a few things happen.
+  1. The addSpot mutation is triggered, which sends the payload to Hasura database,
+  and creates an entry in the Waves table, and returns the graphql result
+  2. The waveId property from the returned graphql result of addSpot is used in the addRating mutation to
+  create an entry in the Wave_Ratings table (one wave might have many ratings entries from different users)
+  3. the insertLocation mutation is then triggered, which takes the heirarchy of placenames (and long lat)
+  and creates an entry in the Locations table (each wave corresponds to 1 location)
+  the State which populates the insertLocation mutation is sent up from the Map.js Component
+  
+*/
+
 const styles = theme => ({
   container: {
     display: 'flex',
