@@ -51,7 +51,7 @@ export default function AppFooter() {
         <Grid container spacing={5}>
           <Grid item xs={12}>
             <Typography>
-              SURF SPOT ATLAS
+              SURF SPOT ATLAS by Luke Travis
             </Typography>
           </Grid>
         </Grid>
