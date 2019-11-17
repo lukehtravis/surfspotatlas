@@ -61,7 +61,7 @@ class Map extends Component {
   };
 
   onMarkerDragEnd = (event) => {
-    geonamesLocations(`http://api.geonames.org/extendedFindNearbyJSON?lat=${event.lngLat[1]}&lng=${event.lngLat[0]}&username=${GEONAME_LOGIN}`, this)
+    geonamesLocations(`https://secure.geonames.org/extendedFindNearbyJSON?lat=${event.lngLat[1]}&lng=${event.lngLat[0]}&username=${GEONAME_LOGIN}`, this)
     this.setState(
       {
         viewport: {
