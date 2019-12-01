@@ -1,11 +1,7 @@
-import React, { Component, Fragment, If } from 'react';
-import { Query } from "react-apollo";
+import React, { Component, Fragment} from 'react';
 import '../App.css';
-import ApolloClient from "apollo-boost";
 import HomeHero from "./HomeHero";
-import Header from "./Header";
-import HomeSpotList from "./HomeSpotList";
-import NavBar from "./NavBar"
+import AboutSection from "./AboutSection"
 
 const Home = () => {
 
@@ -13,8 +9,8 @@ const Home = () => {
         <Fragment>
           <div className="App">
             <HomeHero />
+            <AboutSection />
           </div>
-          { /* <HomeSpotList /> */ }
         </Fragment>
     );
 }
