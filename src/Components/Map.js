@@ -32,7 +32,14 @@ class Map extends Component {
   };
 
   handleClick = (event) => {
-    geonamesLocations(`http://api.geonames.org/hierarchyJSON?lat=${event.lngLat[1]}&lng=${event.lngLat[0]}&username=${GEONAME_LOGIN}`, this, event)
+    let protocol = ""
+    if (window.location.protocol != 'https:') {
+     protocol = 'http://api.geonames.org'
+   } else {
+     protocol = 'https://secure.geonames.org'
+   }
+
+    geonamesLocations(`${protocol}/hierarchyJSON?lat=${event.lngLat[1]}&lng=${event.lngLat[0]}&username=${GEONAME_LOGIN}`, this, event)
     this.setState(
       {
         viewport: {
