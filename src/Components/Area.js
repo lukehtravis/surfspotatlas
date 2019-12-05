@@ -1,17 +1,12 @@
-import React, {Component, Fragment} from 'react';
-import ReactMapGL, {Marker, NavigationControl} from 'react-map-gl';
-import {MAPTOKEN} from "../utils/token";
+import React, {Component} from 'react';
 import { graphql } from 'react-apollo';
 import gql from "graphql-tag";
-import Pin from "./Pin";
 import AreaMap from "./AreaMap";
 import AreaTable from "./AreaTable";
 import {withStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import {FETCH_AREA_LOCATION_DATA} from "../utils/queries";
-
-const MAP_STYLE = 'mapbox://styles/mapbox/streets-v11';
 
 const styles = theme => ({
   header: {

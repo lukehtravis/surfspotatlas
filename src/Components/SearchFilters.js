@@ -1,10 +1,7 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import {graphql} from "react-apollo";
-import gql from "graphql-tag";
 import LocationSearchFilters from "./LocationSearchFilters";
 import WaveQualityFilters from "./WaveQualityFilters";
-import SearchedSpots from "./SearchedSpots";
 import Grid from '@material-ui/core/Grid';
 import Button from "@material-ui/core/Button";
 import {withStyles} from "@material-ui/core/styles"

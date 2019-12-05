@@ -1,15 +1,11 @@
-import React, {Component, Fragment} from 'react';
-import ReactMapGL, {Marker, NavigationControl} from 'react-map-gl';
+import React, {Component} from 'react';
+import {Marker} from 'react-map-gl';
 import { graphql } from 'react-apollo';
 import gql from "graphql-tag";
-import Pin from "./Pin";
 import WavePin from "./WavePin";
 import {FETCH_SPOT_FROM_LOCATIONID} from "../utils/queries";
 
 class SpotMarker extends Component {
-  constructor(props) {
-    super(props)
-  }
 
   render() {
     if (!this.props.data.Waves) {

@@ -1,8 +1,5 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import {graphql} from "react-apollo";
-import gql from "graphql-tag";
-import LocationSearchFilters from "./LocationSearchFilters";
 import SearchFilters from "./SearchFilters";
 import SearchedSpots from "./SearchedSpots";
 
@@ -15,10 +12,10 @@ class Search extends Component {
   }
   handleSubmit = (searchFilters, event) => {
     event.preventDefault();
-    if (searchFilters.waveDanger == undefined) {
+    if (searchFilters.waveDanger === undefined) {
       searchFilters.waveDanger = {low: 1, high: 100}
     }
-    if (searchFilters.waveQuality == undefined) {
+    if (searchFilters.waveQuality === undefined) {
       searchFilters.waveQuality = {low: 1, high: 100}
     }
     this.setState(searchFilters)

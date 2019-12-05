@@ -1,11 +1,6 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import ReactMapGL, {Marker, Popup, NavigationControl} from 'react-map-gl';
 import {MAPTOKEN} from "../utils/token";
-import { graphql } from 'react-apollo';
-import gql from "graphql-tag";
-import Pin from "./Pin";
-import {FETCH_SPOT_FROM_LOCATIONID} from "../utils/queries";
-import SpotMarker from "./SpotMarker";
 import WavePopup from "./WavePopup";
 import SearchMapPin from "./SearchMapPin";
 import {mapNavStyle} from "../utils/styleComponents"
@@ -56,7 +51,6 @@ class SearchMap extends Component {
   }
 
   _renderSpotMarker = (spotAttributes) => {
-    console.log("searchMap", spotAttributes)
     return (
       <Marker longitude={spotAttributes.longitude} latitude={spotAttributes.latitude}>
           <SearchMapPin spotClick={this.pinClick} waveName={spotAttributes.name} waveQuality={spotAttributes.waveQuality} waveType={spotAttributes.waveType} waveDirection={spotAttributes.waveDirection} longitude={spotAttributes.longitude} latitude={spotAttributes.latitude} id={spotAttributes.id} />
@@ -83,7 +77,6 @@ class SearchMap extends Component {
   }
 
   render() {
-    const {longitude, latitude} = this.state
     return (
       <ReactMapGL
         {...this.state.viewport}

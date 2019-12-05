@@ -24,9 +24,7 @@ const styles = theme => ({
 })
 
 class Canvas extends Component {
-  constructor(props) {
-    super(props);
-  }
+
   componentDidMount() {
     const points = this.convertNumericRange([this.props.windAngleOne,this.props.windAngleTwo])
     console.log("points", points)
@@ -88,10 +86,10 @@ class Canvas extends Component {
     // Here we must convert 0 - 360 (compass degree scale) to a 0-2 (<canvas> radians)
     // number scale, as well as prepare our arc to appear on the proper circle
     let convertedPoints = []
-    arrayOfArcPoints.map(point => {
+    convertedPoints = arrayOfArcPoints.map(point => {
       point = this.rotateArc(point);
       let convertedRadianPoint = this.convertCompassDegreesToRadians(point)
-      convertedPoints.push(convertedRadianPoint);
+      return convertedRadianPoint;
     })
     return convertedPoints
   }

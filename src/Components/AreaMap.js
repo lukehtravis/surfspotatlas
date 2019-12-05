@@ -1,10 +1,6 @@
-import React, {Component, Fragment} from 'react';
-import ReactMapGL, {Marker, Popup, NavigationControl} from 'react-map-gl';
+import React, {Component} from 'react';
+import ReactMapGL, {Popup} from 'react-map-gl';
 import {MAPTOKEN} from "../utils/token";
-import { graphql } from 'react-apollo';
-import gql from "graphql-tag";
-import Pin from "./Pin";
-import {FETCH_SPOT_FROM_LOCATIONID} from "../utils/queries";
 import SpotMarker from "./SpotMarker";
 import WavePopup from "./WavePopup";
 

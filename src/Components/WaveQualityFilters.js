@@ -1,7 +1,5 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import {graphql} from "react-apollo";
-import gql from "graphql-tag";
 import Slider from '@material-ui/core/Slider';
 import {waveQualityMarks, waveDangerMarks} from "../utils/labels";
 import Grid from '@material-ui/core/Grid';

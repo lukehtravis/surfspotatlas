@@ -54,7 +54,7 @@ const styles = theme => ({
 
 const AngleRangeCircle = (props) => {
   const {classes} = props;
-  const { /* isAuthenticated */ user } = useAuth0()
+  // const {  isAuthenticated, user } = useAuth0()
   const windAngleOne = props.attributeValue[0]
   const windAngleTwo = props.attributeValue[1]
 

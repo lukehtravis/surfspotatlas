@@ -1,16 +1,6 @@
 import React from 'react';
 import { lighten, makeStyles, withStyles } from '@material-ui/core/styles';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import LinearProgress from '@material-ui/core/LinearProgress';
-
-const ColorLinearProgress = withStyles({
-  colorPrimary: {
-    backgroundColor: '#b2dfdb',
-  },
-  barColorPrimary: {
-    backgroundColor: '#00695c',
-  },
-})(LinearProgress);
 
 const BorderLinearProgress = withStyles({
   root: {

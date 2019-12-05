@@ -1,7 +1,6 @@
-import React, {Component, Fragment} from 'react'
-import { Query, graphql, Mutation} from "react-apollo";
+import React, {Component} from 'react'
+import { graphql } from "react-apollo";
 import gql from "graphql-tag";
-import ApolloClient from "apollo-boost";
 import { compose } from 'react-apollo';
 import { Auth0Context } from "../react-auth0-wrapper";
 import Map from './Map';
@@ -10,15 +9,8 @@ import {ADD_SPOT, INSERT_LOCATION, ADD_RATING} from "../utils/queries";
 import {waveLengthMarks, waveQualityMarks, waveHollownessMarks, waveDangerMarks, tideMarks} from "../utils/labels";
 import {convertMonthToDay} from "../utils/dbNameConversions";
 import Slider from '@material-ui/core/Slider';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import InputLabel from '@material-ui/core/InputLabel';
-import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import Chip from '@material-ui/core/Chip';
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
@@ -36,7 +28,7 @@ import Divider from "@material-ui/core/Divider";
   3. the insertLocation mutation is then triggered, which takes the heirarchy of placenames (and long lat)
   and creates an entry in the Locations table (each wave corresponds to 1 location)
   the State which populates the insertLocation mutation is sent up from the Map.js Component
-  
+
 */
 
 const styles = theme => ({
@@ -223,7 +215,6 @@ class AddSpot extends Component {
 
   render() {
     const {classes} = this.props
-    const { isAuthenticated, loginWithRedirect, logout, user } = this.context
     return (
       <div>
         <Grid className={classes.gridContainer}>

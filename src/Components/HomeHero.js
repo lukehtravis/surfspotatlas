@@ -46,7 +46,6 @@ function HomeHero(props) {
         variant="contained"
         size="large"
         className={classes.button}
-        component="a"
         to="/Search"
         component={Link}
       >

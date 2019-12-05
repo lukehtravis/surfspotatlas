@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import ReactMapGL, {Marker, NavigationControl} from 'react-map-gl';
 import {MAPTOKEN} from "../utils/token";
 import {geonamesLocations, GEONAME_LOGIN} from "../utils/geonames";
@@ -33,7 +33,7 @@ class Map extends Component {
 
   handleClick = (event) => {
     let protocol = ""
-    if (window.location.protocol != 'https:') {
+    if (window.location.protocol !== 'https:') {
      protocol = 'http://api.geonames.org'
    } else {
      protocol = 'https://secure.geonames.org'
