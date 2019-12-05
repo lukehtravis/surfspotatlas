@@ -72,7 +72,7 @@ const TideSlider = (props) => {
   return (
     <div>
       <Typography className={`${classes.header} ${classes.h6}`}>Ideal Tide Range</Typography>
-      <Slider marks={tideMarks} value={[lowtide, hightide]} classes={{...classes}} />
+      <Slider marks={tideMarks} value={[lowtide, hightide]} classes={{rail: classes.rail, thumb: classes.thumb, track: classes.track}} />
     </div>
   )
 }
