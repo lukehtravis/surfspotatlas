@@ -13,10 +13,8 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import StaticProgressBar from "./StaticProgressBar";
 import { Auth0Context } from "../react-auth0-wrapper";
 import {ADD_RATING} from "../utils/queries";
-import {FETCH_WAVE} from "../utils/queries";
 import {FETCH_WAVE_ATTRIBUTES} from "../utils/queries";
 import { waveAttributeHeadings } from "../utils/styleComponents";
 import {bathymetryStringConverter, directionStringConverter, waveTypeStringConverter} from "../utils/dbNameConversions";
@@ -126,7 +124,7 @@ class WaveAttributes extends Component {
       return "Loading.."
     }
     const {classes, waveDetails} = this.props
-    const { isAuthenticated, loginWithRedirect, logout, user } = this.context
+    const { isAuthenticated, user } = this.context
     const waveStats = this.props.FetchWaveAttributes.Waves[0].Wave_Ratings_aggregate.aggregate.avg
     console.log("waveDetails", waveStats)
     return (

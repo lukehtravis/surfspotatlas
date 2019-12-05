@@ -7,9 +7,6 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { useAuth0 } from "../react-auth0-wrapper";
@@ -34,11 +31,6 @@ export default function NavBar() {
   const open = Boolean(anchorEl);
   const openPrimary = Boolean(anchorElPrimary);
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
-  const { loading, user } = useAuth0();
-
-  const handleChange = event => {
-    //setAuth(event.target.checked);
-  };
 
   const handleMenuClick = event => {
     setAnchorEl(event.currentTarget);
