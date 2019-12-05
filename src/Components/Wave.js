@@ -1,7 +1,4 @@
-import React, { Component }  from 'react';
-import Header from "./Header";
-import Footer from "./Footer";
-import ApolloClient from "apollo-boost";
+import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from "graphql-tag";
 import {FETCH_WAVE} from "../utils/queries";
@@ -11,7 +8,6 @@ import WaveImagesSection from "./WaveImagesSection";
 import {withStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import { useAuth0 } from "../react-auth0-wrapper"
 
 const styles = theme => ({
@@ -43,14 +39,13 @@ const Wave = (props) => {
   if (!props.data.Waves) {
     return "Loading"
   }
-  const { loading, user, isAuthenticated } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
   if (isAuthenticated && !user) {
     return "Loading"
   }
   const {classes} = props
   const locationId = props.data.Waves[0].locationid;
   const {name, id, description, directions, nickname, bathymetry, wavetype, wavedirection, wavelandmarks} =  props.data.Waves[0];
-  const waveId = props.data.Waves[0].id;
   const {area, region, country} = props.data.Waves[0].Locations[0];
 
   return (

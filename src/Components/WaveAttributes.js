@@ -115,7 +115,7 @@ class WaveAttributes extends Component {
       },
       refetchQueries: () => [{ query: gql`${FETCH_WAVE_ATTRIBUTES}`, variables: {id: this.props.waveId} }]
     }).then((graphqlObject) => {
-      console.log("arrive at thennable", graphqlObject)
+
     })
   }
 
@@ -126,7 +126,6 @@ class WaveAttributes extends Component {
     const {classes, waveDetails} = this.props
     const { isAuthenticated, user } = this.context
     const waveStats = this.props.FetchWaveAttributes.Waves[0].Wave_Ratings_aggregate.aggregate.avg
-    console.log("waveDetails", waveStats)
     return (
       <div>
         <Paper className={classes.Paper}>

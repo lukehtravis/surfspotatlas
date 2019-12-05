@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React from "react";
 import {graphql} from "react-apollo";
 import gql from "graphql-tag";
 import Slider from '@material-ui/core/Slider';
@@ -23,7 +23,7 @@ import Typography from "@material-ui/core/Typography";
 
 
 const barHeight = 15
-const thumbSize = barHeight * 1.66
+// const thumbSize = barHeight * 1.66
 
 const styles = theme => {
   return {

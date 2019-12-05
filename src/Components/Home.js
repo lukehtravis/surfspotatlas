@@ -1,4 +1,4 @@
-import React, { Component, Fragment} from 'react';
+import React, { Fragment} from 'react';
 import '../App.css';
 import HomeHero from "./HomeHero";
 import AboutSection from "./AboutSection"

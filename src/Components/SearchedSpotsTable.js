@@ -1,15 +1,13 @@
-import React, {Component} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
-import {withStyles} from "@material-ui/core/styles";
-import { lighten, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Paper from '@material-ui/core/Paper';
 import StaticProgressBar from "./StaticProgressBar";
-import TableSortLabel from '@material-ui/core/TableSortLabel';
 import EnhancedTableHeader from "./EnhancedTableHeader";
 import {bathymetryStringConverter, directionStringConverter} from "../utils/dbNameConversions";
 

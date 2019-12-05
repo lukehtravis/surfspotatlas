@@ -1,13 +1,8 @@
-import React, {Component} from "react";
+import React from "react";
 import Canvas from "./Canvas";
-import {graphql} from "react-apollo";
-import gql from "graphql-tag";
 import { useAuth0 } from "../react-auth0-wrapper";
 import {withStyles} from "@material-ui/core/styles";
-import WaveAttributeVote from "./WaveAttributeVote";
 import Typography from "@material-ui/core/Typography";
-import {FETCH_WIND_ANGLES} from "../utils/queries";
-import ReactSVG from 'react-svg';
 import "../css/Compass.css";
 
 const defaultFontSize = 16
@@ -16,7 +11,7 @@ const circleBoundaryComparator = 100 /* for font sizing relative to circle size 
 const circleFontScalar = circleBoundary / circleBoundaryComparator
 const circleCenterXY = circleBoundary * 0.5
 const circleRadius = circleCenterXY * 0.7
-const circleBorderStrokeWidth = circleBoundary * 0.06
+// const circleBorderStrokeWidth = circleBoundary * 0.06
 
 const styles = theme => ({
   north: {
@@ -59,7 +54,7 @@ const styles = theme => ({
 
 const AngleRangeCircle = (props) => {
   const {classes} = props;
-  const { isAuthenticated, user } = useAuth0()
+  const { /* isAuthenticated */ user } = useAuth0()
   const windAngleOne = props.attributeValue[0]
   const windAngleTwo = props.attributeValue[1]
 

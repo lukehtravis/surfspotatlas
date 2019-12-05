@@ -1,14 +1,12 @@
-import React, {Component} from "react";
+import React from "react";
 import {Link} from "react-router-dom";
-import {withStyles} from "@material-ui/core/styles";
-import { lighten, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Paper from '@material-ui/core/Paper';
 import StaticProgressBar from "./StaticProgressBar";
-import TableSortLabel from '@material-ui/core/TableSortLabel';
 import EnhancedTableHeader from "./EnhancedTableHeader";
 import {bathymetryStringConverter, directionStringConverter} from "../utils/dbNameConversions";
 
@@ -31,7 +29,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function desc(a, b, orderBy) {
-  console.log("desc", a,b,orderBy)
   if (b[orderBy] < a[orderBy]) {
     return -1;
   }
@@ -44,7 +41,6 @@ function desc(a, b, orderBy) {
 function stableSort(array, cmp) {
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
-    console.log("stableSort", a,b)
     const order = cmp(a[0], b[0]);
     if (order !== 0) return order;
     return a[1] - b[1];

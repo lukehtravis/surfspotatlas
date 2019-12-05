@@ -1,10 +1,5 @@
-import React, {Component} from "react";
-import ApolloClient from "apollo-boost";
-import {graphql} from "react-apollo";
-import gql from "graphql-tag";
-import {WAVE_QUALITY} from "../utils/queries";
+import React from "react";
 import {withStyles} from "@material-ui/core/styles";
-import PercentageCircle from "./PercentageCircle";
 import WaveAttributeVote from "./WaveAttributeVote";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
@@ -19,7 +14,7 @@ const styles = theme => ({
 
 const WaveHollowness = (props) => {
 
-  const { isAuthenticated, user } = useAuth0()
+  const { isAuthenticated } = useAuth0()
   const waveHollowness = props.attributeValue
   const {classes} = props
   return (
