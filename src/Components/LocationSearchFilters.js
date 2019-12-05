@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import SpotChooser from "./SpotMenu/SpotChooser";
 import {graphql} from "react-apollo";
 import gql from "graphql-tag";
 import { withStyles } from '@material-ui/core/styles';
