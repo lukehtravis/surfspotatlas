@@ -52,7 +52,7 @@ class SearchMap extends Component {
 
   _renderSpotMarker = (spotAttributes) => {
     return (
-      <Marker longitude={spotAttributes.longitude} latitude={spotAttributes.latitude}>
+      <Marker key={spotAttributes.id} longitude={spotAttributes.longitude} latitude={spotAttributes.latitude}>
           <SearchMapPin spotClick={this.pinClick} waveName={spotAttributes.name} waveQuality={spotAttributes.waveQuality} waveType={spotAttributes.waveType} waveDirection={spotAttributes.waveDirection} longitude={spotAttributes.longitude} latitude={spotAttributes.latitude} id={spotAttributes.id} />
       </Marker>
     );

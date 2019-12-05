@@ -93,10 +93,10 @@ export default function SearchedSpotsTable(props) {
                 const labelId = `enhanced-table-checkbox-${index}`;
                 return (
                   <TableRow key={spot.name} hover>
-                    <TableCell className={classes.tableCell} id={labelId} component={Link} to={`/Wave/${spot.id}`} scope="row">
-                      {spot.name}
+                    <TableCell className={classes.tableCell} id={labelId} component={"th"} scope="row">
+                      <Link to={`/Wave/${spot.id}`}>{spot.name}</Link>
                     </TableCell>
-                    <TableCell className={classes.tableCell} align="left" component={Link} to={`Area/${spot.area}`}>{spot.area}</TableCell>
+                    <TableCell className={classes.tableCell} align="left"><Link to={`/Area/${spot.area}`}>{spot.area}</Link></TableCell>
                     <TableCell className={classes.tableCell} align="left">{directionStringConverter(spot.direction)}</TableCell>
                     <TableCell className={classes.tableCell} align="left">{bathymetryStringConverter(spot.bathymetry)}</TableCell>
                     <TableCell className={classes.tableCell} align="center"><StaticProgressBar value={Math.round(spot.quality)} /></TableCell>

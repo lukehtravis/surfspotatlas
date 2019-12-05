@@ -30,13 +30,11 @@ class SearchedSpots extends Component {
     const waveQualityHigh = this.props.filterResults.waveQuality.high
     const waveDangerLow = this.props.filterResults.waveDanger.low
     const waveDangerHigh = this.props.filterResults.waveDanger.high
-    console.log("waveQualityLow", waveQualityLow, "waveQualityHigh", waveQualityHigh, "waveDangerLow", waveDangerLow, "waveDangerHigh", waveDangerHigh)
     // This is the data returned from the FETCH_SEARCHED_SPOTS mutation
     let spots = this.props.data.Locations
 
     // Inside of this map function, a property is added to each spot object
     // which enumerates whether it meets the quality criteria set by filters
-    console.log("spots before check", spots )
     spots.map(spot => {
       if (
         (spot.Wave.Wave_Ratings_aggregate.aggregate.avg.wavequality >= waveQualityLow && spot.Wave.Wave_Ratings_aggregate.aggregate.avg.wavequality <= waveQualityHigh)
@@ -47,9 +45,8 @@ class SearchedSpots extends Component {
            return spot.chosen = false
           }
       })
-    console.log("spots after map check", spots)
+
     spots = spots.filter(spot => spot.chosen === true)
-    console.log("spots after filtering", spots)
 
     // This value will be passed to the SearchMap component.
     // This value must be created because we need a way to determine latitude and longitude
@@ -80,7 +77,6 @@ class SearchedSpots extends Component {
     // initial zoom setting on the map
     for (var i = 0; i < mapMarkerInfo.length; i++) {
       // This initiates the loop. If coordAverages is empty, then this is the first item in the loop
-      console.log("mapMarkerInfo", mapMarkerInfo)
       if (!Object.keys(coordAverages).length) {
         coordAverages.latLow = mapMarkerInfo[i].latitude
         coordAverages.latHigh = mapMarkerInfo[i].latitude
@@ -99,7 +95,6 @@ class SearchedSpots extends Component {
       if (mapMarkerInfo[i].longitude > coordAverages.longHigh) {
         coordAverages.longHigh = mapMarkerInfo[i].longitude
       }
-      console.log("coordAverage", coordAverages)
     }
 
     return(
