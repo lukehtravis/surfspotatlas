@@ -5,7 +5,6 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import Typography from "@material-ui/core/Typography";
 import Popup from "reactjs-popup";
-import {FIREBASE_BUCKET} from "../utils/constants";
 import {FETCH_WAVE_IMAGES} from "../utils/queries"
 import {withStyles} from "@material-ui/core/styles";
 
@@ -25,7 +24,6 @@ const styles = theme => ({
   popupImage: {
     width: "500px",
     height: "500px",
-    width: "100%",
   },
   h6Margin: {
     marginTop: theme.spacing(1),
@@ -62,7 +60,7 @@ class WaveImageGallery extends Component {
     this.setState({isModalOpen: false, imageUrl: "" });
   }
   isOdd = (num) => {
-    if (num % 2 == 1) {
+    if (num % 2 === 1) {
       return true
     } else {
       return false
@@ -91,7 +89,7 @@ class WaveImageGallery extends Component {
       // Check if we are in two photo or three photo row
       if (this.isOdd(rowNumber)) {
         // We are in two photo row
-        if (tileSpot == 1) {
+        if (tileSpot === 1) {
           // we are on the first tile of the row
           images.push({url: image.url, id:image.id, cols: spaceOccupied})
           tileSpot++
@@ -105,7 +103,7 @@ class WaveImageGallery extends Component {
         }
       } else {
         // We are in a three photo row
-        if (tileSpot == 3) {
+        if (tileSpot === 3) {
           // we are at the last tile in the row
           images.push({url: image.url, id:image.id, cols: spaceOccupied})
           rowNumber++
@@ -116,6 +114,7 @@ class WaveImageGallery extends Component {
           tileSpot++
         }
       }
+      return ""// necussary to return something in map
     })
 
     const {classes} = this.props
@@ -126,15 +125,15 @@ class WaveImageGallery extends Component {
           <GridList cellHeight={160} className={classes.gridList} cols={3}>
             {images.map(tile => (
               <GridListTile key={tile.url} cols={tile.cols}>
-                  <img src={tile.url} onClick={() => this.openModal(tile.url)} />
-                    {this.state.imageUrl == tile.url && (
+                  <img alt="waves" src={tile.url} onClick={() => this.openModal(tile.url)} />
+                    {this.state.imageUrl === tile.url && (
                       <Popup
                         modal
                         onClose={this.closeModal}
                         open={this.state.isModalOpen}
                         closeOnDocumentClick
                       >
-                        <img src={tile.url} className={classes.popupImage} />
+                        <img alt="waves" src={tile.url} className={classes.popupImage} />
                       </Popup>
                     )}
               </GridListTile>

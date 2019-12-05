@@ -72,14 +72,14 @@ class WaveImageUploader extends Component {
     // they have uploaded photos to the dropzone.
     // It creates a reference to our firestore property, and then sends each
     // image off to our firebase bucket.
-    const {continent, country, region, area, id, name} = this.props.location
+    const {continent, country, region, area} = this.props.location
     let storageRef = this.props.firebase.storage().ref();
     // Putting this.props.insertWaveImage in variable is necessary to avoid conflicting this declaration in put.() callback below
     const insertImageMutation = this.props.insertWaveImage
     this.state.filename.map((file) => {
       let childRef = storageRef.child(`${continent}/${country}/${region}/${area}/${this.props.waveName}/${file.name}`);
       // using the js File Api to turn our binary data into something we can transfer to firebase
-      var file = new File([file.binary], file.name, {
+      new File([file.binary], file.name, {
         type: file.type,
       });
 
@@ -104,6 +104,7 @@ class WaveImageUploader extends Component {
           })
         })
       });
+      return "" // necessary to return something to avoid warnings;
     })
   }
 

@@ -5,13 +5,13 @@ plain data in the database into more readable dataforms for rendering
 */
 
 export const directionStringConverter = (waveDirectionString) => {
-  if (waveDirectionString == "right") {
+  if (waveDirectionString === "right") {
     return "Right"
   }
-  if (waveDirectionString == "left") {
+  if (waveDirectionString === "left") {
     return "Left"
   }
-  if (waveDirectionString == "rightleft") {
+  if (waveDirectionString === "rightleft") {
     return "Right & Left"
   }
   if (waveDirectionString !== "right" || waveDirectionString !== "left" || waveDirectionString !== "rightleft" ) {
@@ -20,13 +20,13 @@ export const directionStringConverter = (waveDirectionString) => {
 }
 
 export const bathymetryStringConverter = (bathymetryString) => {
-  if (bathymetryString == "sand") {
+  if (bathymetryString === "sand") {
     return "Sand"
   }
-  if (bathymetryString == "reef") {
+  if (bathymetryString === "reef") {
     return "Reef"
   }
-  if (bathymetryString == "sand-reef") {
+  if (bathymetryString === "sand-reef") {
     return "Sand & Reef"
   }
   if (bathymetryString !== "sand" || bathymetryString !== "reef" || bathymetryString !== "sand-reef" ) {
@@ -35,13 +35,13 @@ export const bathymetryStringConverter = (bathymetryString) => {
 }
 
 export const waveTypeStringConverter = (waveTypeString) => {
-  if (waveTypeString == "pointbreak") {
+  if (waveTypeString === "pointbreak") {
     return "Point Break"
   }
-  if (waveTypeString == "reefbreak") {
+  if (waveTypeString === "reefbreak") {
     return "Reef Break"
   }
-  if (waveTypeString == "beachbreak") {
+  if (waveTypeString === "beachbreak") {
     return "Beach Break"
   }
   if (waveTypeString !== "pointbreak" || waveTypeString !== "reefbreak" || waveTypeString !== "beachbreak" ) {

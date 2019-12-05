@@ -93,7 +93,7 @@ export default function SearchedSpotsTable(props) {
                 const labelId = `enhanced-table-checkbox-${index}`;
                 return (
                   <TableRow key={spot.name} hover>
-                    <TableCell className={classes.tableCell} component="th" id={labelId} component={Link} to={`/Wave/${spot.id}`} scope="row">
+                    <TableCell className={classes.tableCell} id={labelId} component={Link} to={`/Wave/${spot.id}`} scope="row">
                       {spot.name}
                     </TableCell>
                     <TableCell className={classes.tableCell} align="left" component={Link} to={`Area/${spot.area}`}>{spot.area}</TableCell>

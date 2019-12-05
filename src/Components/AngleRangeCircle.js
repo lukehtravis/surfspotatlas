@@ -1,6 +1,5 @@
 import React from "react";
 import Canvas from "./Canvas";
-import { useAuth0 } from "../react-auth0-wrapper";
 import {withStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import "../css/Compass.css";
@@ -37,7 +36,6 @@ const styles = theme => ({
   compass: {
     position: "relative",
     margin: "0 auto",
-    position: "relative"
   },
   positionedElement: {
     position: "absolute"
