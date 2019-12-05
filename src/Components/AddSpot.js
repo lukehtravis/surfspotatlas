@@ -161,8 +161,7 @@ class AddSpot extends Component {
     const date = new Date();
     const timestamp = date.getTime();
     const user = this.context.user ? this.context.user.sub : "anonymous"
-    console.log("user", user)
-    const returned = this.props.addSpot({
+    this.props.addSpot({
         variables: {
           name: this.state.name,
           nickname: this.state.nickname,
@@ -176,7 +175,6 @@ class AddSpot extends Component {
           createdby: user
         },
     }).then((graphqlObject) => {
-      console.log("what is this", this)
       let locationId = graphqlObject.data.insert_Waves.returning[0].locationid
       let waveId = graphqlObject.data.insert_Waves.returning[0].id
       let userId = graphqlObject.data.insert_Waves.returning[0].createdby
@@ -211,7 +209,6 @@ class AddSpot extends Component {
       })
     })
   }
-
 
   render() {
     const {classes} = this.props

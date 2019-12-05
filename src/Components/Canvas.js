@@ -27,7 +27,6 @@ class Canvas extends Component {
 
   componentDidMount() {
     const points = this.convertNumericRange([this.props.windAngleOne,this.props.windAngleTwo])
-    console.log("points", points)
     this.drawRemainingCircle(points, "rgba(255, 181, 173, 0.3)")
     this.drawRangeOfAttributes(points, this.props.windAngleOne, this.props.windAngleTwo)
     // this.drawTextInsideCircle(this.props.windAngleOne, this.props.windAngleTwo);

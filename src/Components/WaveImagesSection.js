@@ -22,10 +22,8 @@ class WaveImagesSection extends Component {
     if (!this.props.data.Locations) {
       return "Loading"
     }
-    console.log("refetcher", this.props.data)
     const { isAuthenticated, user } = this.context
     const waveLocationDetails = this.props.data.Locations[0];
-    console.log("isAuthenticated", isAuthenticated, "user", user)
     return (
       <FirebaseContext.Consumer>
         {firebase => (

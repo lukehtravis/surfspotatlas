@@ -49,11 +49,11 @@ class WaveMap extends Component {
   };
 
   render() {
+
     if (!this.props.data.Locations) {
       return "Loading"
     }
-    console.log("wavemap", this.props)
-    console.log("wavestate", this.state)
+
     return (
       <ReactMapGL
         {...this.state.viewport}

@@ -48,13 +48,12 @@ class WaveImageUploader extends Component {
     // Then, it uses the File js api to create an arrayBuffer (binary blob)
     // which represents the data of the image which we want to store
     // Once that blob has been created, it is added to the component state
-    console.log("filesUploaded", filesUploaded)
+
     filesUploaded.forEach(file => {
-      console.log("file", file)
       const reader = new FileReader()
       reader.readAsArrayBuffer(file)
-      reader.onabort = () => console.log('file reading was aborted')
-      reader.onerror = () => console.log('file reading has failed')
+      reader.onabort = () => alert('file reading was aborted')
+      reader.onerror = () => alert('file reading has failed')
       reader.onload = () => {
         // onload triggers once FileReader.readAsArrayBuffer finished succesfully
         const binaryStr = reader.result
@@ -90,7 +89,6 @@ class WaveImageUploader extends Component {
         snapshot.ref.getDownloadURL().then(function(url) {
           finalStorageUrl = url
         }).then(url => {
-          console.log('Uploaded a blob or file!', snapshot);
           insertImageMutation({
             variables: {
               waveid: this.props.waveId,
@@ -100,7 +98,7 @@ class WaveImageUploader extends Component {
               creator: this.props.user
             }
           }).then(returnedGraphql => {
-            console.log(returnedGraphql)
+            alert("upload complete")
           })
         })
       });

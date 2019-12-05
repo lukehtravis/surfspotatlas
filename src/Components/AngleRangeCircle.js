@@ -56,7 +56,6 @@ const AngleRangeCircle = (props) => {
   const windAngleOne = props.attributeValue[0]
   const windAngleTwo = props.attributeValue[1]
 
-  console.log("windangles", props, windAngleOne, windAngleTwo)
   return (
     <div className={`${classes.circleFonts} ${classes.compass}`} >
       <Typography className={classes.northFont}>0° N</Typography>
