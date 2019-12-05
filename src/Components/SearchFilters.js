@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import PropTypes from "prop-types";
 import {graphql} from "react-apollo";
 import gql from "graphql-tag";
 import LocationSearchFilters from "./LocationSearchFilters";
@@ -46,10 +47,8 @@ class SearchFilters extends Component {
     let quality = [0,100]
     let danger = [0, 100]
     const {classes} = this.props
-    console.log("SearchFilters component state", this.state)
     if ("waveQuality" in this.state) {
       quality = [this.state.waveQuality.low, this.state.waveQuality.high]
-      console.log("here's quality", quality)
     }
     if (this.state.waveDanger) {
       danger = [this.state.waveDanger.low, this.state.waveDanger.high]
@@ -77,6 +76,11 @@ class SearchFilters extends Component {
       </div>
     )
   }
+}
+
+SearchFilters.propTypes = {
+  classes: PropTypes.object.isRequired,
+  formSubmit: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(SearchFilters)

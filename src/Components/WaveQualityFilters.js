@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import PropTypes from "prop-types";
 import {graphql} from "react-apollo";
 import gql from "graphql-tag";
 import Slider from '@material-ui/core/Slider';
@@ -29,7 +30,6 @@ class WaveQualityFilters extends Component {
   render() {
     const { classes } = this.props;
     let sliderSize = 11;
-    console.log("WaveQualityFilters component state", this.state)
     return (
       <div>
         <Typography className={classes.topSpacing}>
@@ -65,7 +65,14 @@ class WaveQualityFilters extends Component {
       </div>
     )
   }
+}
 
+WaveQualityFilters.propTypes = {
+  classes: PropTypes.object.isRequired,
+  danger: PropTypes.array.isRequired,
+  quality: PropTypes.array.isRequired,
+  handleWaveQualityChange: PropTypes.func.isRequired,
+  handleWaveDangerChange: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(WaveQualityFilters)

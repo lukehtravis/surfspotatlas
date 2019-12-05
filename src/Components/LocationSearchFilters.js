@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import PropTypes from "prop-types";
 import {graphql} from "react-apollo";
 import gql from "graphql-tag";
 import { withStyles } from '@material-ui/core/styles';
@@ -9,7 +10,6 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
-import ListItemText from '@material-ui/core/ListItemText';
 import Grid from "@material-ui/core/Grid";
 import Select from '@material-ui/core/Select';
 import Typography from "@material-ui/core/Typography";
@@ -83,8 +83,8 @@ class LocationSearchFilters extends Component {
     // to fill the dropdowns out in order, so if they reset a dropdown higher up
     // the order (ie. continent), we need to reset the state and ui for all
     // dropdowns below it
-    if (value != "unchosen") {
-      if (name == "continent") {
+    if (value !== "unchosen") {
+      if (name === "continent") {
         this.setState({
           [name]: value,
           country: undefined,
@@ -92,27 +92,27 @@ class LocationSearchFilters extends Component {
           area: undefined
         });
       }
-      if (name == "country") {
+      if (name === "country") {
         this.setState({
           [name]: value,
           region: undefined,
           area: undefined
         });
       }
-      if (name == "region") {
+      if (name === "region") {
         this.setState({
           [name]: value,
           area: undefined
         });
       }
-      if (name == "area") {
+      if (name === "area") {
         this.props.handleAreaChange(value)
         this.setState({
           [name]: value,
         });
       }
     } else {
-      if (name == "continent") {
+      if (name === "continent") {
         this.setState({
           continent: undefined,
           country: undefined,
@@ -120,20 +120,20 @@ class LocationSearchFilters extends Component {
           area: undefined
         })
       }
-      if (name == "country") {
+      if (name === "country") {
         this.setState({
           country: undefined,
           region: undefined,
           area: undefined
         })
       }
-      if (name == "region") {
+      if (name === "region") {
         this.setState({
           region: undefined,
           area: undefined
         })
       }
-      if (name == "area") {
+      if (name === "area") {
         this.setState({
           area: undefined
         })
@@ -144,7 +144,7 @@ class LocationSearchFilters extends Component {
   render() {
 
     if (!this.props.data.continents) {
-      return "Loading..."
+      return "Loading...This often takes a few seconds"
     }
     const { classes } = this.props;
     // Store props in seperate vars to avoid mutating state (props) directly
@@ -153,17 +153,17 @@ class LocationSearchFilters extends Component {
     let regions = this.props.data.regions;
     let areas = this.props.data.areas;
     if (this.state.continent) {
-      countries = countries.filter((country) => country.continent == this.state.continent)
+      countries = countries.filter((country) => country.continent === this.state.continent)
     } else {
       countries = []
     }
     if (this.state.continent && this.state.country) {
-      regions = regions.filter((region) => region.country == this.state.country)
+      regions = regions.filter((region) => region.country === this.state.country)
     } else {
       regions = []
     }
     if (this.state.continent && this.state.country && this.state.region) {
-      areas = areas.filter((area) => area.region == this.state.region).map((area) => area.area);
+      areas = areas.filter((area) => area.region === this.state.region).map((area) => area.area);
     } else {
       areas = []
     }
@@ -181,7 +181,7 @@ class LocationSearchFilters extends Component {
                 select
                 label="Select"
                 className={classes.textField}
-                value={this.state.continent}
+                value={this.state.continent ? this.state.continent : "unchosen"}
                 SelectProps={{
                   MenuProps: {
                     className: classes.menu,
@@ -211,7 +211,7 @@ class LocationSearchFilters extends Component {
                 select
                 label="Select"
                 className={classes.textField}
-                value={this.state.country}
+                value={this.state.country ? this.state.country : "unchosen"}
                 SelectProps={{
                   MenuProps: {
                     className: classes.menu,
@@ -241,7 +241,7 @@ class LocationSearchFilters extends Component {
                 select
                 label="Select"
                 className={classes.textField}
-                value={this.state.region}
+                value={this.state.region ? this.state.region : "unchosen"}
                 SelectProps={{
                   MenuProps: {
                     className: classes.menu,
@@ -300,6 +300,12 @@ class LocationSearchFilters extends Component {
       </div>
     )
   }
+}
+
+LocationSearchFilters.propTypes = {
+  classes: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired,
+  handleAreaChange: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(graphql(gql`${FETCH_LOCATION_CATEGORIES}`)(LocationSearchFilters));
