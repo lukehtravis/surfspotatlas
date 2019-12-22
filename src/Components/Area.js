@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
-import { graphql } from 'react-apollo';
+import React from 'react';
+import PropTypes from "prop-types";
+import { useQuery } from '@apollo/react-hooks';
 import gql from "graphql-tag";
 import AreaMap from "./AreaMap";
 import AreaTable from "./AreaTable";
@@ -28,63 +29,68 @@ const styles = theme => ({
   }
 })
 
-class Area extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+const Area = (props) => {
 
-  render() {
-    if (!this.props.data.Locations) {
-      return "Loading"
+  const {loading, error, data} = useQuery(gql`${FETCH_AREA_LOCATION_DATA}`, {
+    variables: {areaName: props.match.params.areaName}
+  })
+
+  if (loading) return "Loading...";
+  if (error) return `Error ${error}`;
+
+  const {classes} = props
+  let country = ""
+  let region = ""
+  let mapLocations = data.Locations.map(location => {
+    country = location.country
+    region = location.region
+    return {id: location.id, latitude: location.latitude, longitude: location.longitude, region: location.region, country: location.country}
+  })
+  let tableLocations = data.Locations.map(location => {
+    return {
+      id: location.Wave.id,
+      name: location.Wave.name,
+      direction: location.Wave.wavedirection,
+      bathymetry: location.Wave.bathymetry,
+      quality: location.Wave.Wave_Ratings_aggregate.aggregate.avg.wavequality,
+      danger: location.Wave.Wave_Ratings_aggregate.aggregate.avg.wavequality,
+      area: props.match.params.areaName
     }
-    const {classes} = this.props
-    let country = ""
-    let region = ""
-    let mapLocations = this.props.data.Locations.map(location => {
-      country = location.country
-      region = location.region
-      return {id: location.id, latitude: location.latitude, longitude: location.longitude, region: location.region, country: location.country}
-    })
-    let tableLocations = this.props.data.Locations.map(location => {
-      return {
-        id: location.Wave.id,
-        name: location.Wave.name,
-        direction: location.Wave.wavedirection,
-        bathymetry: location.Wave.bathymetry,
-        quality: location.Wave.Wave_Ratings_aggregate.aggregate.avg.wavequality,
-        danger: location.Wave.Wave_Ratings_aggregate.aggregate.avg.wavequality,
-        area: this.props.match.params.areaName
-      }
-    })
+  })
 
-    return (
-      <div>
-        <Grid container className={classes.header}>
-          <Grid item>
-            <Typography className={`${classes.headerText} ${classes.uppercase} ${classes.boldness}`} >{this.props.match.params.areaName}</Typography>
-            <Grid container className={classes.breadcrumbContainer} >
-              <Grid item>
-                <Typography className={`${classes.breadcrumbText} ${classes.uppercase}`} >{country}</Typography>
-              </Grid>
-              <span className={`${classes.breadcrumbText} ${classes.divider}`}>|</span>
-              <Grid item>
-                <Typography className={`${classes.breadcrumbText} ${classes.uppercase}`}>{region}</Typography>
-              </Grid>
-              <span className={`${classes.breadcrumbText} ${classes.divider}`}>|</span>
-              <Grid item>
-                <Typography className={`${classes.breadcrumbText} ${classes.uppercase}`}>{this.props.match.params.areaName}</Typography>
-              </Grid>
+  return (
+    <div>
+      <Grid container className={classes.header}>
+        <Grid item>
+          <Typography className={`${classes.headerText} ${classes.uppercase} ${classes.boldness}`} >{props.match.params.areaName}</Typography>
+          <Grid container className={classes.breadcrumbContainer} >
+            <Grid item>
+              <Typography className={`${classes.breadcrumbText} ${classes.uppercase}`} >{country}</Typography>
+            </Grid>
+            <span className={`${classes.breadcrumbText} ${classes.divider}`}>|</span>
+            <Grid item>
+              <Typography className={`${classes.breadcrumbText} ${classes.uppercase}`}>{region}</Typography>
+            </Grid>
+            <span className={`${classes.breadcrumbText} ${classes.divider}`}>|</span>
+            <Grid item>
+              <Typography className={`${classes.breadcrumbText} ${classes.uppercase}`}>{props.match.params.areaName}</Typography>
             </Grid>
           </Grid>
         </Grid>
-        <AreaMap areaSpots={mapLocations} />
-        <AreaTable spots={tableLocations} />
-      </div>
-    )
-  }
+      </Grid>
+      <AreaMap areaSpots={mapLocations} />
+      <AreaTable spots={tableLocations} />
+    </div>
+  )
 }
 
-export default graphql(gql`${FETCH_AREA_LOCATION_DATA}`, {
-  options: (props) => {return {variables: {areaName: props.match.params.areaName} } }
-})(withStyles(styles)(Area))
+Area.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      areaName: PropTypes.string.isRequired
+    })
+  }),
+  classes: PropTypes.object.isRequired
+}
+
+export default withStyles(styles)(Area)
