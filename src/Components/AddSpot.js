@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
-import { compose } from 'react-apollo';
+import * as compose from 'lodash.flowright';
 import { Auth0Context } from "../react-auth0-wrapper";
 import Map from './Map';
 import {withStyles} from "@material-ui/core/styles";
