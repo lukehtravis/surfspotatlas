@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Link changes the class when hovered 1`] = `
+<footer
+  className="MuiTypography-root makeStyles-root-1 MuiTypography-body1"
+>
+  <div
+    className="MuiContainer-root makeStyles-container-2 MuiContainer-maxWidthLg"
+  >
+    <div
+      className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-5"
+    >
+      <div
+        className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+      >
+        <p
+          className="MuiTypography-root MuiTypography-body1"
+        >
+          SURF SPOT ATLAS by Luke Travis
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+`;

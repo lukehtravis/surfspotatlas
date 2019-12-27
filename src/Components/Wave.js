@@ -35,11 +35,11 @@ const styles = theme => ({
 })
 
 const Wave = (props) => {
-
+  const { user, isAuthenticated } = useAuth0();
   if (!props.data.Waves) {
     return "Loading"
   }
-  const { user, isAuthenticated } = useAuth0();
+
   if (isAuthenticated && !user) {
     return "Loading"
   }
