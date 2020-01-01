@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Link changes the class when hovered 1`] = `
+exports[`Footer Renders Properly 1`] = `
 <footer
   className="MuiTypography-root makeStyles-root-1 MuiTypography-body1"
 >

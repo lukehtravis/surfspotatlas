@@ -37,7 +37,7 @@ const Area = (props) => {
 
   if (loading) return "Loading...";
   if (error) return `Error ${error}`;
-
+  console.log("area data", data)
   const {classes} = props
   let country = ""
   let region = ""
