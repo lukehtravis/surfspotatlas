@@ -174,7 +174,7 @@ class LocationSearchFilters extends Component {
           Choose the areas you would like to explore
         </Typography>
         <Grid container justify="space-between">
-          <Grid item xs={5}>
+          <Grid item xs={12} md={5}>
             <div>
               <TextField
                 id="continent"
@@ -204,7 +204,7 @@ class LocationSearchFilters extends Component {
               </TextField>
             </div>
           </Grid>
-          <Grid item xs={5}>
+          <Grid item xs={12} md={5}>
             <div>
               <TextField
                 id="country"
@@ -234,7 +234,7 @@ class LocationSearchFilters extends Component {
               </TextField>
             </div>
           </Grid>
-          <Grid item xs={5}>
+          <Grid item xs={12} md={5}>
             <div>
               <TextField
                 id="region"
@@ -264,7 +264,7 @@ class LocationSearchFilters extends Component {
               </TextField>
             </div>
           </Grid>
-          <Grid item xs={5}>
+          <Grid item xs={12} md={5}>
             <div>
               <FormControl variant="outlined" className={classes.formControl}>
                 <InputLabel htmlFor="select-multiple-chip">Area</InputLabel>

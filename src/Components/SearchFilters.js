@@ -54,10 +54,10 @@ class SearchFilters extends Component {
       <div className="MuiToolbar-gutters">
         <form>
           <Grid container spacing={2}>
-            <Grid item xs={6}>
+            <Grid item xs={12} md={6}>
               <LocationSearchFilters handleAreaChange={this.handleAreaChange} />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} md={6} >
               <WaveQualityFilters danger={danger} quality={quality} handleWaveQualityChange={this.handleWaveQualityChange} handleWaveDangerChange={this.handleWaveDangerChange} />
             </Grid>
           </Grid>
