@@ -44,7 +44,7 @@ const styles = theme => ({
   },
   Grid: {
     paddingLeft: theme.spacing(3),
-    paddingRight: theme.spacing(3)
+    paddingRight: theme.spacing(3),
   },
   attributeHeader: waveAttributeHeadings,
   h6: theme.typography.h6,
@@ -130,22 +130,22 @@ class WaveAttributes extends Component {
       <div>
         <Paper className={classes.Paper}>
           <Grid container className={classes.Grid}>
-            <Grid item xs={3}>
+            <Grid item xs={12} md={3}>
               <WaveQuality voteOnAttribute={this.voteOnAttribute} attributeValue={waveStats.wavequality} attributeName="wavequality" />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={12} md={3}>
               <WaveHollowness voteOnAttribute={this.voteOnAttribute} attributeValue={waveStats.wavehollowness} attributeName="wavehollowness" />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={12} md={3}>
               <WaveDanger voteOnAttribute={this.voteOnAttribute} attributeValue={waveStats.wavedanger} attributeName="wavedanger" />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={12} md={3}>
               <WaveLength voteOnAttribute={this.voteOnAttribute} attributeValue={waveStats.wavelength} attributeName="wavelength" />
             </Grid>
           </Grid>
         </Paper>
         <Grid container className={classes.Grid} justify={"space-between"}>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <Paper className={classes.smallPaper}>
               <h6 className={`${classes.h6} ${classes.h6Margin}`}>Description</h6>
               <Typography className={classes.paragraph}>{waveDetails.description}</Typography>
@@ -153,7 +153,7 @@ class WaveAttributes extends Component {
               <Typography className={classes.paragraph}>{waveDetails.directions}</Typography>
             </Paper>
           </Grid>
-          <Grid item xs={5}>
+          <Grid item xs={12} md={5}>
             <Paper className={classes.smallPaper}>
               <div className={"quality-filter"}>
                 <TideSlider />
