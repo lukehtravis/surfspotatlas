@@ -15,7 +15,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <Fragment className="app-container">
+        <Fragment>
           <Header className="app-header" />
           <div className="app-body" >
             <Switch>
