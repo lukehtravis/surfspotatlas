@@ -15,17 +15,19 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <Fragment>
-          <Header />
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/AddSpot" component={AddSpot} />
-            <Route path="/Search" component={Search} />
-            <Route path="/Wave/:id" component={Wave} />
-            <Route path="/Area/:areaName" component={Area} />
-            <PrivateRoute path="/Profile" component={Profile} />
-          </Switch>
-          <Footer />
+        <Fragment className="app-container">
+          <Header className="app-header" />
+          <div className="app-body" >
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route path="/AddSpot" component={AddSpot} />
+              <Route path="/Search" component={Search} />
+              <Route path="/Wave/:id" component={Wave} />
+              <Route path="/Area/:areaName" component={Area} />
+              <PrivateRoute path="/Profile" component={Profile} />
+            </Switch>
+          </div>
+          <Footer className="app-footer" />
         </Fragment>
       </Router>
     );
