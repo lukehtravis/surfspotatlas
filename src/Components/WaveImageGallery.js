@@ -27,8 +27,7 @@ const styles = theme => ({
     maxHeight: 450,
   },
   popupImage: {
-    width: "500px",
-    height: "500px",
+    width: "100%"
   },
   h6Margin: {
     marginTop: theme.spacing(1),
@@ -138,7 +137,7 @@ class WaveImageGallery extends Component {
                           open={this.state.isModalOpen}
                           closeOnDocumentClick
                         >
-                          <img alt="waves" src={tile.url} className={classes.popupImage} />
+                          <img alt="waves" src={tile.url} className={classes.popupImage}  />
                         </Popup>
                       )}
                 </GridListTile>
