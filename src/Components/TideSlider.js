@@ -6,6 +6,11 @@ import {FETCH_TIDES} from '../utils/queries';
 import {withStyles} from "@material-ui/core/styles";
 import {tideMarks} from "../utils/labels";
 import Typography from "@material-ui/core/Typography";
+import { useAuth0 } from "../react-auth0-wrapper";
+import Grid from "@material-ui/core/Grid";
+import WaveAttributeVote from "./WaveAttributeVote";
+import { NavigationFullscreenExit } from "material-ui/svg-icons";
+import centerFocusStrong from "material-ui/svg-icons/image/center-focus-strong";
 
 /*
   This component represents sliders with two inputs, which do not allow user
@@ -29,6 +34,12 @@ const styles = theme => {
   return {
     root: {
       height: theme.breakpoints.width
+    },
+    tideHeader: {
+      justifyContent: "center"
+    },
+    tideVote: {
+      marginRight: "10px"
     },
     track: {
       height: barHeight,
@@ -63,15 +74,31 @@ const styles = theme => {
 }
 
 const TideSlider = (props) => {
+  const { isAuthenticated } = useAuth0();
+
   if (props.data.loading) {
     return "Loading..."
   }
   const classes = props.classes;
   const lowtide = props.data.Wave_Ratings_aggregate.aggregate.avg.lowtide
   const hightide = props.data.Wave_Ratings_aggregate.aggregate.avg.hightide
+
   return (
     <div>
-      <Typography className={`${classes.header} ${classes.h6}`}>Ideal Tide Range</Typography>
+      <Grid container xs={12} className={classes.tideHeader}>
+        <Grid item className={classes.tideVote}>
+          {isAuthenticated && (
+            <WaveAttributeVote 
+              voteOnAttribute={props.voteOnAttribute}
+              attributeName={["lowtide", "hightide"]}
+              attributeValue={[lowtide, hightide]}
+            />
+          )}
+        </Grid>
+        <Grid item>
+          <Typography className={`${classes.header} ${classes.h6}`}>Ideal Tide Range</Typography>
+        </Grid>
+      </Grid>
       <Slider marks={tideMarks} value={[lowtide, hightide]} classes={{rail: classes.rail, thumb: classes.thumb, track: classes.track}} />
     </div>
   )

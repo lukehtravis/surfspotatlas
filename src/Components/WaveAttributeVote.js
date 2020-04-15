@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import Popup from "reactjs-popup";
 import Slider from '@material-ui/core/Slider';
 import EditIcon from '@material-ui/icons/Edit';
-import {waveQualityMarks} from "../utils/labels";
+import {tideVoteMarks} from "../utils/labels";
 
 // Each WaveAttributeVote component is attached to one of the children components of WaveAttributes,
 // users can press a button below the visible wave attribute and vote--using a slider--
@@ -54,9 +54,9 @@ class WaveAttributeVote extends Component {
 
     return (
       <div>
-        <Popup trigger={<div><EditIcon /></div>} position="right center">
+        <Popup trigger={<div><EditIcon /></div>} position="left bottom">
           <Slider
-            marks={waveQualityMarks}
+            marks={tideVoteMarks}
             valueLabelDisplay="on"
             defaultValue={this.state.popupAttributeValue}
             onChange={(event, newValue) => this.handleChange(event, newValue, this.props.attributeName)}

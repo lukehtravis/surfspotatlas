@@ -1,8 +1,10 @@
 import React from "react";
 import Canvas from "./Canvas";
+import WaveAttributeVote from "./WaveAttributeVote";
 import {withStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import "../css/Compass.css";
+import { useAuth0 } from "../react-auth0-wrapper";
 
 const defaultFontSize = 16
 const circleBoundary = 150
@@ -52,7 +54,7 @@ const styles = theme => ({
 
 const AngleRangeCircle = (props) => {
   const {classes} = props;
-  // const {  isAuthenticated, user } = useAuth0()
+  const {  isAuthenticated, user } = useAuth0()
   const windAngleOne = props.attributeValue[0]
   const windAngleTwo = props.attributeValue[1]
 
@@ -60,7 +62,7 @@ const AngleRangeCircle = (props) => {
     <div className={`${classes.circleFonts} ${classes.compass}`} >
       <Typography className={classes.northFont}>0° N</Typography>
       <Canvas className={classes.positionedElement} circleBoundary={circleBoundary} circleRadius={circleRadius} circleCenterXY={circleCenterXY} windAngleOne={windAngleOne} windAngleTwo={windAngleTwo} />
-      {/* isAuthenticated && (
+      {isAuthenticated && (
           <div className="wind-angle">
             <WaveAttributeVote
               voteOnAttribute={props.voteOnAttribute}
@@ -68,7 +70,7 @@ const AngleRangeCircle = (props) => {
               attributeName={props.attributeName}
             />
           </div>
-        ) */}
+        )}
     </div>
   )
 }

@@ -156,7 +156,7 @@ class WaveAttributes extends Component {
           <Grid item xs={12} md={5}>
             <Paper className={classes.smallPaper}>
               <div className={"quality-filter"}>
-                <TideSlider />
+                <TideSlider voteOnAttribute={this.voteOnAttribute} />
               </div>
               <Grid container justify="space-between" className={classes.dialsContainer}>
                 <Grid item xs={6} className={classes.alignSelf}>

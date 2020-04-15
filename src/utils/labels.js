@@ -113,6 +113,17 @@ export const tideMarks = [
   }
 ]
 
+export const tideVoteMarks = [
+  {
+    value: 7,
+    label: "Low"
+  },
+  {
+    value: 93,
+    label: "High"
+  }
+]
+
 export const monthMarks = [
   {
     value: 0,
