@@ -83,6 +83,11 @@ const styles = theme => ({
   },
   chip: {
     margin: 2,
+  },
+  submitButton: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    border: `1px solid ${theme.palette.primary.light}`
   }
 });
 
@@ -218,7 +223,7 @@ class AddSpot extends Component {
           <Typography className={classes.formHeader}>Create A New Spot</Typography>
           <form>
             <Grid container justify="space-between">
-              <Grid xs={5} item>
+              <Grid xs={12} md={6} item>
                 <TextField
                   variant="outlined"
                   type="text"
@@ -229,7 +234,7 @@ class AddSpot extends Component {
                   value={this.state.name} onChange={this.handleChange}
                 />
               </Grid>
-              <Grid xs={5} item>
+              <Grid xs={12} md={5} item>
                 <TextField
                   variant="outlined"
                   type="text"
@@ -242,7 +247,7 @@ class AddSpot extends Component {
               </Grid>
             </Grid>
             <Grid container justify="space-between">
-              <Grid item xs={6}>
+              <Grid item xs={12} md={6}>
                 <TextField
                   multiline={true}
                   rows={4}
@@ -256,7 +261,7 @@ class AddSpot extends Component {
                   value={this.state.description} onChange={this.handleChange}
                 />
               </Grid>
-              <Grid item xs={5}>
+              <Grid item xs={12} md={5}>
                 <TextField
                 multiline={true}
                   rows={4}
@@ -390,7 +395,7 @@ class AddSpot extends Component {
             <Divider className={classes.divider}/>
             <Typography className={classes.sectionHeader}>Wave Attributes</Typography>
             <Grid container>
-              <Grid item xs={6} className={classes.sliderSection}>
+              <Grid item xs={12} md={6} className={classes.sliderSection}>
                 <Typography className={classes.sliderTitle} gutterBottom>
                   Wave Length
                 </Typography>
@@ -403,7 +408,7 @@ class AddSpot extends Component {
                   onChange={this.waveLengthChange}
                 />
               </Grid>
-              <Grid item xs={6} className={classes.sliderSection}>
+              <Grid item xs={12} md={6} className={classes.sliderSection}>
               <Typography className={classes.sliderTitle} gutterBottom>
                 Wave Quality
               </Typography>
@@ -416,7 +421,7 @@ class AddSpot extends Component {
                   onChange={this.waveQualityChange}
                 />
               </Grid>
-              <Grid item xs={6} className={classes.sliderSection}>
+              <Grid item xs={12} md={6} className={classes.sliderSection}>
                 <Typography className={classes.sliderTitle} gutterBottom>
                   Wave Hollowness
                 </Typography>
@@ -429,7 +434,7 @@ class AddSpot extends Component {
                   onChange={this.waveHollownessChange}
                 />
               </Grid>
-              <Grid item xs={6} className={classes.sliderSection}>
+              <Grid item xs={12} md={6} className={classes.sliderSection}>
                 <Typography className={classes.sliderTitle} gutterBottom>
                   Wave Danger
                 </Typography>
@@ -442,7 +447,7 @@ class AddSpot extends Component {
                   onChange={this.waveDangerChange}
                 />
               </Grid>
-              <Grid item xs={6} className={classes.sliderSection}>
+              <Grid item xs={12} md={6} className={classes.sliderSection}>
                 <Typography className={classes.sliderTitle} gutterBottom>
                   Ideal Tide Range
                 </Typography>
@@ -458,7 +463,7 @@ class AddSpot extends Component {
             </Grid>
             <Divider className={classes.divider}/>
             <Grid container justify="space-between">
-              <Grid item xs={5}>
+              <Grid item xs={12} md={5}>
                 <TextField
                   variant="outlined"
                   type="number"
@@ -469,7 +474,7 @@ class AddSpot extends Component {
                   value={this.state.windangleone} onChange={this.handleChange}
                 />
               </Grid>
-              <Grid item xs={5}>
+              <Grid item xs={12} md={5}>
                 <TextField
                   variant="outlined"
                   type="number"
@@ -480,7 +485,7 @@ class AddSpot extends Component {
                   value={this.state.windangletwo} onChange={this.handleChange}
                 />
               </Grid>
-              <Grid item xs={5}>
+              <Grid item xs={12} md={5}>
                 <TextField
                   variant="outlined"
                   type="number"
@@ -491,7 +496,7 @@ class AddSpot extends Component {
                   value={this.state.swellangleone} onChange={this.handleChange}
                 />
               </Grid>
-              <Grid item xs={5}>
+              <Grid item xs={12} md={5}>
                 <TextField
                   variant="outlined"
                   type="number"
@@ -613,9 +618,9 @@ class AddSpot extends Component {
                 </TextField>
               </Grid>
             </Grid>
-            <Button onClick={this.handleSubmit}>Submit</Button>
+            <Map onChangeCoords={this.onChangeCoords} />
+            <Button onClick={this.handleSubmit} className={classes.submitButton}>Submit</Button>
           </form>
-          <Map onChangeCoords={this.onChangeCoords} />
         </Grid>
       </div>
     )
