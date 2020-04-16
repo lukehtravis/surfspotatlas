@@ -39,6 +39,7 @@ class WaveAttributeVote extends Component {
       const value1 = {[attributeName[0]]: newValue[0]}
       const value2 = {[attributeName[1]]: newValue[1]}
       const values = {...value1, ...value2}
+      console.log(typeof value1, value1)
       this.setState({popupAttributeValue: newValue});
       this.props.voteOnAttribute({...values})
     } else {
@@ -51,14 +52,16 @@ class WaveAttributeVote extends Component {
   }
 
   render() {
-
+   
+    const sliderLabelNumbers = Array.isArray(this.state.popupAttributeValue) ? this.state.popupAttributeValue.map(number => (number.toFixed())) : this.state.popupAttributeValue;
+  
     return (
       <div>
         <Popup trigger={<div><EditIcon /></div>} position="left bottom">
           <Slider
             marks={tideVoteMarks}
             valueLabelDisplay="on"
-            defaultValue={this.state.popupAttributeValue}
+            defaultValue={sliderLabelNumbers}
             onChange={(event, newValue) => this.handleChange(event, newValue, this.props.attributeName)}
           />
         </Popup>

@@ -123,7 +123,7 @@ class Canvas extends Component {
     ctx.fill();
     ctx.fillStyle = "#616161";
     ctx.font = `normal 12px Helvetica`
-    ctx.fillText(`${label}°`, pointX + 10,pointY);
+    ctx.fillText(`${label.toFixed()}°`, pointX + 5, pointY );
   }
 
   render() {
