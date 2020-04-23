@@ -221,11 +221,12 @@ class AddSpot extends Component {
       <div>
         <Grid className={classes.gridContainer}>
           <Typography className={classes.formHeader}>Create A New Spot</Typography>
-          <form>
+          <form onSubmit={this.handleSubmit}>
             <Grid container justify="space-between">
               <Grid xs={12} md={6} item>
                 <TextField
                   variant="outlined"
+                  required
                   type="text"
                   className={classes.textField}
                   label="Wave Name"
@@ -258,6 +259,7 @@ class AddSpot extends Component {
                   helperText="Description"
                   margin="normal"
                   name="description"
+                  required
                   value={this.state.description} onChange={this.handleChange}
                 />
               </Grid>
@@ -270,6 +272,7 @@ class AddSpot extends Component {
                   type="text"
                   className={classes.textField}
                   helperText="Directions"
+                  required
                   margin="normal"
                   name="directions"
                   value={this.state.directions} onChange={this.handleChange}
@@ -294,6 +297,7 @@ class AddSpot extends Component {
                   margin="normal"
                   variant="outlined"
                   name="bathymetry"
+                  required
                   onChange={this.handleChange}
                 >
                   <MenuItem key="select" value="sand">
@@ -322,6 +326,7 @@ class AddSpot extends Component {
                   margin="normal"
                   variant="outlined"
                   name="wavedirection"
+                  required
                   onChange={this.handleChange}
                 >
                   <MenuItem key="select" value="right">
@@ -350,6 +355,7 @@ class AddSpot extends Component {
                   margin="normal"
                   variant="outlined"
                   name="wavetype"
+                  required
                   onChange={this.handleChange}
                 >
                   <MenuItem key="select" value="beachbreak">
@@ -469,6 +475,7 @@ class AddSpot extends Component {
                   type="number"
                   className={classes.textField}
                   helperText="Starting Wind Angle"
+                  required
                   margin="normal"
                   name="windangleone"
                   value={this.state.windangleone} onChange={this.handleChange}
@@ -480,6 +487,7 @@ class AddSpot extends Component {
                   type="number"
                   className={classes.textField}
                   helperText="Ending Wind Angle"
+                  required
                   margin="normal"
                   name="windangletwo"
                   value={this.state.windangletwo} onChange={this.handleChange}
@@ -491,6 +499,7 @@ class AddSpot extends Component {
                   type="number"
                   className={classes.textField}
                   helperText="Starting Swell Angle"
+                  required
                   margin="normal"
                   name="swellangleone"
                   value={this.state.swellangleone} onChange={this.handleChange}
@@ -502,6 +511,7 @@ class AddSpot extends Component {
                   type="number"
                   className={classes.textField}
                   helperText="Ending Swell Angle"
+                  required
                   margin="normal"
                   name="swellangletwo"
                   value={this.state.swellangletwo} onChange={this.handleChange}
@@ -619,7 +629,7 @@ class AddSpot extends Component {
               </Grid>
             </Grid>
             <Map onChangeCoords={this.onChangeCoords} />
-            <Button onClick={this.handleSubmit} className={classes.submitButton}>Submit</Button>
+            <Button type="submit" className={classes.submitButton}>Submit</Button>
           </form>
         </Grid>
       </div>
