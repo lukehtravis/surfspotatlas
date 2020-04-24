@@ -212,6 +212,9 @@ class AddSpot extends Component {
           area: this.state.area
         }
       })
+      return waveId
+    }).then((waveid) => {
+      this.props.history.push(`/Wave/${waveid}`);
     })
   }
 
