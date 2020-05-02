@@ -23,13 +23,18 @@ import {bathymetryStringConverter, directionStringConverter} from "../utils/dbNa
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
+    paddingTop: `${theme.spacing(4)}px`,
+    paddingBottom: `${theme.spacing(4)}px`,
+    backgroundColor: theme.palette.background.default,
+  },
+  coloredBackground: {
     overflowX: 'auto',
-    backgroundColor: theme.palette.background.default
+    width: "90%",
+    marginLeft: "auto",
+    marginRight: "auto",
   },
   table: {
     minWidth: 200,
-    width: "90%",
-    margin: `${theme.spacing(4)}px auto`,
     backgroundColor: theme.palette.background.paper,
     borderRadius: "5px"
   },
@@ -79,34 +84,36 @@ export default function SearchedSpotsTable(props) {
   return (
     <div>
       <Paper className={classes.root}>
-        <Table className={classes.table} aria-label="simple table">
-          <EnhancedTableHeader
-            order={order}
-            orderBy={orderBy}
-            onRequestSort={handleRequestSort}
-            classes={classes}
-          />
-          <TableBody>
-            {stableSort(spots, getSorting(order, orderBy))
-              //.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((spot, index) => {
-                const labelId = `enhanced-table-checkbox-${index}`;
-                return (
-                  <TableRow key={spot.name} hover>
-                    <TableCell className={classes.tableCell} id={labelId} component={"th"} scope="row">
-                      <Link to={`/Wave/${spot.id}`}>{spot.name}</Link>
-                    </TableCell>
-                    <TableCell className={classes.tableCell} align="left"><Link to={`/Area/${spot.area}`}>{spot.area}</Link></TableCell>
-                    <TableCell className={classes.tableCell} align="left">{directionStringConverter(spot.direction)}</TableCell>
-                    <TableCell className={classes.tableCell} align="left">{bathymetryStringConverter(spot.bathymetry)}</TableCell>
-                    <TableCell className={classes.tableCell} align="center"><StaticProgressBar value={Math.round(spot.quality)} /></TableCell>
-                    <TableCell className={classes.tableCell} align="center"><StaticProgressBar value={Math.round(spot.danger)} /></TableCell>
-                  </TableRow>
-                )
-              })
-            }
-          </TableBody>
-        </Table>
+        <div className={classes.coloredBackground}>
+          <Table className={classes.table} aria-label="simple table">
+            <EnhancedTableHeader
+              order={order}
+              orderBy={orderBy}
+              onRequestSort={handleRequestSort}
+              classes={classes}
+            />
+            <TableBody>
+              {stableSort(spots, getSorting(order, orderBy))
+                //.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((spot, index) => {
+                  const labelId = `enhanced-table-checkbox-${index}`;
+                  return (
+                    <TableRow key={spot.name} hover>
+                      <TableCell className={classes.tableCell} id={labelId} component={"th"} scope="row">
+                        <Link to={`/Wave/${spot.id}`}>{spot.name}</Link>
+                      </TableCell>
+                      <TableCell className={classes.tableCell} align="left"><Link to={`/Area/${spot.area}`}>{spot.area}</Link></TableCell>
+                      <TableCell className={classes.tableCell} align="left">{directionStringConverter(spot.direction)}</TableCell>
+                      <TableCell className={classes.tableCell} align="left">{bathymetryStringConverter(spot.bathymetry)}</TableCell>
+                      <TableCell className={classes.tableCell} align="center"><StaticProgressBar value={Math.round(spot.quality)} /></TableCell>
+                      <TableCell className={classes.tableCell} align="center"><StaticProgressBar value={Math.round(spot.danger)} /></TableCell>
+                    </TableRow>
+                  )
+                })
+              }
+            </TableBody>
+          </Table>
+        </div>
       </Paper>
     </div>
   )

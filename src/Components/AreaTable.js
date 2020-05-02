@@ -1,5 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import { useAuth0 } from "../react-auth0-wrapper";
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,6 +9,7 @@ import TableCell from '@material-ui/core/TableCell';
 import Paper from '@material-ui/core/Paper';
 import StaticProgressBar from "./StaticProgressBar";
 import EnhancedTableHeader from "./EnhancedTableHeader";
+import Can from "./Can";
 import {bathymetryStringConverter, directionStringConverter} from "../utils/dbNameConversions";
 
 const useStyles = makeStyles(theme => ({
@@ -55,6 +57,7 @@ function getSorting(order, orderBy) {
 export default function SearchedSpotsTable(props) {
   const classes = useStyles();
   const {spots} = props;
+  const {user, loading} = useAuth0();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('area');
 
@@ -63,6 +66,12 @@ export default function SearchedSpotsTable(props) {
     setOrder(isDesc ? 'asc' : 'desc');
     setOrderBy(property);
   };
+
+  if (loading || !user) {
+    return <div>Loading...</div>;
+  }
+
+  console.log(user)
   return (
     <div>
       <Paper className={classes.root}>
@@ -80,6 +89,14 @@ export default function SearchedSpotsTable(props) {
                 const labelId = `enhanced-table-checkbox-${index}`;
                 return (
                   <TableRow key={spot.name} hover>
+                     <Can
+                      role={user.role}
+                      perform="spots:delete"
+                      yes={() => (
+                        <span>x</span>
+                      )}
+                      no={() => null}
+                    />
                     <TableCell className={classes.tableCell} id={labelId} component={Link} to={`../Wave/${spot.id}`} scope="row">
                       {spot.name}
                     </TableCell>
