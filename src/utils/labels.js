@@ -90,6 +90,29 @@ export const waveDangerMarks = [
   }
 ]
 
+export const waveCrowdMarks = [
+  {
+    value: 0,
+    label: "Nobody"
+  },
+  {
+    value: 25,
+    label: "Some people"
+  },
+  {
+    value: 50,
+    label: "Average"
+  },
+  {
+    value: 75,
+    label: "Crowded"
+  },
+  {
+    value: 100,
+    label: "Packed"
+  }
+]
+
 export const tideMarks = [
   {
     value: 1,

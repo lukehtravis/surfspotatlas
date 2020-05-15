@@ -6,7 +6,7 @@ import { Auth0Context } from "../react-auth0-wrapper";
 import Map from './Map';
 import {withStyles} from "@material-ui/core/styles";
 import {ADD_SPOT, INSERT_LOCATION, ADD_RATING} from "../utils/queries";
-import {waveLengthMarks, waveQualityMarks, waveHollownessMarks, waveDangerMarks, tideMarks} from "../utils/labels";
+import {waveLengthMarks, waveQualityMarks, waveHollownessMarks, waveDangerMarks, waveCrowdMarks, tideMarks} from "../utils/labels";
 import {convertMonthToDay} from "../utils/dbNameConversions";
 import Slider from '@material-ui/core/Slider';
 import TextField from '@material-ui/core/TextField';
@@ -138,6 +138,10 @@ class AddSpot extends Component {
     this.setState({wavehollowness: newValue})
   }
 
+  waveCrowdChange = (event, newValue) => {
+    this.setState({wavecrowd: newValue})
+  }
+
   tideRangeChange = (event, newValue) => {
     this.setState({tideRange: [newValue[0], newValue[1]]})
   }
@@ -190,6 +194,7 @@ class AddSpot extends Component {
           wavequality: this.state.wavequality,
           wavehollowness: this.state.wavehollowness,
           wavedanger: this.state.wavedanger,
+          wavecrowd: this.state.wavecrowd,
           userid: userId,
           windangleone: this.state.windangleone,
           windangletwo: this.state.windangletwo,
@@ -454,6 +459,19 @@ class AddSpot extends Component {
                   marks={waveDangerMarks}
                   value={this.state.wavedanger}
                   onChange={this.waveDangerChange}
+                />
+              </Grid>
+              <Grid item xs={12} md={6} className={classes.sliderSection}>
+                <Typography className={classes.sliderTitle} gutterBottom>
+                  Wave Danger
+                </Typography>
+                <Slider
+                  className="slider-input"
+                  id="wavecrowd"
+                  name="wavecrowd"
+                  marks={waveCrowdMarks}
+                  value={this.state.wavecrowd}
+                  onChange={this.waveCrowdChange}
                 />
               </Grid>
               <Grid item xs={12} md={6} className={classes.sliderSection}>

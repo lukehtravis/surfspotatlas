@@ -6,6 +6,7 @@ import WaveQuality from "./WaveQuality";
 import WaveHollowness from "./WaveHollowness";
 import WaveDanger from "./WaveDanger";
 import WaveLength from "./WaveLength";
+import WaveCrowd from "./WaveCrowd";
 import AngleRangeCircle from "./AngleRangeCircle";
 import TideSlider from "./TideSlider";
 import {withStyles} from "@material-ui/core/styles";
@@ -175,7 +176,12 @@ class WaveAttributes extends Component {
           <Grid item xs={12}>
             <Paper className={classes.longPaper}>
               <Grid container>
-                <Grid item xs={4} >
+              <Grid item xs={12} md={3} >
+                  <div className={classes.waveTypeTextContainer}>
+                    <WaveCrowd voteOnAttribute={this.voteOnAttribute} attributeValue={waveStats.wavecrowd ? waveStats.wavecrowd : 50} attributeName="wavecrowd" />
+                  </div>
+                </Grid>
+                <Grid item xs={12} md={3} >
                   <Typography className={`${classes.attributeHeader} ${classes.alignSelf}`}>Type</Typography>
                   <div className={classes.waveTypeTextContainer}>
                     <Typography className={classes.waveTypeTextType}>{bathymetryStringConverter(waveDetails.bathymetry)}</Typography>
@@ -183,13 +189,13 @@ class WaveAttributes extends Component {
                     <Typography className={classes.waveTypeTextType}>{waveTypeStringConverter(waveDetails.wavetype)}</Typography>
                   </div>
                 </Grid>
-                <Grid item xs={4} >
+                <Grid item xs={12} md={3} >
                   <Typography className={`${classes.attributeHeader} ${classes.alignSelf}`}>Direction</Typography>
                   <div className={classes.waveTypeTextContainer}>
                     <Typography className={classes.waveTypeTextType}>{directionStringConverter(waveDetails.wavedirection)}</Typography>
                   </div>
                 </Grid>
-                <Grid item xs={4} >
+                <Grid item xs={12} md={3} >
                   <Typography className={`${classes.attributeHeader} ${classes.alignSelf}`}>Features</Typography>
                   <div className={classes.waveTypeTextContainer}>
                     <Typography className={classes.waveTypeTextType}>{directionStringConverter(waveDetails.wavelandmarks)}</Typography>
