@@ -14,6 +14,8 @@ class AreaMap extends Component {
         width: "100%",
         height: 400,
         zoom: 10,
+        latitude: this.props.areaSpots[0].latitude,
+        longitude: this.props.areaSpots[0].longitude
       },
       popupInfo: null
     };
@@ -32,7 +34,7 @@ class AreaMap extends Component {
   };
 
   _updateViewport = viewport => {
-
+    this.setState({viewport});
   };
 
   onMarkerDragEnd = (event) => {
@@ -74,13 +76,10 @@ class AreaMap extends Component {
     if (!this.props.areaSpots) {
       return "Loading"
     }
-    console.log("areamap state", this.state)
-    console.log("areamap this.props", this.props)
     return (
       <ReactMapGL
         {...this.state.viewport}
-        latitude={this.props.areaSpots[0].latitude}
-        longitude={this.props.areaSpots[0].longitude}
+        onViewportChange={(viewport) => this.setState({viewport})}
         mapboxApiAccessToken={MAPTOKEN}
         mapStyle={MAP_STYLE}
       >

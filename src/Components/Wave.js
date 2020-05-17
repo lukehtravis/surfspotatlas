@@ -1,5 +1,6 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
+import {Link} from "react-router-dom";
 import gql from "graphql-tag";
 import {FETCH_WAVE} from "../utils/queries";
 import WaveMap from "./WaveMap";
@@ -63,7 +64,9 @@ const Wave = (props) => {
             </Grid>
             <span className={`${classes.breadcrumbText} ${classes.divider}`}>|</span>
             <Grid item>
-              <Typography className={`${classes.breadcrumbText} ${classes.uppercase}`}>{area}</Typography>
+              <Link to={`/Area/${area}`}>
+                <Typography className={`${classes.breadcrumbText} ${classes.uppercase}`}>{area}</Typography>
+              </Link>
             </Grid>
           </Grid>
         </Grid>
