@@ -9,6 +9,7 @@ import TableCell from '@material-ui/core/TableCell';
 import Paper from '@material-ui/core/Paper';
 import StaticProgressBar from "./StaticProgressBar";
 import EnhancedTableHeader from "./EnhancedTableHeader";
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import Can from "./Can";
 import {bathymetryStringConverter, directionStringConverter} from "../utils/dbNameConversions";
 
@@ -71,8 +72,7 @@ export default function SearchedSpotsTable(props) {
     setOrder(isDesc ? 'asc' : 'desc');
     setOrderBy(property);
   };
-
-  console.log(user)
+  const role = user ? user["https://lukehtravis.com/Role"] : undefined;
   return (
     <div>
       <Paper className={classes.root}>
@@ -91,6 +91,16 @@ export default function SearchedSpotsTable(props) {
                   const labelId = `enhanced-table-checkbox-${index}`;
                   return (
                     <TableRow key={spot.name} hover>
+                      <Can 
+                        role={role}
+                        perform="spots:delete"
+                        yes={() => (
+                          <span>
+                            <DeleteForeverIcon />
+                          </span>
+                        )}
+                        no={() => null}
+                      />
                       <TableCell className={classes.tableCell} id={labelId} component={Link} to={`../Wave/${spot.id}`} scope="row">
                         {spot.name}
                       </TableCell>

@@ -24,7 +24,7 @@ class App extends Component {
               <Route path="/Search" component={Search} />
               <Route path="/Wave/:id" component={Wave} />
               <Route path="/Area/:areaName" component={Area} />
-              <PrivateRoute path="/Profile" component={Profile} />
+              <PrivateRoute path="/profile" component={Profile} />
             </Switch>
           </div>
           <Footer className="app-footer" />

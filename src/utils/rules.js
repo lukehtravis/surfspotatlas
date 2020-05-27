@@ -1,7 +1,8 @@
 const rules = {
-    regional_admin: {
+    regadmin: {
       static: [
-        "spots:delete"
+        "spots:delete",
+        "photos:delete"
       ]
     }
   };
