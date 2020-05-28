@@ -1,5 +1,8 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import { useMutation } from '@apollo/react-hooks';
+import gql from "graphql-tag";
+import {DELETE_WAVE, DELETE_WAVE_RATINGS, DELETE_LOCATION} from "../utils/queries"
 import { useAuth0 } from "../react-auth0-wrapper";
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -33,6 +36,9 @@ const useStyles = makeStyles(theme => ({
   },
   tableCell: {
     border: "none"
+  },
+  deleteButton: {
+    marginBottom: "-6px"
   }
 }));
 
@@ -67,11 +73,26 @@ export default function SearchedSpotsTable(props) {
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('area');
 
+  const [deleteWave, {error, data}] = useMutation(gql`${DELETE_WAVE}`)
+  const [deleteWaveRatings] = useMutation(gql`${DELETE_WAVE_RATINGS}`)
+  const [deleteLocation] = useMutation(gql`${DELETE_LOCATION}`)
+
   const handleRequestSort = (event, property) => {
     const isDesc = orderBy === property && order === 'desc';
     setOrder(isDesc ? 'asc' : 'desc');
     setOrderBy(property);
   };
+
+  const handleClick = async (event, spotId) => {
+    event.preventDefault()
+    await deleteLocation({variables: {waveId: spotId}})
+    await deleteWaveRatings({variables: {waveId: spotId}})
+    deleteWave({variables: {id: spotId}})
+    console.log("error: ", error, "data: ", data)
+  }
+
+
+
   const role = user ? user["https://lukehtravis.com/Role"] : undefined;
   return (
     <div>
@@ -91,17 +112,17 @@ export default function SearchedSpotsTable(props) {
                   const labelId = `enhanced-table-checkbox-${index}`;
                   return (
                     <TableRow key={spot.name} hover>
-                      <Can 
-                        role={role}
-                        perform="spots:delete"
-                        yes={() => (
-                          <span>
-                            <DeleteForeverIcon />
-                          </span>
-                        )}
-                        no={() => null}
-                      />
                       <TableCell className={classes.tableCell} id={labelId} component={Link} to={`../Wave/${spot.id}`} scope="row">
+                        <Can 
+                          role={role}
+                          perform="spots:delete"
+                          yes={() => (
+                            <span>
+                              <DeleteForeverIcon onClick={(e) => handleClick(e, spot.id)} className={classes.deleteButton} />
+                            </span>
+                          )}
+                          no={() => null}
+                        />
                         {spot.name}
                       </TableCell>
                       <TableCell className={classes.tableCell} align="left">{spot.area}</TableCell>

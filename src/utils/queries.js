@@ -20,3 +20,6 @@ export const FETCH_LOCATION_CATEGORIES = "query FetchLocationCategories { contin
 export const FETCH_WAVE_ATTRIBUTES = "query FetchWaveAttributes($id: Int) { Waves(where: {id: {_eq: $id}}) { Wave_Ratings_aggregate { aggregate { avg { hightide lowtide wavedanger wavehollowness wavelength wavequality wavecrowd windangleone waveseasonstart waveseasonend windangletwo swellangleone swellangletwo } } } } }"
 export const INSERT_WAVE_IMAGE = "mutation AddWaveImage($waveid: Int, $name: String, $url: String, $type: String, $creator: String, $datecreated: timestamptz) { insert_Wave_Images(objects: {waveid: $waveid, name: $name, url: $url, type: $type, creator: $creator}) { returning { id, waveid, name, url, type, creator, datecreated } } }"
 export const FETCH_WAVE_IMAGES = "query FetchWaveImages($waveid: Int) { Wave_Images(where: {waveid: {_eq: $waveid}}) { id, url } }"
+export const DELETE_WAVE = "mutation deleteWave($id: Int) { delete_Waves(where: {id: {_eq: $id}}) { returning { name id } } }"
+export const DELETE_WAVE_RATINGS = "mutation deleteWaveRatings($waveId: bigint) { delete_Wave_Ratings(where: {waveid: {_eq: $waveId}}) { returning { id } } }"
+export const DELETE_LOCATION = "mutation deleteLocations($waveId: Int) { delete_Locations(where: {Wave: {id: {_eq: $waveId}}}) { returning { latitude longitude area continent country region } } }"
