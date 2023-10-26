@@ -167,8 +167,7 @@ class AddSpot extends Component {
     // and proceeds to add information about the waves attributes in the Wave_Ratings table
     // Also, a location entry is added to the Locations table
     event.preventDefault();
-    const date = new Date();
-    const timestamp = date.getTime();
+    const timestamp = new Date();
     const user = this.context.user ? this.context.user.sub : "anonymous"
     this.props.addSpot({
         variables: {
@@ -184,7 +183,7 @@ class AddSpot extends Component {
           createdby: user
         },
     }).then((graphqlObject) => {
-      let locationId = graphqlObject.data.insert_Waves.returning[0].locationid
+      let locationId = graphqlObject.data.insert_Waves.returning[0].id
       let waveId = graphqlObject.data.insert_Waves.returning[0].id
       let userId = graphqlObject.data.insert_Waves.returning[0].createdby
       this.props.addRating({
@@ -208,7 +207,7 @@ class AddSpot extends Component {
       })
       this.props.insertLocation({
         variables: {
-          id: locationId,
+          locationId: locationId,
           longitude: this.state.long,
           latitude: this.state.lat,
           continent: this.state.continent,
@@ -225,6 +224,7 @@ class AddSpot extends Component {
 
   render() {
     const {classes} = this.props
+    
     return (
       <div>
         <Grid className={classes.gridContainer}>

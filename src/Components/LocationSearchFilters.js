@@ -142,7 +142,6 @@ class LocationSearchFilters extends Component {
   }
 
   render() {
-
     if (!this.props.data.continents) {
       return "Loading...This often takes a few seconds"
     }

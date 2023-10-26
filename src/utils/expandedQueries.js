@@ -1,4 +1,33 @@
 query FetchWave($id: Int) {
+Waves(where: {id: {_eq: $id}}) {
+  bathymetry
+  createdby
+  datecreated
+  description
+  directions
+  id
+  locationid
+  name
+  nickname
+  photosid
+  wavedirection
+  wavelandmarks
+  wavetype
+}
+Locations(where: {id: {_eq: $id}}) {
+  area
+  continent
+  country
+  id
+  latitude
+  longitude
+  region
+}
+}
+
+
+
+query FetchWave($id: Int) {
   Waves(where: {id: {_eq: $id}}) {
     id
     name

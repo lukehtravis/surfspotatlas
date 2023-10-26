@@ -61,6 +61,7 @@ class WaveMap extends Component {
         longitude={this.props.data.Locations[0].longitude}
         mapboxApiAccessToken={MAPTOKEN}
         mapStyle={MAP_STYLE}
+        style={{width: '100%'}}
       >
         <Marker
           id={this.props.waveId}
@@ -75,5 +76,5 @@ class WaveMap extends Component {
 }
 
 export default graphql(gql`${FETCH_LOCATION}`, {
-  options: (props) => {return {variables: {id: props.locationId} } }
+  options: (props) => {return {variables: {locationId: props.locationId} } }
 })(WaveMap)

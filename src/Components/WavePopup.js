@@ -15,7 +15,6 @@ const styles = theme => ({
 })
 
 const WavePopup = (props) => {
-  console.log("Wave Popup Props", props)
   const {classes} = props
   return (
     <div>

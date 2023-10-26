@@ -11,7 +11,11 @@ import config from "./utils/auth-config.json";
 import Firebase, { FirebaseContext } from './Components/Firebase';
 
 const client = new ApolloClient({
-  uri: "https://surf-spot-check.herokuapp.com/v1alpha1/graphql"
+  uri: "https://proud-mole-68.hasura.app/v1/graphql",
+  headers: {
+    
+    "x-hasura-admin-secret": "D4xIbErxG2kh7fz06UZ7JxiXs28t2HDn3Q0rp8uSzjYAyjNiB242eFc0wbhioBVB",
+  },
 });
 
 // A function that routes the user to the right place

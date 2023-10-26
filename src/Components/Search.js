@@ -15,11 +15,10 @@ const Search = () => {
     }
     setFilters(searchFilters)
   }
-  
   return (
     <div>
       <SearchFilters formSubmit={handleSubmit} />
-      <SearchedSpots filterResults={filters} />
+      {Object.keys(filters).length > 0 && <SearchedSpots filterResults={filters} />}
     </div>
   )
 }
