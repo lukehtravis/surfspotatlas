@@ -15,7 +15,6 @@ import SearchMap from "./SearchMap";
 
 class SearchedSpots extends Component {
   render(){
-    console.log(this.props)
     if (this.props.data.loading) {
       return "Loading"
     }

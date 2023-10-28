@@ -17,8 +17,6 @@ export const geonamesLocations = (geonamesUrl, stateObj, event) => {
   fetch(geonamesUrl)
   .then(promiseObject => promiseObject.json())
   .then(jsonObject => {
-    console.log("inside geonames", event)
-    console.log("inside jsonobject", jsonObject)
     stateObj.props.onChangeCoords(
       event.lngLat[0],
       event.lngLat[1],
