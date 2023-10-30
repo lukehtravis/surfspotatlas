@@ -1,9 +1,9 @@
 {
   "name": "surfspotatlas",
   "engines": {
-    "node": ">=11.0"
+    "node": "14.0.0"
   },
-  "version": "0.1.0",
+  "version": "0.3.0",
   "private": true,
   "dependencies": {
     "@apollo/react-hooks": "^4.0.0",
