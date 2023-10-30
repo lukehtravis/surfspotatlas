@@ -11,6 +11,7 @@ class SpotMarker extends Component {
     if (!this.props.data.Waves) {
       return "Loading..."
     }
+
     const wave = this.props.data.Waves[0]
     return (
       <Marker longitude={this.props.longitude} latitude={this.props.latitude}>
@@ -21,5 +22,5 @@ class SpotMarker extends Component {
 }
 
 export default graphql(gql`${FETCH_SPOT_FROM_LOCATIONID}`, {
-  options: (props) => {return {variables: {locationId: props.id}}}
+  options: (props) => {return {variables: {locationId: props.locationId}}}
 })(SpotMarker)

@@ -56,7 +56,6 @@ class WaveImageGallery extends Component {
     }
   }
   openModal = (url) => {
-    console.log(url)
     this.setState({isModalOpen: true, imageUrl: url})
   }
   closeModal = () => {

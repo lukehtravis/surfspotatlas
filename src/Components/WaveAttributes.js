@@ -126,7 +126,7 @@ class WaveAttributes extends Component {
     }
     const {classes, waveDetails} = this.props
     const { isAuthenticated, user } = this.context
-    const waveStats = this.props.FetchWaveAttributes.Waves[0].Wave_Ratings_aggregate.aggregate.avg
+    const waveStats = this.props.FetchWaveAttributes.Wave_Ratings_aggregate.aggregate.avg
     return (
       <div>
         <Paper className={classes.Paper}>
@@ -157,7 +157,7 @@ class WaveAttributes extends Component {
           <Grid item xs={12} md={5}>
             <Paper className={classes.smallPaper}>
               <div className={"quality-filter"}>
-                <TideSlider voteOnAttribute={this.voteOnAttribute} />
+                <TideSlider voteOnAttribute={this.voteOnAttribute} attributeValue={{lowtide: waveStats.lowtide, hightide: waveStats.hightide}} />
               </div>
               <Grid container justify="space-between" className={classes.dialsContainer}>
                 <Grid item xs={6} className={classes.alignSelf}>

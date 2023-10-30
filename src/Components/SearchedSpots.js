@@ -120,5 +120,5 @@ SearchedSpots.propTypes = {
 }
 
 export default graphql(gql`${FETCH_SEARCHED_SPOTS}`, {
-  options: (props) => {return {variables: {listOfAreas: props.filterResults.areas}}}
+  options: (props) => {return {variables: {listOfAreas: props.filterResults.areas, waveQualityLow: props.filterResults.waveQuality.low, waveQualityHigh: props.filterResults.waveQuality.high, waveDangerLow: props.filterResults.waveDanger.low, waveDangerHigh: props.filterResults.waveDanger.high}}}
 })(SearchedSpots);

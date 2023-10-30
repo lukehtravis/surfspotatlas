@@ -46,9 +46,8 @@ class AreaMap extends Component {
   }
 
   _renderSpotMarker = (spotAttributes) => {
-    console.log("_renderSpotMarker", spotAttributes)
     return (
-      <SpotMarker key={spotAttributes.id} id={spotAttributes.id} longitude={spotAttributes.longitude} pinEvent={this.pinClick} latitude={spotAttributes.latitude}>
+      <SpotMarker key={spotAttributes.id} id={spotAttributes.id} locationId={spotAttributes.locationId} longitude={spotAttributes.longitude} pinEvent={this.pinClick} latitude={spotAttributes.latitude}>
 
       </SpotMarker>
     );

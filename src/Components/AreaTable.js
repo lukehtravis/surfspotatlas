@@ -88,7 +88,6 @@ export default function SearchedSpotsTable(props) {
     await deleteLocation({variables: {waveId: spotId}})
     await deleteWaveRatings({variables: {waveId: spotId}})
     deleteWave({variables: {id: spotId}})
-    console.log("error: ", error, "data: ", data)
   }
 
 

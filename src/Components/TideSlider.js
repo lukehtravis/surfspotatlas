@@ -74,26 +74,21 @@ const styles = theme => {
 }
 
 const TideSlider = (props) => {
-  const { isAuthenticated } = useAuth0();
-
-  if (props.data.loading) {
-    return "Loading..."
-  }
+  
   const classes = props.classes;
-  const lowtide = props.data.Wave_Ratings_aggregate.aggregate.avg.lowtide
-  const hightide = props.data.Wave_Ratings_aggregate.aggregate.avg.hightide
+  const lowtide = props.attributeValue.lowtide
+  const hightide = props.attributeValue.hightide
 
   return (
     <div>
       <Grid container xs={12} className={classes.tideHeader}>
         <Grid item className={classes.tideVote}>
-          {isAuthenticated && (
+          
             <WaveAttributeVote 
               voteOnAttribute={props.voteOnAttribute}
               attributeName={["lowtide", "hightide"]}
               attributeValue={[lowtide, hightide]}
             />
-          )}
         </Grid>
         <Grid item>
           <Typography className={`${classes.header} ${classes.h6}`}>Ideal Tide Range</Typography>
@@ -104,6 +99,4 @@ const TideSlider = (props) => {
   )
 }
 
-export default graphql(gql`${FETCH_TIDES}`, {
-  options: (props) => {return {variables: {id: props.waveId}}}
-})(withStyles(styles)(TideSlider))
+export default withStyles(styles)(TideSlider)

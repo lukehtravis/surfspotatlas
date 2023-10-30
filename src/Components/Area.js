@@ -49,6 +49,7 @@ const Area = (props) => {
     region = location.region;
     return {
       id: location.id,
+      locationId: location.locationId,
       latitude: location.latitude,
       longitude: location.longitude,
       region: location.region,

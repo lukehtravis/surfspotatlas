@@ -18,7 +18,6 @@ const useStyles = makeStyles({
 const Profile = () => {
   const { loading, user } = useAuth0();
   const styles = useStyles();
-  console.log(user)
   if (loading || !user) {
     return "Loading...";
   }

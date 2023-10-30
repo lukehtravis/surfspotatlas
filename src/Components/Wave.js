@@ -37,7 +37,7 @@ const styles = theme => ({
 
 const Wave = (props) => {
   const { user, isAuthenticated } = useAuth0();
-  if (!props.data.Waves) {
+  if (props?.data?.loading) {
     return "Loading"
   }
 
@@ -45,10 +45,9 @@ const Wave = (props) => {
     return "Loading"
   }
   const {classes} = props
-  const locationId = props.data.Waves[0].locationid;
+  const locationId = props.data.Waves[0].id;
   const {name, id, description, directions, nickname, bathymetry, wavetype, wavedirection, wavelandmarks} =  props.data.Waves[0];
-  const {area, region, country} = props.data.Waves[0].Locations[0];
-
+  const {area, region, country} = props.data.Locations[0];
   return (
     <div>
       <Grid container className={classes.header}>
@@ -73,7 +72,7 @@ const Wave = (props) => {
       </Grid>
       <WaveMap waveId={props.match.params.id} locationId={locationId} />
       <WaveAttributes waveDetails={{description, directions, nickname, bathymetry, wavetype, wavedirection, wavelandmarks}} waveId={Number(id)} refetch={props.data.refetch} />
-      <WaveImagesSection locationId={locationId} waveName={name} waveId={id} />
+      {/* Broke when Heroku cancelled free plan. Need to update some configurations.  {<WaveImagesSection locationId={locationId} waveName={name} waveId={id} />} */}
     </div>
   );
 };

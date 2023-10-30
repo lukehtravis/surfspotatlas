@@ -19,8 +19,12 @@ class WaveImagesSection extends Component {
   static contextType = Auth0Context;
 
   render(){
-    if (!this.props.data.Locations) {
+    if (this.props.data.loading) {
       return "Loading"
+    }
+
+    if (this.props.data.error) {
+      return "No images to show right now"
     }
     const { isAuthenticated, user } = this.context
     const waveLocationDetails = this.props.data.Locations[0];
