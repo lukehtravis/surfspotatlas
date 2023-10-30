@@ -72,7 +72,7 @@ const Wave = (props) => {
       </Grid>
       <WaveMap waveId={props.match.params.id} locationId={locationId} />
       <WaveAttributes waveDetails={{description, directions, nickname, bathymetry, wavetype, wavedirection, wavelandmarks}} waveId={Number(id)} refetch={props.data.refetch} />
-      <WaveImagesSection locationId={locationId} waveName={name} waveId={id} />
+      {/* Broke when Heroku cancelled free plan. Need to update some configurations.  {<WaveImagesSection locationId={locationId} waveName={name} waveId={id} />} */}
     </div>
   );
 };

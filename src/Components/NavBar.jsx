@@ -88,7 +88,7 @@ export default function NavBar() {
           <Typography variant="h6" className={classes.title}>
             <Link to="/" style={{ textDecoration: 'none', color: "#fff" }}>The Surf Spot Atlas</Link>
           </Typography>
-          <div>
+          {/*Re-Implment once ratings system for individual attributes is fixed after heroku free plan migration<div>
             <IconButton
               aria-label="account of current user"
               aria-controls="menu-appbar"
@@ -123,7 +123,7 @@ export default function NavBar() {
                 {isAuthenticated && ("Log Out")}
               </MenuItem>
             </Menu>
-          </div>
+          </div> */}
         </Toolbar>
       </AppBar>
     </div>
