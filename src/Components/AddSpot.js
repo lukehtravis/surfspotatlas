@@ -1,7 +1,6 @@
-import React, {Component} from 'react'
-import { graphql } from "react-apollo";
+import React, {useState} from 'react'
+import { useMutation } from "react-apollo";
 import gql from "graphql-tag";
-import * as compose from 'lodash.flowright';
 import { Auth0Context } from "../react-auth0-wrapper";
 import Map from './Map';
 import {withStyles} from "@material-ui/core/styles";
@@ -91,17 +90,25 @@ const styles = theme => ({
   }
 });
 
-class AddSpot extends Component {
-  state = {
+const AddSpot = ({classes, history}) => {
+
+  // ADD_SPOT, INSERT_LOCATION, ADD_RATING
+  const [addMutation, {data:addData, loading:addLoading, error: addError}] = useMutation(gql`${ADD_SPOT}`)
+  const [insertLocation, {data: locationData, loading:locationLoading, error:locationError}] = useMutation(gql`${INSERT_LOCATION}`)
+  const [addRating, {data: ratingData, loading: ratingLoading, error: ratingError}] = useMutation(gql`${ADD_RATING}`)
+  
+  const [state, setState] = useState({
     lat: 0,
     long: 0,
     tideRange: [10, 90]
-  }
+  })
+const [submitReady, setSubmitReady] = useState(false)
 
-  static contextType = Auth0Context;
 
-  onChangeCoords = (long, lat, continent, country, region, area) => {
-    this.setState({
+  const contextType = Auth0Context;
+
+  const onChangeCoords = (long, lat, continent, country, region, area) => {
+    setState({...state, 
       lat: lat,
       long: long,
       continent: continent,
@@ -111,125 +118,176 @@ class AddSpot extends Component {
     })
   }
 
-  handleChange = (event) => {
+  const handleChange = (event) => {
     const target = event.target;
     let value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
 
 
-    this.setState({
+    setState({...state,
       [name]: value
-    });
+    })
   }
 
-  waveLengthChange = (event, newValue) => {
-    this.setState({wavelength: newValue})
+  const waveLengthChange = (event, newValue) => {
+    setState({...state,wavelength: newValue})
   }
 
-  waveQualityChange = (event, newValue) => {
-    this.setState({wavequality: newValue})
+  const waveQualityChange = (event, newValue) => {
+    setState({...state, wavequality: newValue})
   }
 
-  waveDangerChange = (event, newValue) => {
-    this.setState({wavedanger: newValue})
+  const waveDangerChange = (event, newValue) => {
+    setState({...state, wavedanger: newValue})
   }
 
-  waveHollownessChange = (event, newValue) => {
-    this.setState({wavehollowness: newValue})
+  const waveHollownessChange = (event, newValue) => {
+    setState({...state,wavehollowness: newValue})
   }
 
-  waveCrowdChange = (event, newValue) => {
-    this.setState({wavecrowd: newValue})
+  const waveCrowdChange = (event, newValue) => {
+    setState({...state,wavecrowd: newValue})
   }
 
-  tideRangeChange = (event, newValue) => {
-    this.setState({tideRange: [newValue[0], newValue[1]]})
+  const windAngleOne = (event) => {
+    setState({...state,windangleone: Number(event.target.value)})
   }
 
-  seasonStartChange = (event) => {
+  const windAngleTwo = (event) => {
+    setState({...state, windangletwo: Number(event.target.value)})
+  }
+
+  const tideRangeChange = (event, newValue) => {
+    setState({...state,tideRange: [newValue[0], newValue[1]]})
+  }
+
+  const seasonStartChange = (event) => {
     const target = event.target
     let newValue = target.value
     const waveSeasonStartValue = convertMonthToDay(newValue)
-    this.setState({waveSeasonStartLabel: newValue, waveseasonstart: waveSeasonStartValue})
+    setState({...state, waveSeasonStartLabel: newValue, waveseasonstart: Number(waveSeasonStartValue)})
   }
 
-  seasonEndChange = (event) => {
+ const seasonEndChange = (event) => {
     const target = event.target
     let newValue = target.value
     const waveSeasonEndValue = convertMonthToDay(newValue)
-    this.setState({waveSeasonEndLabel: newValue, waveseasonend: waveSeasonEndValue})
+    setState({...state, waveSeasonEndLabel: newValue, waveseasonend: Number(waveSeasonEndValue)})
   }
 
-  handleSubmit = (event) => {
+  const handleSubmit = (event) => {
     // Two graphql mutations are necessary each time a user submits a new wave
     // The first addSpot(), is required to populate Wave table data about this wave
     // The second, addRating, takes the waveId generated from the addSpot mutation,
     // and proceeds to add information about the waves attributes in the Wave_Ratings table
     // Also, a location entry is added to the Locations table
     event.preventDefault();
+   
     const timestamp = new Date();
-    const user = this.context.user ? this.context.user.sub : "anonymous"
-    this.props.addSpot({
-        variables: {
-          name: this.state.name,
-          nickname: this.state.nickname,
-          description: this.state.description,
-          directions: this.state.directions,
-          bathymetry: this.state.bathymetry,
-          wavetype: this.state.wavetype,
-          wavedirection: this.state.wavedirection,
-          wavelandmarks: this.state.wavelandmarks,
-          datecreated: timestamp,
-          createdby: user
-        },
-    }).then((graphqlObject) => {
-      let locationId = graphqlObject.data.insert_Waves.returning[0].id
-      let waveId = graphqlObject.data.insert_Waves.returning[0].id
-      let userId = graphqlObject.data.insert_Waves.returning[0].createdby
-      this.props.addRating({
-        variables: {
-          waveid: waveId,
-          wavelength: this.state.wavelength,
-          wavequality: this.state.wavequality,
-          wavehollowness: this.state.wavehollowness,
-          wavedanger: this.state.wavedanger,
-          wavecrowd: this.state.wavecrowd,
-          userid: userId,
-          windangleone: this.state.windangleone,
-          windangletwo: this.state.windangletwo,
-          lowtide: this.state.tideRange[0],
-          hightide: this.state.tideRange[1],
-          waveseasonstart: this.state.waveseasonstart,
-          waveseasonend: this.state.waveseasonend,
-          swellangleone: this.state.swellangleone,
-          swellangletwo: this.state.swellangletwo,
-        }
-      })
-      this.props.insertLocation({
-        variables: {
-          locationId: locationId,
-          longitude: this.state.long,
-          latitude: this.state.lat,
-          continent: this.state.continent,
-          country: this.state.country,
-          region: this.state.region,
-          area: this.state.area
-        }
-      })
-      return waveId
-    }).then((waveid) => {
-      this.props.history.push(`/Wave/${waveid}`);
+    const user = contextType.user ? contextType.user.sub : "anonymous"
+    const waveDetails = {
+      name: state.name,
+      nickname: state.nickname,
+      description: state.description,
+      directions: state.directions,
+      bathymetry: state.bathymetry,
+      wavetype: state.wavetype,
+      wavedirection: state.wavedirection,
+      wavelandmarks: state.wavelandmarks,
+      datecreated: timestamp,
+      createdby: user
+    }
+    const missingProperties = []
+    for (const [key, value] of Object.entries(waveDetails)) {
+      if (!value) {
+        missingProperties.push(key)
+      }
+    }
+    
+    if (missingProperties.length > 0) {
+      alert(`Missing the following value(s): ${missingProperties.join(",")}\n Please add them and try submitting the form again`)
+      return null;
+    }
+    
+    addMutation({
+        variables: waveDetails
+    })
+    setSubmitReady(true)
+  }
+    
+  if (addLoading || locationLoading || ratingLoading) {
+    return "Stirring soup..."
+  }
+  if (addData && submitReady) {
+    
+    let locationId = addData.insert_Waves.returning[0].id
+    let waveId = addData.insert_Waves.returning[0].id
+    let userId = addData.insert_Waves.returning[0].createdby
+    const locationObject = {
+      locationId: locationId,
+      longitude: state.long,
+      latitude: state.lat,
+      continent: state.continent,
+      country: state.country,
+      region: state.region,
+      area: state.area
+    }
+
+    const ratingObject = {
+      waveid: waveId,
+      wavelength: state.wavelength,
+      wavequality: state.wavequality,
+      wavehollowness: state.wavehollowness,
+      wavedanger: state.wavedanger,
+      wavecrowd: state.wavecrowd,
+      userid: userId,
+      windangleone: state.windangleone,
+      windangletwo: state.windangletwo,
+      lowtide: state.tideRange[0],
+      hightide: state.tideRange[1],
+      waveseasonstart: state.waveseasonstart,
+      waveseasonend: state.waveseasonend,
+      swellangleone: state.swellangleone,
+      swellangletwo: state.swellangletwo,
+    }
+    let missingProperties = []
+    Object.entries({...locationObject, ...ratingObject}).forEach(([key, value]) => {
+      if (!value) {
+        missingProperties.push(key)
+      }
+    })
+    if (missingProperties.length > 0) {
+      alert(`Missing following part(s) of location: ${missingProperties.join(",")}`)
+      setSubmitReady(false)
+      return null
+    }
+    insertLocation({
+      variables: {
+        locationId: locationId,
+        longitude: state.long,
+        latitude: state.lat,
+        continent: state.continent,
+        country: state.country,
+        region: state.region,
+        area: state.area
+      }
+    })
+    addRating({
+      variables: ratingObject
     })
   }
-
-  render() {
-    const {classes} = this.props
-    
+  if (addError || locationError || ratingError) {
+    setSubmitReady(false)
+    return <p>Error adding to db</p>
+  }
+  if (locationData && ratingData && addData) {
+    history.push(`/Wave/${addData.insert_Waves.returning[0].id}`)
+  }
     return (
       <div>
         <Grid className={classes.gridContainer}>
           <Typography className={classes.formHeader}>Create A New Spot</Typography>
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <Grid container justify="space-between">
               <Grid xs={12} md={6} item>
                 <TextField
@@ -240,18 +298,19 @@ class AddSpot extends Component {
                   label="Wave Name"
                   margin="normal"
                   name="name"
-                  value={this.state.name} onChange={this.handleChange}
+                  value={state.name} onChange={handleChange}
                 />
               </Grid>
               <Grid xs={12} md={5} item>
                 <TextField
                   variant="outlined"
+                  required
                   type="text"
                   className={classes.textField}
                   label="Nickname"
                   margin="normal"
                   name="nickname"
-                  value={this.state.nickname} onChange={this.handleChange}
+                  value={state.nickname} onChange={handleChange}
                 />
               </Grid>
             </Grid>
@@ -268,7 +327,7 @@ class AddSpot extends Component {
                   margin="normal"
                   name="description"
                   required
-                  value={this.state.description} onChange={this.handleChange}
+                  value={state.description} onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12} md={5}>
@@ -283,7 +342,7 @@ class AddSpot extends Component {
                   required
                   margin="normal"
                   name="directions"
-                  value={this.state.directions} onChange={this.handleChange}
+                  value={state.directions} onChange={handleChange}
                 />
               </Grid>
             </Grid>
@@ -295,7 +354,7 @@ class AddSpot extends Component {
                   id="bathymetry"
                   select
                   className={classes.textField}
-                  value={this.state.bathymetry}
+                  value={state.bathymetry}
                   SelectProps={{
                     MenuProps: {
                       className: classes.menu,
@@ -306,7 +365,7 @@ class AddSpot extends Component {
                   variant="outlined"
                   name="bathymetry"
                   required
-                  onChange={this.handleChange}
+                  onChange={handleChange}
                 >
                   <MenuItem key="select" value="sand">
                     Sand
@@ -324,7 +383,7 @@ class AddSpot extends Component {
                   id="direction"
                   select
                   className={classes.textField}
-                  value={this.state.wavedirection}
+                  value={state.wavedirection}
                   SelectProps={{
                     MenuProps: {
                       className: classes.menu,
@@ -335,7 +394,7 @@ class AddSpot extends Component {
                   variant="outlined"
                   name="wavedirection"
                   required
-                  onChange={this.handleChange}
+                  onChange={handleChange}
                 >
                   <MenuItem key="select" value="right">
                     Right
@@ -353,7 +412,7 @@ class AddSpot extends Component {
                   id="wavetype"
                   select
                   className={classes.textField}
-                  value={this.state.wavetype}
+                  value={state.wavetype}
                   SelectProps={{
                     MenuProps: {
                       className: classes.menu,
@@ -364,7 +423,7 @@ class AddSpot extends Component {
                   variant="outlined"
                   name="wavetype"
                   required
-                  onChange={this.handleChange}
+                  onChange={handleChange}
                 >
                   <MenuItem key="select" value="beachbreak">
                     Beach Break
@@ -381,8 +440,9 @@ class AddSpot extends Component {
                 <TextField
                   id="wavelandmarks"
                   select
+                  required
                   className={classes.textField}
-                  value={this.state.wavelandmarks}
+                  value={state.wavelandmarks}
                   SelectProps={{
                     MenuProps: {
                       className: classes.menu,
@@ -392,8 +452,11 @@ class AddSpot extends Component {
                   margin="normal"
                   variant="outlined"
                   name="wavelandmarks"
-                  onChange={this.handleChange}
+                  onChange={handleChange}
                 >
+                   <MenuItem key="select" value="none">
+                    None
+                  </MenuItem>
                   <MenuItem key="select" value="pier">
                     Pier
                   </MenuItem>
@@ -415,11 +478,12 @@ class AddSpot extends Component {
                 </Typography>
                 <Slider
                   className="slider-input"
+                  required
                   id="wavelength"
                   name="wavelength"
                   marks={waveLengthMarks}
-                  value={this.state.wavelength}
-                  onChange={this.waveLengthChange}
+                  value={state.wavelength}
+                  onChange={waveLengthChange}
                 />
               </Grid>
               <Grid item xs={12} md={6} className={classes.sliderSection}>
@@ -428,11 +492,12 @@ class AddSpot extends Component {
               </Typography>
                 <Slider
                   className="slider-input"
+                  required
                   id="wavequality"
                   name="wavequality"
                   marks={waveQualityMarks}
-                  value={this.state.wavequality}
-                  onChange={this.waveQualityChange}
+                  value={state.wavequality}
+                  onChange={waveQualityChange}
                 />
               </Grid>
               <Grid item xs={12} md={6} className={classes.sliderSection}>
@@ -441,11 +506,12 @@ class AddSpot extends Component {
                 </Typography>
                 <Slider
                   className="slider-input"
+                  required
                   id="wavehollowness"
                   name="wavehollowness"
                   marks={waveHollownessMarks}
-                  value={this.state.wavehollowness}
-                  onChange={this.waveHollownessChange}
+                  value={state.wavehollowness}
+                  onChange={waveHollownessChange}
                 />
               </Grid>
               <Grid item xs={12} md={6} className={classes.sliderSection}>
@@ -454,11 +520,12 @@ class AddSpot extends Component {
                 </Typography>
                 <Slider
                   className="slider-input"
+                  required
                   id="wavedanger"
                   name="wavedanger"
                   marks={waveDangerMarks}
-                  value={this.state.wavedanger}
-                  onChange={this.waveDangerChange}
+                  value={state.wavedanger}
+                  onChange={waveDangerChange}
                 />
               </Grid>
               <Grid item xs={12} md={6} className={classes.sliderSection}>
@@ -468,10 +535,11 @@ class AddSpot extends Component {
                 <Slider
                   className="slider-input"
                   id="wavecrowd"
+                  required
                   name="wavecrowd"
                   marks={waveCrowdMarks}
-                  value={this.state.wavecrowd}
-                  onChange={this.waveCrowdChange}
+                  value={state.wavecrowd}
+                  onChange={waveCrowdChange}
                 />
               </Grid>
               <Grid item xs={12} md={6} className={classes.sliderSection}>
@@ -480,11 +548,12 @@ class AddSpot extends Component {
                 </Typography>
                 <Slider
                   className="slider-input"
+                  required
                   id="tiderange"
                   name="tiderange"
                   marks={tideMarks}
-                  value={this.state.tideRange}
-                  onChange={this.tideRangeChange}
+                  value={state.tideRange}
+                  onChange={tideRangeChange}
                 />
               </Grid>
             </Grid>
@@ -499,7 +568,7 @@ class AddSpot extends Component {
                   required
                   margin="normal"
                   name="windangleone"
-                  value={this.state.windangleone} onChange={this.handleChange}
+                  value={state.windangleone} onChange={windAngleOne}
                 />
               </Grid>
               <Grid item xs={12} md={5}>
@@ -511,7 +580,7 @@ class AddSpot extends Component {
                   required
                   margin="normal"
                   name="windangletwo"
-                  value={this.state.windangletwo} onChange={this.handleChange}
+                  value={state.windangletwo} onChange={windAngleTwo}
                 />
               </Grid>
               <Grid item xs={12} md={5}>
@@ -523,7 +592,7 @@ class AddSpot extends Component {
                   required
                   margin="normal"
                   name="swellangleone"
-                  value={this.state.swellangleone} onChange={this.handleChange}
+                  value={state.swellangleone} onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12} md={5}>
@@ -535,15 +604,16 @@ class AddSpot extends Component {
                   required
                   margin="normal"
                   name="swellangletwo"
-                  value={this.state.swellangletwo} onChange={this.handleChange}
+                  value={state.swellangletwo} onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={5}>
                 <TextField
                   id="waveseasonstart"
                   select
+                  required
                   className={classes.textField}
-                  value={this.state.waveSeasonStartLabel}
+                  value={state.waveSeasonStartLabel}
                   SelectProps={{
                     MenuProps: {
                       className: classes.menu,
@@ -553,42 +623,42 @@ class AddSpot extends Component {
                   margin="normal"
                   variant="outlined"
                   name="waveseasonstart"
-                  onChange={this.seasonStartChange}
+                  onChange={seasonStartChange}
                 >
-                  <MenuItem key="select" value="january">
+                  <MenuItem key="january" value="january">
                     January
                   </MenuItem>
-                  <MenuItem key="select" value="february">
+                  <MenuItem key="february" value="february">
                     February
                   </MenuItem>
-                  <MenuItem key="select" value="march">
+                  <MenuItem key="march" value="march">
                     March
                   </MenuItem>
-                  <MenuItem key="select" value="april">
+                  <MenuItem key="april" value="april">
                     April
                   </MenuItem>
-                  <MenuItem key="select" value="may">
+                  <MenuItem key="may" value="may">
                     May
                   </MenuItem>
-                  <MenuItem key="select" value="june">
+                  <MenuItem key="june" value="june">
                     June
                   </MenuItem>
-                  <MenuItem key="select" value="july">
+                  <MenuItem key="july" value="july">
                     July
                   </MenuItem>
-                  <MenuItem key="select" value="august">
+                  <MenuItem key="august" value="august">
                     August
                   </MenuItem>
-                  <MenuItem key="select" value="september">
+                  <MenuItem key="september" value="september">
                     September
                   </MenuItem>
-                  <MenuItem key="select" value="october">
+                  <MenuItem key="october" value="october">
                     October
                   </MenuItem>
-                  <MenuItem key="select" value="november">
+                  <MenuItem key="november" value="november">
                     November
                   </MenuItem>
-                  <MenuItem key="select" value="december">
+                  <MenuItem key="december" value="december">
                     December
                   </MenuItem>
                 </TextField>
@@ -597,8 +667,9 @@ class AddSpot extends Component {
                 <TextField
                   id="waveseasonend"
                   select
+                  required
                   className={classes.textField}
-                  value={this.state.waveSeasonEndLabel}
+                  value={state.waveSeasonEndLabel}
                   SelectProps={{
                     MenuProps: {
                       className: classes.menu,
@@ -608,64 +679,53 @@ class AddSpot extends Component {
                   margin="normal"
                   variant="outlined"
                   name="waveseasonend"
-                  onChange={this.seasonEndChange}
+                  onChange={seasonEndChange}
                 >
-                  <MenuItem key="select" value="january">
+                   <MenuItem key="january" value="january">
                     January
                   </MenuItem>
-                  <MenuItem key="select" value="february">
+                  <MenuItem key="february" value="february">
                     February
                   </MenuItem>
-                  <MenuItem key="select" value="march">
+                  <MenuItem key="march" value="march">
                     March
                   </MenuItem>
-                  <MenuItem key="select" value="april">
+                  <MenuItem key="april" value="april">
                     April
                   </MenuItem>
-                  <MenuItem key="select" value="may">
+                  <MenuItem key="may" value="may">
                     May
                   </MenuItem>
-                  <MenuItem key="select" value="june">
+                  <MenuItem key="june" value="june">
                     June
                   </MenuItem>
-                  <MenuItem key="select" value="july">
+                  <MenuItem key="july" value="july">
                     July
                   </MenuItem>
-                  <MenuItem key="select" value="august">
+                  <MenuItem key="august" value="august">
                     August
                   </MenuItem>
-                  <MenuItem key="select" value="september">
+                  <MenuItem key="september" value="september">
                     September
                   </MenuItem>
-                  <MenuItem key="select" value="october">
+                  <MenuItem key="october" value="october">
                     October
                   </MenuItem>
-                  <MenuItem key="select" value="november">
+                  <MenuItem key="november" value="november">
                     November
                   </MenuItem>
-                  <MenuItem key="select" value="december">
+                  <MenuItem key="december" value="december">
                     December
                   </MenuItem>
                 </TextField>
               </Grid>
             </Grid>
-            <Map onChangeCoords={this.onChangeCoords} />
+            <Map onChangeCoords={onChangeCoords} />
             <Button type="submit" className={classes.submitButton}>Submit</Button>
           </form>
         </Grid>
       </div>
     )
-  }
 }
 
-export default compose(
-  graphql(gql`${ADD_SPOT}`, {
-    name: "addSpot"
-  }),
-  graphql(gql`${INSERT_LOCATION}`, {
-    name: "insertLocation"
-  }),
-  graphql(gql`${ADD_RATING}`, {
-    name: "addRating"
-  })
-)(withStyles(styles)(AddSpot))
+export default withStyles(styles)(AddSpot)
