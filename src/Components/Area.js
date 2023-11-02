@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "react-apollo";
 import gql from "graphql-tag";
 import AreaMap from "./AreaMap";
 import AreaTable from "./AreaTable";
@@ -35,7 +35,7 @@ const Area = (props) => {
       ${FETCH_AREA_LOCATION_DATA}
     `,
     {
-      variables: { areaName: props.match.params.areaName },
+      variables: { areaName: decodeURI(props.match.params.areaName) },
     }
   );
 

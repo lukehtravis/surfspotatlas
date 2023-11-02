@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from 'react-apollo';
 import gql from "graphql-tag";
 import {DELETE_WAVE, DELETE_WAVE_RATINGS, DELETE_LOCATION} from "../utils/queries"
 import { useAuth0 } from "../react-auth0-wrapper";
