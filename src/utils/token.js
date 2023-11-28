@@ -1,1 +1,1 @@
-export const MAPTOKEN = "pk.eyJ1IjoibHVrZWh0cmF2aXMiLCJhIjoiY2p2djlmY2sxM3pzcDQzb2p3MXN3aGl2aSJ9.6b2Kp7pfaV-cNiwtYRhRZw"
+export const MAPTOKEN = "pk.eyJ1IjoibHVrZWh0cmF2aXMiLCJhIjoiY2xveDloN3BmMTRrZDJqbzlxNmNnNTk5NSJ9.HRiCyxYZ4CFSpqUW8ehkNg"
